@@ -1,0 +1,18 @@
+.eyeglasses {
+    a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__image {
+        font-size: 34px;
+    }
+
+    p {
+        font-size: 12px;
+        text-align: center;
+        margin: 0;
+    }
+}

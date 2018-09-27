@@ -1,0 +1,17 @@
+<?php
+/**
+ * Главная страница:
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ */
+
+$this->setCommonVar('banner', $this->getBanner());
+?>
+
+<?= $this->render($variables, 'content/home/header') ?>
+<?= $this->render($variables, 'content/home/tabs') ?>
+<?= $this->render($variables, 'content/home/news') ?>
+<?= $this->render($variables, 'content/home/activities') ?>
+<?= $this->render($variables, 'content/home/links') ?>
+<?= $this->render($variables, 'content/home/documents') ?>

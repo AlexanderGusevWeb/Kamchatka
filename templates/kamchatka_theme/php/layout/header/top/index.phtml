@@ -1,0 +1,106 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 03.09.2018
+ * Time: 10:44
+ */
+
+$settings = $this->getSettingsContainer('main_config');
+$page = $variables['page'];
+$langId = $page->getLangId();
+$collection = langsCollection::getInstance()->getList();
+
+$lang = $collection[$langId]->getPrefix();
+
+$main_address = $settings->getValue('main-address');
+$main_phone = $settings->getValue('main-phone');
+$main_email = $settings->getValue('main-email');
+
+$url_logo = $this->render(
+    [
+        'id' => $settings->getId(),
+        'field_name' => 'logo2',
+        'src' => $settings->getValue('logo2'),
+        'alt' => "logo",
+        'width' => 295,
+        'height' => 100,
+    ],
+    'library/thumbnail'
+);
+
+?>
+
+<div class="header-top">
+
+    <div class="header-top__logo">
+        <a href="\home\">
+            <?= $url_logo ?>
+        </a>
+    </div>
+
+    <div class="flag-block header-top__flag-block">
+        <div class="flags header-top__flags">
+            <p>язык</p>
+            <img class="flag flag__ru" src="/images/images-kamchatka/flags/russia.svg" alt="rus">
+            <img class="flag flag__en" src="/images/images-kamchatka/flags/united-kingdom.svg" alt="eng">
+        </div>
+
+        <select name="select-box" id="selectId" class="select" lang_page="<?= $lang ?>">
+            <option value="ru" name="value">РУС</option>
+            <option value="en" name="value">ENG</option>
+        </select>
+    </div>
+
+    <div class="map-site header-top__map-site">
+        <a href="/">
+            <span class="map-site__image flaticon-diagram"></span>
+            <p class="map-site__text">
+                Карта сайта
+            </p>
+        </a>
+    </div>
+
+    <div class="address header-top__address">
+        <p class="address__text header-top__text">
+            <?= $main_address ?>
+        </p>
+
+        <div class="address__link header-top__link">
+            <a class="address__phone" href="tel:<?= $main_phone ?>">
+                <?= $main_phone ?>
+            </a>
+            <a class="address__mail" href="mailto:<?= $main_email ?>">
+                <?= $main_email ?>
+            </a>
+        </div>
+    </div>
+
+    <div class="eyeglasses header-top__eyeglasses">
+        <a href="/">
+            <span class="eyeglasses__image flaticon-glasses"></span>
+            <p class="eyeglasses__text">
+                Версия для слабовидящих
+            </p>
+        </a>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

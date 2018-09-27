@@ -1,0 +1,21 @@
+footer {
+    position: relative;
+    max-width: 1200px;
+    min-height: 400px;
+    background-color: rgba($extra-dark-blue, .8);
+    margin: 0 auto;
+    z-index: 2;
+}
+
+.footer {
+    &__content {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__menu {
+        display: flex;
+        flex-direction: column;
+        ОСж
+    }
+}

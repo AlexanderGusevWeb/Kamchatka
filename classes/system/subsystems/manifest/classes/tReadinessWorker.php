@@ -1,0 +1,2 @@
+<?php
+ trait tReadinessWorker {protected $v9d44bee4fccc00cf807b1ecb141e7fe5 = false;public function isReady() {return $this->isReady;}protected function setIsReady() {$this->isReady = true;return $this;}protected function setIsNotReady() {$this->isReady = false;return $this;}}

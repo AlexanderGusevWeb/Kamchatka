@@ -1,0 +1,58 @@
+.home-page {
+    &__container-header {
+        height: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 100px 50px 50px;
+        &::before {
+            position: absolute;
+            content: '';
+            top: -170px;
+            right: 0;
+            bottom: -400px;
+            left: 0;
+            background: url(/images/images-kamchatka/promo/promo1.png) 50% 50% no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
+    }
+
+    &__promo1 {
+        max-width: 1200px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+        margin: 0 auto;
+        z-index: 10;
+    }
+
+    &__logo {
+        width: 30%;
+        padding-top: 15px;
+        img {
+            float: right;
+        }
+    }
+
+    &__header-text {
+        width: 70%;
+        padding-left: 50px;
+        h1 {
+            color: #fff;
+            font-size: 40px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        p {
+            color: #fff;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        @include main-button
+    }
+}

@@ -1,0 +1,2 @@
+<?php
+ namespace UmiCms\Classes\System\Entities\File;class Factory implements iFactory {public function create($vd6fe1d0be6347b8ef2427fa629c04485) {$v8c7dd922ad47494fc02c388e12c00eac = $this->createSecure($vd6fe1d0be6347b8ef2427fa629c04485);$v8c7dd922ad47494fc02c388e12c00eac->setIgnoreSecurity();return $v8c7dd922ad47494fc02c388e12c00eac->refresh();}public function createSecure($vd6fe1d0be6347b8ef2427fa629c04485) {return new \umiFile($vd6fe1d0be6347b8ef2427fa629c04485);}}

@@ -1,0 +1,27 @@
+<?php
+/**
+ * Скелет сайта.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ */
+?>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<?= $this->render($variables, 'layout/head') ?>
+	</head>
+
+	<body>
+<!--        <div id="preloader">-->
+<!--            <img src="/images/images-kamchatka/logo/logo3.png" alt="preloader"/>-->
+<!--        </div>-->
+
+		<?= $this->render($variables, 'layout/header/index') ?>
+		<?= $this->render($variables, 'layout/main') ?>
+		<?= $this->render($variables, 'layout/footer/index') ?>
+
+        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	</body>
+</html>

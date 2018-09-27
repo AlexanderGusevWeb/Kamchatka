@@ -1,0 +1,142 @@
+.links {
+    position: relative;
+    max-width: 1200px;
+    box-shadow: 0 5px 80px -15px #000;
+    margin: 0 auto;
+    color: $dark-blue;
+    padding: 0 50px 50px;
+    z-index: 1;
+
+    &__title {
+        padding: 36px 0;
+    }
+
+    h3 {
+        font-size: 24px;
+        margin: 0;
+        span {
+            color: $light-blue;
+        }
+    }
+
+    &__body {
+        padding: 0 20px;
+    }
+
+    .one-link {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 160px;
+        padding: 25px 30px;
+        margin: 0 5px;
+        cursor: pointer;
+        outline: none;
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: $light-blue;
+            transition: all .5s ease;
+            opacity: 1;
+            z-index: 2;
+        }
+
+        &__text {
+            position: relative;
+            text-transform: uppercase;
+            margin: 0;
+            z-index: 3;
+        }
+
+        &__footer {
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            z-index: 3;
+            span {
+                border: 1px solid #fff;
+                border-radius: 50px;
+                padding: 7px;
+                margin-right: 7px;
+            }
+            p {
+                text-transform: uppercase;
+            }
+        }
+
+        &:hover {
+            &::before {
+                opacity: 0;
+            }
+        }
+    }
+
+    .slick-arrow {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $light-blue;
+        z-index: 3;
+        transition: all .3s ease;
+        &::before {
+            font-size: 40px;
+        }
+        &::after {
+            position: absolute;
+            content: '';
+            top: 50%;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 26px;
+            height: 5px;
+            z-index: 3;
+            background-color: $light-blue;
+            transform: translateY(-50%);
+            transition: all .3s ease;
+        }
+
+        .flaticon-bg {
+            width: 25px;
+            top: -58px;
+            bottom: -58px;
+            position: absolute;
+            z-index: 3;
+            background: linear-gradient(135deg, $dark-blue 20%, $medium-blue 100%);
+            transition: all .5s ease;
+        }
+
+        &:hover {
+            color: $dark-blue;
+            &::after {
+                background-color: $dark-blue;
+            }
+            .flaticon-bg {
+                background: linear-gradient(135deg, $light-blue, $dark-blue 100%);
+            }
+        }
+    }
+
+    .flaticon-return {
+        left: -40px;
+        &::after {
+            left: 39px;
+        }
+    }
+
+    .flaticon-next {
+        left: 100%;
+        &::after,
+        .flaticon-bg {
+            left: -25px;
+        }
+    }
+}

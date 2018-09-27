@@ -1,0 +1,44 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 26.09.2018
+ * Time: 11:53
+ */
+
+$page = $variables['page'];
+$menu_items = $this->macros('menu', 'draw', array('footer-menu'))['item'];
+
+foreach ($menu_items as $item) {
+    if ($variables['request-uri'] == $item['link']) {
+        $activeClass = 'active';
+        break;
+    } else {
+        $activeClass = '';
+    }
+}
+
+?>
+
+<div class="footer__content">
+    <div class="footer__menu">
+        <ul>
+            <? foreach ($menu_items as $item): ?>
+                <li class="<?= $item['status'] ?>">
+                    <a href="<?= $item['link'] ?>">
+                        <?= $item['name'] ?>
+                    </a>
+                </li>
+            <? endforeach; ?>
+        </ul>
+    </div>
+
+    <div class="footer__info">
+        <h3>Соболевский муниципальный район</h3>
+        <span class="footer__date"></span>
+        <div class="footer__phone"></div>
+        <div class="footer__mail"></div>
+        <span class="footer__separate"></span>
+        <p class="footer__prompt"></p>
+    </div>
+</div>

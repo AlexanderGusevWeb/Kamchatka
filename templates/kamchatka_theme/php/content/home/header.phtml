@@ -1,0 +1,40 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 03.09.2018
+ * Time: 10:57
+ */
+//$hierarchy = umiHierarchy::getInstance();
+//$element = $hierarchy->getElement(1);
+
+$settings = $this->getSettingsContainer('main_config');
+
+$page = $variables['page'];
+?>
+
+<div class="home-page__container-header">
+    <div class="home-page__promo1">
+        <div class="home-page__logo">
+            <?= $this->render(
+                [
+                    'id' => $settings->getId(),
+                    'field_name' => 'logo1',
+                    'src' => $settings->getValue('logo1'),
+                    'alt' => "logo",
+                    'width' => 208,
+                    'height' => 258,
+                ],
+                'library/thumbnail'
+            ) ?>
+        </div>
+
+        <div  class="home-page__header-text">
+            <h1><?= $page->getValue('h1') ?></h1>
+            <p><?= $page->getValue('content') ?></p>
+            <button class="main-button home-page__main-button" type="button">
+                Интернет приемная
+            </button>
+        </div>
+    </div>
+</div>

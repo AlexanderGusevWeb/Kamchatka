@@ -1,0 +1,2 @@
+<?php
+ namespace UmiCms\System\Import\UmiDump\Entity\Helper\SourceIdBinder;class Factory implements iFactory {public function create($v52195dae0174459c5f066fa0df053c26) {return new \entityImportRelations($v52195dae0174459c5f066fa0df053c26);}}

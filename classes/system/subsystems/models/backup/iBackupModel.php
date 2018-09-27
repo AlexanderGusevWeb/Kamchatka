@@ -1,0 +1,2 @@
+<?php
+ interface iBackupModel {public function getChanges($va6eb4816205178e88dad66a16a19ff45 = false);public function deleteChanges($v5a9d18bb87ff12835dc844883c5c3ebe = []);public function getAllChanges();public function save($va6eb4816205178e88dad66a16a19ff45 = '', $v7b975dff6c0134c6f231fd13895c2349 = '', $vb6ad8768e9a35023e3d824c5057699d1 = '');public function rollback($v3d477c1c43140638c8738b94181f5b18);public function addLogMessage($v7552cd149af7495ee7d8225974e50f80);public function fakeBackup($v7552cd149af7495ee7d8225974e50f80);}

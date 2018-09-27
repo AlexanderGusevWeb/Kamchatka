@@ -1,0 +1,157 @@
+.home-page {
+    &__container-footer {
+        height: 100%;
+        position: relative;
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: -400px;
+            left: 0;
+            background: url(/images/images-kamchatka/promo/promo2.png) 50% 50% no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
+    }
+}
+
+.documents {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    z-index: 2;
+    background-color: #fff;
+
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        color: #fff;
+
+        &-left {
+            width: 35%;
+            height: 85px;
+            display: flex;
+            align-items: center;
+            background-color: $dark-blue;
+            padding-left: 50px;
+            position: relative;
+            &::before {
+                position: absolute;
+                content: '';
+                top: 0;
+                right: -15%;
+                bottom: 0;
+                left: 85%;
+                background-color: $dark-blue;
+                z-index: -1;
+                transform: skewX(45.5deg);
+            }
+
+            h3 {
+                font-size: 24px;
+                color: #fff;
+                margin: 0;
+
+                span {
+                    color: $light-blue;
+                }
+            }
+        }
+        
+        &-right {
+            width: 65%;
+            height: 85px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            color: $light-blue;
+            padding-right: 50px;
+            position: relative;
+
+            &::before {
+                position: absolute;
+                content: '';
+                top: calc(100% - 2px);
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-color: $light-blue;
+                z-index: -2;
+            }
+
+            a {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                color: $light-blue;
+                text-transform: uppercase;
+                @include monts_500;
+                margin-right: - 10px;
+
+                &::before {
+                    top: 95%;
+                    right: 50px;
+                    background-color: $light-blue;
+                }
+
+                &:hover {
+                    &::before {
+                        opacity: 1;
+                    }
+
+                    .flat-arrow {
+                        &_middle {
+                            margin: 0 -10px;
+                        }
+                    }
+                }
+            }
+
+            .flat-arrow {
+                min-width: 50px;
+                padding-left: 10px;
+                &:hover {
+                    cursor: auto;
+                }
+            }
+        }
+    }
+
+    &__body {
+        display: flex;
+        justify-content: space-between;
+        padding: 35px 30px;
+
+        .one-document {
+            width: calc(100% / 6);
+            margin: 0 10px;
+
+            &__img {
+                text-align: center;
+                img {
+                    margin-left: -25px;
+                }
+            }
+
+            &__footer {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            &__text {
+                height: 75px;
+                max-height: 75px;
+                overflow: hidden;
+            }
+
+            &__date {
+                color: $light-blue;
+            }
+        }
+    }
+}

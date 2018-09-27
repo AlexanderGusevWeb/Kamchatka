@@ -1,0 +1,81 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 18.09.2018
+ * Time: 11:08
+ */
+
+$main_news = $this->macros('news', 'lastlist', array('main-news', null, null, true));
+$main_event = $this->macros('news', 'lastlist', array('main-event', null, null, true));
+?>
+
+<div class="news home-page__news">
+    <nav  class="news__links">
+        <div class="news__link news__link-one news__active">
+            <h3>Новости</h3>
+            <span class="news__separate"></span>
+            <a href="/">Смотреть все</a>
+            <div class="flat-arrow">
+                <span class="flaticon-next-1"></span>
+                <span class="flaticon-next-1 flat-arrow_middle"></span>
+                <span class="flaticon-next-1"></span>
+            </div>
+        </div>
+
+        <div class="news__link news__link-two news__passive">
+            <div class="flat-arrow">
+                <span class="flaticon-back"></span>
+                <span class="flaticon-back flat-arrow_middle"></span>
+                <span class="flaticon-back"></span>
+            </div>
+            <a href="/">Смотреть все</a>
+            <span class="news__separate"></span>
+            <h3>События</h3>
+        </div>
+    </nav>
+
+    <section class="news__body">
+        <div class="block-news block-news__one">
+            <? foreach ($main_news['items'] as $item):
+                $news_date = $this->macros('system', 'convertDate', array($item['publish_time'], date("m.d.Y")));
+                ?>
+                <div class="one-news">
+                    <img src="<?= str_replace('./','/',$this->getPageById($item['id'])->getValue('anons_pic')->getFilePath()) ?>" alt="news">
+
+                    <p class="one-news__text"><?= $item['header'] ?></p>
+
+                    <div class="one-news__footer">
+                        <span class="one-news__date">
+                            <?= $news_date ?>
+                        </span>
+                        <a  class="one-news__link" href="<?= $item['link'] ?>">
+                            Читать далее
+                        </a>
+                    </div>
+                </div>
+            <? endforeach; ?>
+        </div>
+
+        <div class="block-news block-news__two">
+            <? foreach ($main_event['items'] as $item):
+                $event_date = $this->macros('system', 'convertDate', array($item['publish_time'], date("m.d.Y")));
+                ?>
+                <div class="one-news">
+                    <img src="<?= str_replace('./','/',$this->getPageById($item['id'])->getValue('anons_pic')->getFilePath()) ?>" alt="event">
+
+                    <p class="one-news__text"><?= $item['header'] ?></p>
+
+                    <div class="one-news__footer">
+                        <span class="one-news__date">
+                            <?= $event_date ?>
+                        </span>
+                        <a  class="one-news__link" href="<?= $item['link'] ?>">
+                            Читать далее
+                        </a>
+                    </div>
+                </div>
+            <? endforeach; ?>
+        </div>
+    </section>
+</div>

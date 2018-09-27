@@ -1,0 +1,66 @@
+@mixin font-family($font) {
+    font-family: $font, sans-serif;
+    font-style: normal;
+}
+
+@mixin monts_400 {
+    @include font-family ('Montserrat');
+    font-weight: 400;
+}
+
+@mixin monts_500 {
+    @include font-family ('Montserrat');
+    font-weight: 500;
+}
+
+@mixin monts_700 {
+    @include font-family ('Montserrat');
+    font-weight: 700;
+}
+
+@mixin oswald_400 {
+    @include font-family ('Oswald');
+    font-weight: 400;
+}
+
+@mixin oswald_500{
+    @include font-family ('Oswald');
+    font-weight: 500;
+}
+
+@mixin oswald_700 {
+    @include font-family ('Oswald');
+    font-weight: 700;
+}
+
+@mixin main-button {
+    .main-button {
+        position: relative;
+        border: 1px solid #fff;
+        background: transparent;
+        color: #fff;
+        font-size: 24px;
+        text-transform: uppercase;
+        padding: 15px 30px;
+        transition: all .5s ease;
+        cursor: pointer;
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 100%;
+            bottom: 0;
+            left: 0;
+            background-color: $medium-blue;
+            transition: all .3s ease;
+            z-index: -1;
+        }
+        &:hover {
+            border: 1px solid $medium-blue;
+            color: #fff;
+            &::before {
+                right: 0;
+            }
+        }
+    }
+}

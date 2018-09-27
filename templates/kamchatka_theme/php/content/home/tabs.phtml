@@ -1,0 +1,99 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 07.09.2018
+ * Time: 14:42
+ */
+
+$settings = $this->getSettingsContainer('main_config');
+?>
+
+<div class="tabs home-page__tabs">
+    <nav>
+        <ul class="tabs__link">
+            <li class="tab-link tab-link-one">
+                <span class="flaticon-placeholder"></span>
+                <span class="tab-link__background"></span>
+                <p>Карта района</p>
+            </li>
+            <li class="tab-link tab-link-two">
+                <span class="flaticon-cloudy"></span>
+                <span class="tab-link__background"></span>
+                <p>Климат</p>
+            </li>
+            <li class="tab-link tab-link-three">
+                <span class="flaticon-child"></span>
+                <span class="tab-link__background"></span>
+                <p>Население</p>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="tabs__body">
+        <div class="tab tab-one">
+            <div class="tab-one__left">
+                <img src="/images/images-kamchatka/map.png" alt="map">
+            </div>
+            <div class="tab-one__right">
+                <h3><?= $settings->getValue('sobolevo-title') ?></h3>
+                <div>
+                    <span class="flaticon-map-location"></span>
+                    <p>
+                        <span>
+                            Площадь -
+                        </span>
+                        <?= $settings->getValue('sobolevo-area') ?> км<sup>2</sup>
+                    </p>
+                </div>
+                <div>
+                    <span class="flaticon-multiple-users-silhouette"></span>
+                    <p>
+                        <span>
+                            Население -
+                        </span>
+                        <?= $settings->getValue('sobolovo-population') ?> человек
+                    </p>
+                </div>
+                <div>
+                    <span class="flaticon-grid-world"></span>
+                    <a href="<?= $settings->getValue('sobolevo-link_map') ?>">
+                        <?= $settings->getValue('sobolevo-link_map') ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab tab-two d_none">
+            <div class="tab-two__weather">
+                <img src="/images/images-kamchatka/weather.png" alt="weather">
+            </div>
+        </div>
+
+        <div class="tab tab-three d_none">
+            <div class="tab-three__text">
+                <p>
+                    <?= $settings->getValue('population_text') ?>
+                </p>
+            </div>
+
+            <div class="tab-three__diagram">
+                <div
+                        class='tab-three__regions'
+                        data-sobolevo='<?= $settings->getValue('sobolevo-title') ?> <?= $settings->getValue('sobolovo-population') ?>чел.'
+                        data-sobolevo_population='<?= $settings->getValue('sobolovo-population') ?>'
+                        data-ustevo='<?= $settings->getValue('ustevo-title') ?> <?= $settings->getValue('ustevo-population') ?>чел.'
+                        data-ustevo_population='<?= $settings->getValue('ustevo-population') ?>'
+                        data-krutogorovo='<?= $settings->getValue('krutogorovo-title') ?> <?= $settings->getValue('krutogorovo-population') ?>чел.'
+                        data-krutogorovo_population='<?= $settings->getValue('krutogorovo-population') ?>'
+                        data-ichinsky='<?= $settings->getValue('ichinsky-title') ?> <?= $settings->getValue('ichinsky-population') ?>чел.'
+                        data-ichinsky_population='<?= $settings->getValue('ichinsky-population') ?>'
+                ></div>
+
+                <div id="donutchart" style="width: 100%; height: 100%;"></div>
+
+                <span class="all_population"></span>
+            </div>
+        </div>
+    </section>
+</div>

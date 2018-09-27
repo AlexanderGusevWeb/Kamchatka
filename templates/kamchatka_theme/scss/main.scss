@@ -1,0 +1,21 @@
+@import 'fonts';
+@import 'media-queries';
+
+@import 'base/colors';
+@import 'base/mixins';
+@import 'base/base';
+@import 'base/language-switch';
+@import 'base/map-site';
+@import 'base/eyeglasses';
+
+@import 'layout/header/main-menu';
+@import 'layout/header/header-top';
+
+@import 'layout/home/home';
+@import 'layout/home/tabs';
+@import 'layout/home/news';
+@import 'layout/home/activities';
+@import 'layout/home/links';
+@import 'layout/home/documents';
+
+@import 'layout/footer/content';

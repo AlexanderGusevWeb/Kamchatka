@@ -1,0 +1,2 @@
+<?php
+ namespace UmiCms\System\Registry;class Settings extends Part implements iSettings {const PATH_PREFIX = '//settings';public function __construct(\iRegedit $vddecebdea58b5f264d27f1f7909bab74) {parent::__construct($vddecebdea58b5f264d27f1f7909bab74);parent::setPathPrefix(self::PATH_PREFIX);}public function setPathPrefix($v851f5ac9941d720844d143ed9cfcf60a) {return $this;}public function getLicense() {return (string) $this->get('keycode');}}

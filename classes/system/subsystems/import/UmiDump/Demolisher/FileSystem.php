@@ -1,0 +1,2 @@
+<?php
+ namespace UmiCms\System\Import\UmiDump\Demolisher;use UmiCms\System\Import\UmiDump\Demolisher;abstract class FileSystem extends Demolisher implements iFileSystem {private $rootPath;public function setRootPath($vd6fe1d0be6347b8ef2427fa629c04485) {$this->rootPath = $vd6fe1d0be6347b8ef2427fa629c04485;return $this;}protected function getRootPath() {return rtrim($this->rootPath ?: CURRENT_WORKING_DIR, '/');}protected function buildAbsolutePath($v854c6c62527722d75943fe3e6f81914b) {return $this->getRootPath() . '/' . ltrim($v854c6c62527722d75943fe3e6f81914b, '/');}}

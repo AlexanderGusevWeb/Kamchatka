@@ -1,0 +1,49 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 03.09.2018
+ * Time: 11:52
+ */
+
+$page = $variables['page'];
+$menu_items = $this->macros('menu', 'draw', array('main-menu'))['item'];
+
+foreach ($menu_items as $item) {
+    if ($variables['request-uri'] == $item['link']) {
+        $activeClass = 'active';
+        break;
+    } else {
+        $activeClass = '';
+    }
+}
+
+?>
+
+<nav class="main-menu">
+    <ul>
+        <? foreach ($menu_items as $item): ?>
+            <li class="<?= $item['status'] ?>">
+                <a href="<?= $item['link'] ?>">
+                    <?= $item['name'] ?>
+                </a>
+            </li>
+        <? endforeach; ?>
+    </ul>
+
+    <div class="buttonSearch">
+        <form method="get">
+            <input type="text" placeholder="Искать здесь...">
+
+            <button type="button" class="btn btn1 btn-default">
+                <span class="flaticon-magnifying-glass"></span>
+                <span class="flaticon-close"></span>
+            </button>
+
+            <button type="submit" class="btn btn2 btn-default">
+                <span class="flaticon-magnifying-glass"></span>
+            </button>
+        </form>
+    </div>
+</nav>
+

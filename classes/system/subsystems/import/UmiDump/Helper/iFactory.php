@@ -1,0 +1,2 @@
+<?php
+ namespace UmiCms\System\Import\UmiDump\Entity\Helper\SourceIdBinder;use UmiCms\System\Import\UmiDump\Helper\Entity\iSourceIdBinder;interface iFactory {public function create($v52195dae0174459c5f066fa0df053c26);}

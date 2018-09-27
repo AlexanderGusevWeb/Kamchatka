@@ -1,0 +1,126 @@
+.header-top {
+    position: relative;
+    max-width: 1200px;
+    max-height: 100px;
+    background-color: $dark-blue;
+    padding: 0 20px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+    @include monts_400;
+    color: #fff;
+    &::before {
+        position: absolute;
+        content: '';
+        top: 0;
+        right: -100vw;
+        bottom: 0;
+        left: -200px;
+        background-color: $dark-blue;
+        z-index: 1;
+        transform: skewX(40.5deg);
+    }
+    &__logo,
+    &__flag-block,
+    &__map-site,
+    &__address,
+    .eyeglasses {
+        position: relative;
+        z-index: 2;
+    }
+
+    &__logo {
+        max-height: 100px;
+        margin-right: 60px;
+        &::before,
+        &::after {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            transform: skewX(40.5deg);
+        }
+        &::before{
+            background-color: $medium-blue;
+            right: 50%;
+        }
+        &::after {
+            background-color: $dark-green;
+            left: 50%;
+        }
+    }
+
+    &__map-site {
+        margin: 0 15px;
+        p {
+            max-width: 50px;
+        }
+    }
+
+    &__address {
+        max-width: 420px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__text {
+        position: relative;
+        padding-right: 20px;
+        &::before {
+            position: absolute;
+            content: '';
+            top: -13px;
+            right: 0;
+            bottom: -13px;
+            left: 0;
+            border-right: 1px solid #fff;
+        }
+    }
+
+    &__link {
+        padding-left: 20px;
+    }
+
+    &__separate {
+        display: block;
+        width: 1px;
+        height: 60px;
+        background-color: #fff;
+        margin: 0 20px;
+    }
+
+    &__eyeglasses {
+        max-width: 100px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
