@@ -1,0 +1,38 @@
+.copyright {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    @include monts_400;
+
+    a {
+        min-width: 200px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+
+        &::before {
+            top: 100%;
+            right: 80px;
+            bottom: -1px;
+            left: 10px;
+            background-color: $light-blue;
+        }
+
+        img {
+            max-height: 25px;
+            transition: all .5s ease;
+            padding-left: 5px;
+        }
+
+        &:hover {
+            img {
+                padding-left: 15px;
+            }
+
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+}

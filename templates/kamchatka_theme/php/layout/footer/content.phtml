@@ -7,7 +7,13 @@
  */
 
 $page = $variables['page'];
+
+$settings = $this->getSettingsContainer('main_config');
+
 $menu_items = $this->macros('menu', 'draw', array('footer-menu'))['item'];
+
+$main_phone = $settings->getValue('main-phone');
+$main_email = $settings->getValue('main-email');
 
 foreach ($menu_items as $item) {
     if ($variables['request-uri'] == $item['link']) {
@@ -35,10 +41,22 @@ foreach ($menu_items as $item) {
 
     <div class="footer__info">
         <h3>Соболевский муниципальный район</h3>
-        <span class="footer__date"></span>
-        <div class="footer__phone"></div>
-        <div class="footer__mail"></div>
+        <span class="footer__date">2014-<?= date("Y") ?></span>
+        <div class="footer__phone">
+            <a href="tel:<?= $main_phone ?>">
+                <p>Телефон</p>
+                <?= $main_phone ?>
+            </a>
+        </div>
+        <div class="footer__mail">
+            <a href="mailto:<?= $main_email ?>">
+                <p>Почта</p>
+                <?= $main_email ?>
+            </a>
+        </div>
         <span class="footer__separate"></span>
-        <p class="footer__prompt"></p>
+        <p class="footer__prompt">
+            Если Вы заметили опечатку или неточность - выделите текст и нажмите: Ctrl+Enter
+        </p>
     </div>
 </div>

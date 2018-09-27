@@ -3,9 +3,19 @@
  * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
  * @var array $variables
  */
-$settingsContainer = $this->getSettingsContainer();
+$settings = $this->getSettingsContainer('main_config');
+
+$copyright = $settings->getValue('copyright_text');
+
 ?>
 
 <div class="copyright">
-
+    &copy;
+    <?= date("Y") ?>
+    <?= $copyright ?>
+    Разработка сайта
+    <a href="https://german-web.org/">
+        German&nbsp;Web
+        <img src="/images/images-kamchatka/logo/logo-GermanWeb.svg">
+    </a>
 </div>

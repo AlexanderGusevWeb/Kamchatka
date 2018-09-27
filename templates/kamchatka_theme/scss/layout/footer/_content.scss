@@ -1,21 +1,114 @@
 footer {
     position: relative;
     max-width: 1200px;
-    min-height: 400px;
+    height: 450px;
     background-color: rgba($extra-dark-blue, .8);
     margin: 0 auto;
     z-index: 2;
+    padding: 50px 100px;
+    box-sizing: border-box;
 }
 
 .footer {
     &__content {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
+        box-sizing: border-box;
     }
 
     &__menu {
+        width: 50%;
         display: flex;
         flex-direction: column;
-        ОСж
+        justify-content: center;
+        align-items: flex-start;
+
+        ul {
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            &:hover {
+                a {
+                    &::before {
+                        right: 0;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        a {
+            @include monts_500;
+            font-size: 16px;
+            text-transform: uppercase;
+
+            &::before {
+                top: 110%;
+                bottom: -20%;
+                right: 100%;
+                background-color: #fff;
+            }
+        }
+    }
+
+    &__info {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        color: #fff;
+        text-transform: uppercase;
+        margin-bottom: 25px;
+        @include monts_500;
+        font-size: 16px;
+
+    }
+
+    h3 {
+        color: $light-blue;
+    }
+
+    &__date {
+        margin-bottom: 25px;
+
+    }
+
+    &__phone,
+    &__mail {
+        width: 100%;
+        max-width: 270px;
+        margin-bottom: 25px;
+
+        a {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        p {
+            @include monts_500;
+            margin: 0;
+        }
+
+    }
+
+    &__separate {
+        width: 320px;
+        height: 2px;
+        background-color: $light-blue;
+        margin-bottom: 25px;
+    }
+
+    &__prompt {
+        @include monts_500;
+        width: 100%;
+        max-width: 300px;
+        text-transform: none;
+        margin: 0;
     }
 }

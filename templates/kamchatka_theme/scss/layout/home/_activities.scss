@@ -70,14 +70,17 @@
                 bottom: 0;
                 left: 0;
                 opacity: 0;
-                background-color: $light-blue;
+                background-color: $dark-blue;
                 transition: all .5s ease;
                 z-index: -1;
             }
         }
-        &:hover p::after {
-            right: 0;
-            opacity: .7;
+        &:hover p {
+            color: #fff;
+            &::after {
+                right: 0;
+                opacity: 1;
+            }
         }
     }
 
