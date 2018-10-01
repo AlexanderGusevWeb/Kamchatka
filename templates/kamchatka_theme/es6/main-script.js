@@ -144,6 +144,7 @@
         // Переключение языка сайта END
 
         // Анимация поиск START
+        // Open
         $(".buttonSearch .btn1 .flaticon-magnifying-glass").click(function () {
             if ($('.buttonSearch__mobile-bottom.active').length != true) {
                 $(".buttonSearch").animate({
@@ -165,10 +166,13 @@
                     top: 65
                 }, 800);
 
+                $(".buttonSearch__mobile-top button > .flaticon-magnifying-glass").css('display', 'none');
+
 
                 $(".buttonSearch__mobile-bottom button").animate({
-                    top: 0
-                }, 800);
+                    top: 0,
+                    opacity: 1
+                }, 800).css('display', 'block');
 
                 $(".buttonSearch button.btn1 .flaticon-magnifying-glass").css('display', 'none');
 
@@ -180,7 +184,7 @@
                     }, 1).css('display', 'block');
                 }, 700);
 
-                $('.buttonSearch__mobile-bottom').addClass('active');
+                $('.buttonSearch__mobile-bottom').addClass('active').css('display', 'block');
 
                 $('.mobile-menu').removeClass('menu_state_open');
                 $('.mobile-menu__links').animate({
@@ -189,6 +193,7 @@
             }
         });
 
+        // Close
         $(".flaticon-close, .mobile-menu__icon").click(function () {
             if ($('.buttonSearch__mobile-bottom.active').length == true) {
                 $(".buttonSearch input").animate({
@@ -210,15 +215,23 @@
                     top: -35
                 }, 800);
 
-                $(".buttonSearch button.btn1 .flaticon-magnifying-glass").css('display', 'block');
+                setTimeout(function () {
+                    $(".buttonSearch__mobile-top button > .flaticon-magnifying-glass").css('display', 'block');
+                }, 350);
 
-                $(".buttonSearch button.btn2").css('display', 'none');
+                $(".buttonSearch__mobile-bottom button").animate({
+                    opacity: 1
+                }, 800);
+
+                // $(".buttonSearch button.btn1 .flaticon-magnifying-glass").css('display', 'block');
+                //
+                // $(".buttonSearch button.btn2").css('display', 'none');
 
                 $('.buttonSearch .flaticon-close').animate({
                     opacity: 0
                 }, 100).css('display', 'none');
 
-                $('.buttonSearch__mobile-bottom').removeClass('active');
+                $('.buttonSearch__mobile-bottom').removeClass('active').css('display', 'none');
             }
         });
         // Анимация поиск END
