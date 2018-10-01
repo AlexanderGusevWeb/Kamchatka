@@ -264,7 +264,7 @@
     &__icon {
         display: none;
         width: 45px;
-        height: 35px;
+        height: 26px;
         position: relative;
         cursor: pointer;
         margin: 0;
@@ -272,10 +272,10 @@
         span {
             display: block;
             position: absolute;
-            height: 6px;
+            height: 3px;
             width: 100%;
-            background: $light-blue;
-            border-radius: 6px;
+            background: #fff;
+            border-radius: 0;
             opacity: 1;
             left: 0;
             transform: rotate(0deg);
