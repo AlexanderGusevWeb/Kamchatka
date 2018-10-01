@@ -1,5 +1,18 @@
 (function ($) {
     $(function () {
+        //Анимация мобильного меню START
+
+        $('.mobile-menu__links').animate({
+            height: "hide"
+        }, 0);
+
+        $('.mobile-menu__icon').on('click', function () {
+            $(this).closest('.mobile-menu').toggleClass('menu_state_open');
+            $('.mobile-menu__links').animate({
+                height: "toggle"
+            }, 500);
+        });
+        //Анимация мобильного меню END
 
         // Переключение языка сайта START
         $('.select').each(function () {
@@ -132,54 +145,81 @@
 
         // Анимация поиск START
         $(".buttonSearch .btn1 .flaticon-magnifying-glass").click(function () {
-            $(".buttonSearch").animate({
-                height: 70
-            }, 300);
+            if ($('.buttonSearch__mobile-bottom.active').length != true) {
+                $(".buttonSearch").animate({
+                    height: 70
+                }, 300);
 
-            $(".buttonSearch input").animate({
-                height: 44,
-                opacity: 1
-            }, 100).css('border', '2px solid #fff');
-
-
-            $(".buttonSearch button").animate({
-                top: 0
-            }, 800);
-
-            $(".buttonSearch button.btn1 .flaticon-magnifying-glass").css('display', 'none');
-
-            $(".buttonSearch button.btn2").css('display', 'block');
-
-            setTimeout(function () {
-                $('.buttonSearch .flaticon-close').animate({
+                $(".buttonSearch input").animate({
+                    height: 44,
                     opacity: 1
-                }, 1).css('display', 'block');
-            }, 700);
+                }, 100).css('border', '2px solid #fff');
+
+
+                $(".buttonSearch__main button").animate({
+                    top: 0
+                }, 800);
+
+
+                $(".buttonSearch__mobile-top button").animate({
+                    top: 65
+                }, 800);
+
+
+                $(".buttonSearch__mobile-bottom button").animate({
+                    top: 0
+                }, 800);
+
+                $(".buttonSearch button.btn1 .flaticon-magnifying-glass").css('display', 'none');
+
+                $(".buttonSearch button.btn2").css('display', 'block');
+
+                setTimeout(function () {
+                    $('.buttonSearch .flaticon-close').animate({
+                        opacity: 1
+                    }, 1).css('display', 'block');
+                }, 700);
+
+                $('.buttonSearch__mobile-bottom').addClass('active');
+
+                $('.mobile-menu').removeClass('menu_state_open');
+                $('.mobile-menu__links').animate({
+                    height: "hide"
+                }, 500);
+            }
         });
 
-        $(".flaticon-close").click(function () {
-            $(".buttonSearch input").animate({
-                height: 0,
-                opacity: 0
-            }, 10).css('border', 'none').val("");
+        $(".flaticon-close, .mobile-menu__icon").click(function () {
+            if ($('.buttonSearch__mobile-bottom.active').length == true) {
+                $(".buttonSearch input").animate({
+                    height: 0,
+                    opacity: 0
+                }, 10).css('border', 'none').val("");
 
-            setTimeout(function () {
-                $(".buttonSearch").animate({
-                    height: 0
-                }, 300);
-            }, 200);
+                setTimeout(function () {
+                    $(".buttonSearch").animate({
+                        height: 0
+                    }, 300);
+                }, 200);
 
-            $(".buttonSearch button").animate({
-                top: -70
-            }, 800);
+                $(".buttonSearch__main button").animate({
+                    top: -70
+                }, 800);
 
-            $(".buttonSearch button.btn1 .flaticon-magnifying-glass").css('display', 'block');
+                $(".buttonSearch__mobile-top button").animate({
+                    top: -35
+                }, 800);
 
-            $(".buttonSearch button.btn2").css('display', 'none');
+                $(".buttonSearch button.btn1 .flaticon-magnifying-glass").css('display', 'block');
 
-            $('.buttonSearch .flaticon-close').animate({
-                opacity: 0
-            }, 100).css('display', 'none');
+                $(".buttonSearch button.btn2").css('display', 'none');
+
+                $('.buttonSearch .flaticon-close').animate({
+                    opacity: 0
+                }, 100).css('display', 'none');
+
+                $('.buttonSearch__mobile-bottom').removeClass('active');
+            }
         });
         // Анимация поиск END
 
@@ -306,10 +346,9 @@
             var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
             chart.draw(data, options);
         }
-
         // Google Charts END
 
-        // News tads animation START
+        // Анимация слайдер новости/события START
         $('.news__link').on('click', function () {
             if ($(this).hasClass('news__passive')) {
                 $('.news__link').toggleClass('news__active').toggleClass('news__passive');
@@ -387,7 +426,7 @@
                 }, 400);
             }, 100);
         });
-        // News tads animation END
+        // Анимация слайдер новости/события END
 
         // Slick for news START
         $('.block-news').slick({
@@ -446,9 +485,10 @@
         // Slick for links END
 
         // Script обрезки текста START
+        $('.one-news__text').ellipsis({'setTitle':'onEllipsis'} );
         // Script обрезки текста END
 
-        // News activities animation START
+        // Анимация табы "Направления деятельности" START
         $('.tab-body:first-child').removeClass('d_none').css('opacity', '1');
         $('.activities__tab-link:first-child').addClass('action');
 
@@ -475,7 +515,11 @@
             $('.activities__tab-link[data='+ thisTab +']').addClass('action');
 
         });
-        // News activities animation END
+        // Анимация табы "Направления деятельности" END
+
+        //Анимация WOW.js START
+        new WOW().init();
+        //Анимация WOW.js END
     });
 
     $(window).load(function () {

@@ -5,78 +5,39 @@
  * Date: 26.09.2018
  * Time: 10:38
  */
+$page = $variables['page'];
+
+$links = $page->getValue('links');
+
+foreach ($links as $key => $item) {
+    $arr[$key]['title-url'] = $this->getObjectById($item)->getName();
+    $arr[$key]['full-url'] = $this->getObjectById($item)->getValue('full-url');
+    $arr[$key]['short-url'] = $this->getObjectById($item)->getValue('short-url');
+    $arr[$key]['img-url'] = $this->getObjectById($item)->getValue('img-url')->getFilePath(true);
+}
+
 ?>
 
-<div class="links home-page__links">
+<div class="links home-page__links wow bounceInUp">
     <div class="links__title">
         <h3>Полезные <span>ссылки</span></h3>
     </div>
 
     <section class="links__body">
-        <a href="/" class="one-link" style="background-image: url('/images/images-kamchatka/links/bear.png')">
+        <? foreach ($arr as $key => $item): ?>
+        <a href="<?= $item['full-url'] ?>" class="one-link" style="background-image: url(<?= $item['img-url'] ?>)">
 
             <p class="one-link__text">
-                Lorem ipsum dolor sit amet
+                <?= $item['title-url'] ?>
             </p>
 
             <div class="one-link__footer">
                 <span class="flaticon-link"></span>
                 <p>
-                    example.ru
+                    <?= $item['short-url'] ?>
                 </p>
             </div>
         </a>
-        <a href="/" class="one-link" style="background-image: url('/images/images-kamchatka/links/bear.png')">
-
-            <p class="one-link__text">
-                Lorem ipsum dolor sit amet
-            </p>
-
-            <div class="one-link__footer">
-                <span class="flaticon-link"></span>
-                <p>
-                    example.ru
-                </p>
-            </div>
-        </a>
-        <a href="/" class="one-link" style="background-image: url('/images/images-kamchatka/links/bear.png')">
-
-            <p class="one-link__text">
-                Lorem ipsum dolor sit amet
-            </p>
-
-            <div class="one-link__footer">
-                <span class="flaticon-link"></span>
-                <p>
-                    example.ru
-                </p>
-            </div>
-        </a>
-        <a href="/" class="one-link" style="background-image: url('/images/images-kamchatka/links/bear.png')">
-
-            <p class="one-link__text">
-                Lorem ipsum dolor sit amet
-            </p>
-
-            <div class="one-link__footer">
-                <span class="flaticon-link"></span>
-                <p>
-                    example.ru
-                </p>
-            </div>
-        </a>
-        <a href="/" class="one-link" style="background-image: url('/images/images-kamchatka/links/bear.png')">
-
-            <p class="one-link__text">
-                Lorem ipsum dolor sit amet
-            </p>
-
-            <div class="one-link__footer">
-                <span class="flaticon-link"></span>
-                <p>
-                    example.ru
-                </p>
-            </div>
-        </a>
+        <? endforeach; ?>
     </section>
 </div>

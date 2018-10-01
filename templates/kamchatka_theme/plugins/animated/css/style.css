@@ -1,0 +1,11 @@
+.wrapper{
+width: 1336px;
+margin:0 auto;
+text-align: center;
+}
+
+.logo {
+	width: 517px;
+	height: 240px;
+	margin:10% auto;
+}

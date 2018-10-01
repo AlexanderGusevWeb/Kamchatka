@@ -29,12 +29,24 @@ $url_logo = $this->render(
     'library/thumbnail'
 );
 
+$menu_items = $this->macros('menu', 'draw', array('main-menu'))['item'];
+
+foreach ($menu_items as $item) {
+    if ($variables['request-uri'] == $item['link']) {
+        $activeClass = 'active';
+        break;
+    } else {
+        $activeClass = '';
+    }
+}
+
+
 ?>
 
 <div class="header-top">
 
     <div class="header-top__logo">
-        <a href="\home\">
+        <a href="../../../../../index.php">
             <?= $url_logo ?>
         </a>
     </div>
@@ -85,9 +97,54 @@ $url_logo = $this->render(
         </a>
     </div>
 
+    <nav class="mobile-nav">
+        <div class="mobile-nav__container">
+            <ul class="mobile-menu">
+                <div class="mobile-menu__icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="buttonSearch buttonSearch__mobile-top">
+        <form method="get">
+            <button type="button" class="btn btn1 btn-default">
+                <span class="flaticon-magnifying-glass"></span>
+                <span class="flaticon-close"></span>
+            </button>
+        </form>
+    </div>
 </div>
 
+<div class="buttonSearch buttonSearch__mobile-bottom">
+    <form method="get">
+        <input type="text" placeholder="Искать здесь...">
 
+        <button type="submit" class="btn btn2 btn-default">
+            <span class="flaticon-magnifying-glass"></span>
+        </button>
+    </form>
+</div>
+
+<nav class="mobile-nav">
+    <div class="mobile-nav__container">
+        <ul class="mobile-menu">
+            <ul class="mobile-menu__links">
+                <? foreach ($menu_items as $item): ?>
+                    <li class="mobile-menu__links-item <?= $item['status'] ?>">
+                        <a href="<?= $item['link'] ?>">
+                            <?= $item['name'] ?>
+                        </a>
+                    </li>
+                <? endforeach; ?>
+            </ul>
+        </ul>
+    </div>
+</nav>
 
 
 

@@ -6,9 +6,41 @@
  * Time: 12:05
  */
 
+$page = $variables['page'];
+
+$page_documents = $this->getPageById(8);
+$documents = $page_documents->getValue('documents');
+
+foreach ($documents as $key => $item) {
+    $arr1[$key] = $this->getObjectById($item)->getValue('date-doc')->getFormattedDate('d.m.Y');
+    $arr2[$key] = $this->getObjectById($item)->getName();
+    $arr3[$key] = $this->getObjectById($item)->getValue('file-doc')->getFilePath(true);
+    $arr4[$key] = $this->getObjectById($item)->getValue('img-doc')->getFilePath(true);
+}
+
+array_multisort($arr1, SORT_DESC, $arr2, $arr3, $arr4);
+
+foreach ($arr1 as $key => $item) {
+    $arr[$key]['date-doc'] = $item;
+}
+
+foreach ($arr2 as $key => $item) {
+    $arr[$key]['title-doc'] = $item;
+}
+
+foreach ($arr3 as $key => $item) {
+    $arr[$key]['file-doc'] = $item;
+}
+
+foreach ($arr4 as $key => $item) {
+    $arr[$key]['img-doc'] = $item;
+}
+
+$arr = array_slice($arr,0,6);
+
 ?>
 
-<div class="home-page__container-footer">
+<div class="home-page__container-footer wow bounceInUp">
     <div class="documents home-page__documents">
         <div class="documents__title">
             <div class="documents__title-left">
@@ -28,105 +60,23 @@
         </div>
 
         <section class="documents__body">
-            <div class="one-document">
+            <? foreach ($arr as $key => $item): ?>
+            <a href="<?= $item['file-doc'] ?>" class="one-document" download>
                 <div class="one-document__img">
-                    <img src="/images/images-kamchatka/documents/word.png" alt="doc">
+                    <img src="<?= $item['img-doc'] ?>" alt="doc">
                 </div>
 
                 <div class="one-document__footer">
                     <p class="one-document__text">
-                        Lorem ipsum dolor sit.
+                        <?= $item['title-doc'] ?>
                     </p>
 
                     <span class="one-document__date">
-                        28.02.2018
+                        <?= $item['date-doc'] ?>
                     </span>
                 </div>
-            </div>
-
-            <div class="one-document">
-                <div class="one-document__img">
-                    <img src="/images/images-kamchatka/documents/word.png" alt="doc">
-                </div>
-
-                <div class="one-document__footer">
-                    <p class="one-document__text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua.
-                    </p>
-
-                    <span class="one-document__date">
-                        28.02.2018
-                    </span>
-                </div>
-            </div>
-
-            <div class="one-document">
-                <div class="one-document__img">
-                    <img src="/images/images-kamchatka/documents/word.png" alt="doc">
-                </div>
-
-                <div class="one-document__footer">
-                    <p class="one-document__text">
-                        Lorem ipsum dolor sit amet, consectetur.
-                    </p>
-
-                    <span class="one-document__date">
-                        28.02.2018
-                    </span>
-                </div>
-            </div>
-
-            <div class="one-document">
-                <div class="one-document__img">
-                    <img src="/images/images-kamchatka/documents/pdf.png" alt="doc">
-                </div>
-
-                <div class="one-document__footer">
-                    <p class="one-document__text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua.
-                    </p>
-
-                    <span class="one-document__date">
-                        28.02.2018
-                    </span>
-                </div>
-            </div>
-
-            <div class="one-document">
-                <div class="one-document__img">
-                    <img src="/images/images-kamchatka/documents/word.png" alt="doc">
-                </div>
-
-                <div class="one-document__footer">
-                    <p class="one-document__text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
-
-                    <span class="one-document__date">
-                        28.02.2018
-                    </span>
-                </div>
-            </div>
-
-            <div class="one-document">
-                <div class="one-document__img">
-                    <img src="/images/images-kamchatka/documents/pdf.png" alt="doc">
-                </div>
-
-                <div class="one-document__footer">
-                    <p class="one-document__text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing.
-                    </p>
-
-                    <span class="one-document__date">
-                        28.02.2018
-                    </span>
-                </div>
-            </div>
+            </a>
+            <? endforeach; ?>
         </section>
     </div>
 

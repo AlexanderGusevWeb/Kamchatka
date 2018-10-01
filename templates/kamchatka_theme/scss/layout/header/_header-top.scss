@@ -1,7 +1,7 @@
 .header-top {
     position: relative;
     max-width: 1200px;
-    max-height: 100px;
+    //max-height: 100px;
     background-color: $dark-blue;
     padding: 0 20px;
     margin: 0 auto;
@@ -9,9 +9,13 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    z-index: 2;
+    z-index: 3;
     @include monts_400;
     color: #fff;
+    @include max-screen(1024px) {
+        padding: 0;
+    }
+
     &::before {
         position: absolute;
         content: '';
@@ -35,6 +39,7 @@
     &__logo {
         max-height: 100px;
         margin-right: 60px;
+
         &::before,
         &::after {
             position: absolute;
@@ -46,20 +51,30 @@
             z-index: -1;
             transform: skewX(40.5deg);
         }
+
         &::before{
             background-color: $medium-blue;
             right: 50%;
         }
+
         &::after {
             background-color: $dark-green;
             left: 50%;
         }
     }
 
+    &__flag-block {
+    }
+
     &__map-site {
         margin: 0 15px;
+
         p {
             max-width: 50px;
+        }
+
+        @include max-screen(1024px) {
+            display: none;
         }
     }
 
@@ -69,11 +84,16 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+
+        @include max-screen(1024px) {
+            display: none;
+        }
     }
 
     &__text {
         position: relative;
         padding-right: 20px;
+
         &::before {
             position: absolute;
             content: '';
@@ -99,6 +119,10 @@
 
     &__eyeglasses {
         max-width: 100px;
+
+        @include max-screen(1024px) {
+            display: none;
+        }
     }
 }
 

@@ -20,13 +20,18 @@
 <?= $this->macros('system', 'includeQuickEditJs') ?>
 
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" href="./plugins/animated/css/animate.css">
+
 <link rel="stylesheet" href="css/main.min.css">
 
 <?= $this->getCanonicalLinkTag($variables) ?>
 
 <script type="text/javascript" src="/ulang/<?= $variables['lang'] ?>/common/emarket/?js" charset="utf-8"></script>
-<script type="text/javascript" src="js/main-script.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="./js/jquery.autoellipsis/jquery.autoellipsis-1.0.10.min.js"></script>
+<script src="./plugins/animated/js/wow.min.js"></script>
+
+<script type="text/javascript" src="./js/main-script.min.js" charset="utf-8"></script>
 
 <?php if ($this->isRecaptchaEnabled()): ?>
 	<script src="<?= $this->getRecaptchaUrl($variables) ?>" async defer></script>

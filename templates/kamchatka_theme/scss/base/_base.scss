@@ -84,8 +84,7 @@ p {
     background: linear-gradient(35deg, $medium-blue 20%, $dark_blue 100%);
     overflow: visible;
     img {
-        animation: fadeInDown 1s infinite linear;
-        width: 400px;
+        animation: flipInY 2s ease-in;
     }
 }
 
