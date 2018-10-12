@@ -103,6 +103,7 @@
             padding-left: 35px;
 
             &::before {
+                min-width: 85px;
                 position: absolute;
                 content: '';
                 top: 0;
@@ -113,6 +114,9 @@
                 z-index: 2;
                 background-color: $dark-blue;
                 transition: all .5s ease;
+                @include max-screen(768px) {
+                    font-size: 30px;
+                }
             }
 
             a {

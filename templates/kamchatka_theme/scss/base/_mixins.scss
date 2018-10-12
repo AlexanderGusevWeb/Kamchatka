@@ -62,5 +62,10 @@
                 right: 0;
             }
         }
+
+
+        @include max-screen(480px) {
+            font-size: 17px;
+        }
     }
 }

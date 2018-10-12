@@ -3,10 +3,11 @@
     display: flex;
     flex-direction: column;
     margin: 0 auto 35px;
+
     nav {
         margin: 0 auto;
-        .tab-link {
-
+        @include max-screen(768px) {
+            width: 100%;
         }
     }
 
@@ -18,6 +19,10 @@
         color: #fff;
         padding: 0;
         margin: 0;
+        @include max-screen(768px) {
+            flex-direction: column;
+        }
+
         .tab-link {
             width: 160px;
             height: 140px;
@@ -28,6 +33,7 @@
             padding: 10px;
             cursor: pointer;
             position: relative;
+
             &::before {
                 position: absolute;
                 content: '';
@@ -38,18 +44,32 @@
                 background-color: $medium-blue;
                 z-index: -1;
                 transition: all .3s ease;
+                @include max-screen(768px) {
+                    top: 0;
+                }
             }
+
             &:hover {
                 &::before {
                     top: 0;
                 }
             }
+
             &:first-child {
                 .tab-link__background {
                     top: 0;
                 }
             }
+
+            //@include max-screen(768px) {
+            //    width: calc(100% / 3);
+            //}
+
+            @include max-screen(768px) {
+                width: 100%;
+            }
         }
+
         .tab-link__background {
             position: absolute;
             top: 100%;
@@ -61,11 +81,13 @@
             height: 100%;
             z-index: -1;
         }
+
         span {
             &::before {
                 font-size: 70px;
             }
         }
+
         p {
             text-align: center;
             @include monts_700;
@@ -79,6 +101,7 @@
         height: 100%;
         padding: 25px;
         background: linear-gradient(to bottom, $light-blue, $medium-blue, 50%, $dark-blue 100%);
+
         .tab {
             width: 100%;
             min-height: calc(515px - 50px);
@@ -86,6 +109,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
             h2 {
                 font-size: 55px;
                 text-transform: uppercase;
@@ -101,6 +125,10 @@
 
             &-one {
                 color: $dark-blue;
+                @include max-screen(768px) {
+                    display: flex;
+                    flex-direction: column;
+                }
 
                 img {
                     width: 100%;
@@ -110,6 +138,9 @@
                 &__right {
                     display: flex;
                     width: 50%;
+                    @include max-screen(768px) {
+                        width: 100%;
+                    }
                 }
 
                 &__left {
@@ -121,16 +152,26 @@
                     justify-content: flex-start;
                     padding-left: 70px;
                     margin-bottom: 170px;
+                    @include max-screen(768px) {
+                        margin: 25px auto;
+                    }
+                    @include max-screen(480px) {
+                        padding-left: 25px;
+                    }
+
                     h3 {
                         @include oswald_500;
                         font-size: 23px;
                     }
+
                     & > div {
                         display: flex;
                         align-items: center;
                         height: 50px;
+
                         & > span {
                             padding-right: 15px;
+
                             &::before {
                                 font-size: 30px;
                             }
@@ -139,6 +180,7 @@
                         p {
                             @include monts_700;
                             font-size: 16px;
+
                             span {
                                 @include monts_500;
                                 color: #000;
@@ -151,9 +193,13 @@
 
             &-two {
                 opacity: 0;
+
                 &__weather {
-                    width: 100%;
-                    height: 100%;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
                 }
             }
 
@@ -163,6 +209,15 @@
                 justify-content: flex-start;
                 padding: 35px 35px 0;
                 opacity: 0;
+                @include max-screen(768px) {
+                    align-items: flex-start;
+                    padding: 35px;
+                }
+
+                @include max-screen(480px) {
+                    align-items: center;
+                }
+
                 p {
                     @include monts_500;
                     font-size: 16px;
@@ -173,6 +228,9 @@
                 &__text {
                     position: relative;
                     z-index: 2;
+                    @include max-screen(768px) {
+                        margin-bottom: 35px;
+                    }
                 }
 
                 &__diagram {
@@ -181,6 +239,31 @@
                     width: 100%;
                     height: 100%;
                     min-height: 350px;
+                    @include max-screen(768px) {
+                        display: none;
+                    }
+                }
+
+                &__mobile-text {
+                    display: none;
+                    padding-left: 35px;
+
+                    p {
+                        margin-bottom: 15px;
+                        font-size: 21px;
+                        font-weight: 600;
+                    }
+
+                    @include max-screen(768px) {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                    }
+
+                    @include max-screen(480px) {
+                        padding-left: 0;
+                    }
                 }
 
                 text {
@@ -197,6 +280,11 @@
 
 #donutchart {
     position: relative;
+    & > div {
+        & > div {
+            margin: 0 auto;
+        }
+    }
 }
 
 .all_population {

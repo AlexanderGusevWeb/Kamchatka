@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html, body {
+    min-width: 300px;
+}
+
 body {
     overflow-x: hidden;
     margin: 0;
@@ -90,6 +94,7 @@ p {
 
 .flat-arrow {
     position: relative;
+    z-index: 10;
     &_middle {
         margin: 0 -14px;
         transition: margin .5s ease;

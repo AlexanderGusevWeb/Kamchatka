@@ -13,7 +13,7 @@
         content: '';
         max-height: 70px;
         top: 0;
-        right: -100vw;
+        right: -100%;
         bottom: 0;
         left: -30px;
         background-color: $light-blue;
@@ -106,7 +106,6 @@
     position: absolute;
     width: 100%;
     height: 0;
-    //height: 70px;
     background-color: $medium-blue;
     padding: 0 0 0 50px;
     z-index: 2;
@@ -128,9 +127,7 @@
 
     input {
         height: 0;
-        //height: 70px;
         opacity: 0;
-        //opacity: 1;
         width: calc(100% - 90px);
         @include monts_400;
         position: relative;
@@ -304,7 +301,7 @@
     }
 
     @include max-screen(1024px) {
-        &__icon{
+        &__icon {
             display: inline-block;
         }
 
@@ -333,6 +330,19 @@
         }
     }
 
+    @include max-screen(768px) {
+        &__icon {
+            position: relative;
+            left: -15px;
+        }
+    }
+
+    //@include max-screen(480px) {
+    //    &__icon {
+    //        left: 0;
+    //    }
+    //}
+
     // ------ Mobile Menu Open ------
     &.menu_state_open &__icon span {
         &:nth-child(1) {
@@ -354,10 +364,6 @@
             width: 0;
             left: 50%;
         }
-    }
-
-    &.menu_state_open &__links {
-        //display: block;
     }
 }
 

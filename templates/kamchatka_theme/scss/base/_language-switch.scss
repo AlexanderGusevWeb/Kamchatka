@@ -4,14 +4,24 @@
 }
 
 .flags {
+    min-width: 40px;
     position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     z-index: 2;
+
     p {
         padding-right: 10px;
+
+        @include max-screen(768px) {
+            display: none;
+        }
+    }
+
+    @include max-screen(768px) {
+        top: 5px;
     }
 }
 
@@ -50,15 +60,13 @@
     }
 
     &__gap {
-        //width: 55px;
-        //height: 100%;
         background: transparent;
         color: #fff;
         text-transform: uppercase;
         font-size: 12px;
-        //padding: 10px 25px 0 0;
         cursor: pointer;
         position: relative;
+
         &::after {
             content: '';
             display: block;
@@ -77,6 +85,10 @@
             -ms-transform: rotate(0deg);
             -o-transform: rotate(0deg);
             transform: rotate(0deg);
+
+            @include max-screen(768px) {
+                top: 35px;
+            }
         }
     }
 
@@ -95,6 +107,12 @@
         opacity: 0;
         transition: all .5s ease;
         margin: 0 0;
+
+        @include max-screen(768px) {
+            top: 17px;
+            left: -3.5px;
+        }
+
         &.on {
             display: block;
         }
