@@ -13,6 +13,11 @@
     font-weight: 500;
 }
 
+@mixin monts_600 {
+    @include font-family ('Montserrat');
+    font-weight: 600;
+}
+
 @mixin monts_700 {
     @include font-family ('Montserrat');
     font-weight: 700;
@@ -28,11 +33,17 @@
     font-weight: 500;
 }
 
+@mixin oswald_600{
+    @include font-family ('Oswald');
+    font-weight: 600;
+}
+
 @mixin oswald_700 {
     @include font-family ('Oswald');
     font-weight: 700;
 }
 
+// Стиль основной кнопки
 @mixin main-button {
     .main-button {
         position: relative;
@@ -44,6 +55,7 @@
         padding: 15px 30px;
         transition: all .5s ease;
         cursor: pointer;
+
         &::before {
             position: absolute;
             content: '';
@@ -55,17 +67,54 @@
             transition: all .3s ease;
             z-index: -1;
         }
+
         &:hover {
             border: 1px solid $medium-blue;
             color: #fff;
+
             &::before {
                 right: 0;
+                opacity: 1;
             }
         }
 
 
         @include max-screen(480px) {
             font-size: 17px;
+        }
+    }
+}
+
+// Background для всех страниц
+// Header
+@mixin bg_header($top: 0, $right: 0, $bottom: 0, $left: 0) {
+    &::before {
+        position: absolute;
+        content: '';
+        top: $top;
+        right: $right;
+        bottom: $bottom;
+        left: $left;
+        background: url(/images/images-kamchatka/promo/promo1.png) 50% 50% no-repeat;
+        background-size: cover;
+        z-index: -1;
+    }
+}
+// Footer
+@mixin bg_footer($top: 0, $right: 0, $bottom: 0, $left: 0) {
+    &::before {
+        position: absolute;
+        content: '';
+        top: $top;
+        right: $right;
+        bottom: $bottom;
+        left: $left;
+        background: url(/images/images-kamchatka/promo/promo2.png) 50% 50% no-repeat;
+        background-size: cover;
+        z-index: -1;
+
+        @include max-screen(1024px) {
+            background: transparent;
         }
     }
 }

@@ -6,45 +6,26 @@
  * @var array $variables
  */
 
-$this->send404Status();
-$page = $this->get404Page();
+$page = $this->getPageById(47);
+
 ?>
 
-<div class="not_found">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-4">
-				<div class="img_container">
-					<img src="img/404.png" alt="<?= $page->getValue('h1') ?>">
+<div class="page404">
+    <div class="page404__body">
+        <div class="page404__text">
+            <h3>
+                <?= $page->getValue('h1') ?>
+            </h3>
 
-					<h2 umi:element-id="<?= $page->getId() ?>"
-					    umi:field-name="h1"
-						umi:empty="<?= $this->translate('empty_page_name') ?>"
-					>
-						<?= $page->getValue('h1') ?>
-					</h2>
-				</div>
-			</div>
+            <p>
+                <?= $page->getValue('content') ?>
+            </p>
+        </div>
 
-			<div class="col-md-4"
-			     umi:element-id="<?= $page->getId() ?>"
-			     umi:field-name="content"
-			     umi:empty="<?= $this->translate('empty_page_content') ?>"
-			>
-				<?= $page->getValue('content') ?>
-			</div>
-
-			<div class="col-md-4">
-				<div class="nav">
-					<a href="<?= $this->getHomePageUrl() ?>">
-						<?= $this->translate('back_to_home_page') ?>
-					</a>
-
-					<a href="<?= $this->getSiteMapUrl() ?>">
-						<?= $this->translate('sitemap') ?>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div class="page404__link">
+            <a href="<?= $this->getHomePageUrl() ?>" class="page404__button main-button">
+                <?= $this->translate('back_to_home_page') ?>
+            </a>
+        </div>
+    </div>
 </div>

@@ -4,19 +4,25 @@
     box-sizing: border-box;
 }
 
-html, body {
-    min-width: 300px;
-}
-
 body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 300px;
     overflow-x: hidden;
     margin: 0;
+}
+
+main {
+    flex: 1 0 auto;
+    min-height: 400px;
 }
 
 a {
     color: #fff;
     text-decoration: none;
     position: relative;
+
     &::before {
         position: absolute;
         content: '';
@@ -85,7 +91,12 @@ p {
     top: 0;
     left: 0;
     z-index: 99999;
-    background: linear-gradient(35deg, $medium-blue 20%, $dark_blue 100%);
+    background: $light-blue; /* Old browsers */
+    background: -moz-linear-gradient(35deg, $medium-blue 20%, $dark_blue 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(35deg, $medium-blue 20%, $dark_blue 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(35deg, $medium-blue 20%, $dark_blue 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='00A3E4', endColorstr='#006ABB',GradientType=0 ); /* IE6-9 */
+
     overflow: visible;
     img {
         animation: flipInY 2s ease-in;
@@ -95,8 +106,40 @@ p {
 .flat-arrow {
     position: relative;
     z-index: 10;
+
     &_middle {
         margin: 0 -14px;
         transition: margin .5s ease;
     }
+}
+
+// Стиль для Шаблона страниц
+.section_capt {
+    max-width: 1200px;
+    margin: 0 auto 20px;
+
+    h1 {
+        @include oswald_700;
+        color: #fff;
+        font-size: 40px;
+        margin: 0;
+    }
+
+    .row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-left: 65px;
+    }
+
+    .logo {
+        padding-right: 25px;
+    }
+}
+
+// Общие настройки внутренних страниц
+.secondary-page {
+    max-width: 1200px;
+    padding: 0;
+    margin: 0 auto;
 }

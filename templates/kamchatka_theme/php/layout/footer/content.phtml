@@ -41,20 +41,26 @@ foreach ($menu_items as $item) {
 
     <div class="footer__info">
         <h3>Соболевский муниципальный район</h3>
+
         <span class="footer__date">2014-<?= date("Y") ?></span>
-        <div class="footer__phone">
-            <a href="tel:<?= $main_phone ?>">
-                <p>Телефон</p>
-                <?= $main_phone ?>
-            </a>
+
+        <div class="footer__contacts">
+            <div class="footer__phone">
+                <a href="tel:<?= $main_phone ?>">
+                    <p>Телефон</p>
+                    <?= $main_phone ?>
+                </a>
+            </div>
+            <div class="footer__mail">
+                <a href="mailto:<?= $main_email ?>">
+                    <p>Почта</p>
+                    <?= $main_email ?>
+                </a>
+            </div>
         </div>
-        <div class="footer__mail">
-            <a href="mailto:<?= $main_email ?>">
-                <p>Почта</p>
-                <?= $main_email ?>
-            </a>
-        </div>
+
         <span class="footer__separate"></span>
+
         <p class="footer__prompt">
             Если Вы заметили опечатку или неточность - выделите текст и нажмите: Ctrl+Enter
         </p>

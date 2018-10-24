@@ -1,0 +1,49 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 23.10.2018
+ * Time: 11:39
+ */
+
+$page = $variables['page'];
+
+$pageContent = $page->getValue('content');
+$pageTabs = $page->getValue('charter-list');
+
+foreach ($pageTabs as $key => $item) {
+    $pageOneTab[$key]['title'] = $this->getObjectById($item)->name;
+    $pageOneTab[$key]['text'] = $this->getObjectById($item)->getValue('charter-text');
+}
+
+?>
+
+<div class="charter-page">
+    <?= $pageContent ?>
+
+    <span class="charter-page__button">
+        <span class="button-text active">Открыть все вкладки</span>
+        <span class="button-text">Закрыть все вкладки</span>
+        <span class="flaticon-back active"></span>
+    </span>
+
+    <div class="charter-tabs">
+        <?php foreach($pageOneTab as $key => $item): ?>
+
+            <div class="one-tab">
+                <div class="one-tab__title">
+                    <p>
+                        <?= $pageOneTab[$key]['title'] ?>
+                    </p>
+
+                    <span class="flaticon-minus-horizontal-straight-line active"></span>
+                </div>
+
+                <div class="one-tab__text">
+                    <?= $pageOneTab[$key]['text'] ?>
+                </div>
+            </div>
+
+        <?php endforeach;?>
+    </div>
+</div>

@@ -3,7 +3,6 @@
  */
 (function ($) {
     $(function () {
-
         // Переключение языка сайта START
         $('.select').each(function () {
             var $this = $(this),

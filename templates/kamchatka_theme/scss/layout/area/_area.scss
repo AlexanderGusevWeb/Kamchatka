@@ -1,0 +1,77 @@
+.area {
+    display: flex;
+    justify-content: flex-start;
+
+    ul  {
+        padding: 35px 15px 35px 0;
+        margin: 0;
+    }
+
+    li {
+        padding: 0;
+        margin: 0;
+    }
+    
+    a {
+        display: flex;
+        min-width: 250px;
+        padding: 15px;
+        @include monts_600;
+        color: #000;
+
+        &::before {
+            right: 100%;
+            background-color: $dark-blue;
+            z-index: -1;
+        }
+
+        &::after {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: calc(100% - 6px);
+            bottom: 0;
+            left: 0;
+            background-color: $light-blue;
+            opacity: 0;
+            transition: all .5s ease;
+        }
+
+        &:hover {
+            color: #fff;
+
+            &::before {
+                right: 0;
+                opacity: 1;
+            }
+        }
+
+        &.active {
+            pointer-events: none;
+
+            &::after {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.one-page {
+    width: calc(100% - 250px);
+    background-color: darken(#fff, 3%) ;
+    padding: 35px 35px 0;
+
+    h2 {
+        padding-bottom: 15px;
+        margin: 0;
+    }
+    p {
+        @include monts_400;
+        font-size: 16px;
+        line-height: 22px;
+    }
+}
+
+.about-area {
+    margin-bottom: 35px;
+}

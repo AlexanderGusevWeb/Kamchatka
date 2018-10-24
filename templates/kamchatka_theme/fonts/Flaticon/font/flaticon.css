@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 07/09/2018 09:48
+  	Creation date: 24/10/2018 17:18
   	*/
 
 @font-face {
@@ -29,20 +29,21 @@ font-style: normal;
 margin-left: 20px;
 }
 
-.flaticon-close:before { content: "\f100"; }
-.flaticon-placeholder:before { content: "\f101"; }
-.flaticon-cloudy:before { content: "\f102"; }
-.flaticon-child:before { content: "\f103"; }
-.flaticon-glasses:before { content: "\f104"; }
-.flaticon-map-location:before { content: "\f105"; }
-.flaticon-magnifying-glass:before { content: "\f106"; }
-.flaticon-diagram:before { content: "\f107"; }
-.flaticon-multiple-users-silhouette:before { content: "\f108"; }
-.flaticon-grid-world:before { content: "\f109"; }
-.flaticon-return:before { content: "\f10a"; }
-.flaticon-link:before { content: "\f10b"; }
-.flaticon-next:before { content: "\f10c"; }
-.flaticon-dot:before { content: "\f10d"; }
-.flaticon-back:before { content: "\f10e"; }
-.flaticon-next-1:before { content: "\f10f"; }
-.flaticon-circular-shape-silhouette:before { content: "\f110"; }
+.flaticon-placeholder:before { content: "\f100"; }
+.flaticon-cloudy:before { content: "\f101"; }
+.flaticon-child:before { content: "\f102"; }
+.flaticon-glasses:before { content: "\f103"; }
+.flaticon-map-location:before { content: "\f104"; }
+.flaticon-magnifying-glass:before { content: "\f105"; }
+.flaticon-diagram:before { content: "\f106"; }
+.flaticon-multiple-users-silhouette:before { content: "\f107"; }
+.flaticon-grid-world:before { content: "\f108"; }
+.flaticon-return:before { content: "\f109"; }
+.flaticon-link:before { content: "\f10a"; }
+.flaticon-next:before { content: "\f10b"; }
+.flaticon-dot:before { content: "\f10c"; }
+.flaticon-back:before { content: "\f10d"; }
+.flaticon-next-1:before { content: "\f10e"; }
+.flaticon-circular-shape-silhouette:before { content: "\f10f"; }
+.flaticon-close:before { content: "\f110"; }
+.flaticon-minus-horizontal-straight-line:before { content: "\f111"; }

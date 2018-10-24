@@ -1,5 +1,6 @@
-footer {
+.footer {
     position: relative;
+    width: 100%;
     max-width: 1200px;
     height: 450px;
     background-color: rgba($extra-dark-blue, .8);
@@ -7,14 +8,65 @@ footer {
     z-index: 2;
     padding: 50px 100px;
     box-sizing: border-box;
-}
 
-.footer {
+    @include bg_footer(0, -100vw, 0, -100vw);
+
+    &::after {
+        position: absolute;
+        content: '';
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba($extra-dark-blue, .8);
+        background-size: cover;
+        z-index: -1;
+    }
+
+    @include max-screen(1024px) {
+        overflow: hidden;
+        height: auto;
+        padding: 25px 50px;
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url(/images/images-kamchatka/promo/promo2.png) 50% 50% no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
+    }
+
+    @include max-screen(768px) {
+        padding: 25px;
+    }
+
     &__content {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         box-sizing: border-box;
+
+        @include max-screen(1024px) {
+            position: relative;
+            flex-direction: column;
+
+            &::before {
+                position: absolute;
+                content: '';
+                top: -25px;
+                right: -50px;
+                bottom: -150px;
+                left: -50px;
+                background-color: rgba($extra-dark-blue, .8);
+                background-size: cover;
+                z-index: -1;
+            }
+        }
     }
 
     &__menu {
@@ -24,12 +76,34 @@ footer {
         justify-content: center;
         align-items: flex-start;
 
+        @include max-screen(1024px) {
+            width: 100%;
+        }
+
         ul {
             padding: 0;
+
+            @include max-screen(1024px) {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
         }
 
         li {
             margin-bottom: 20px;
+
+            @include max-screen(1024px) {
+                width: calc(100% / 3);
+                padding: 0 20px;
+                margin-bottom: 25px;
+            }
+
+            @include max-screen(768px) {
+                width: 50%;
+                margin-bottom: 15px;
+            }
+
             &:hover {
                 a {
                     &::before {
@@ -45,11 +119,19 @@ footer {
             font-size: 16px;
             text-transform: uppercase;
 
+            @include max-screen(768px) {
+                font-size: 14px;
+            }
+
             &::before {
                 top: 110%;
                 bottom: -20%;
                 right: 100%;
                 background-color: #fff;
+
+                @include max-screen(1024px) {
+                    display: none;
+                }
             }
         }
     }
@@ -66,15 +148,41 @@ footer {
         @include monts_500;
         font-size: 16px;
 
+        @include max-screen(1024px) {
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+        }
+
     }
 
     h3 {
         color: $light-blue;
+
+        @include max-screen(768px) {
+            text-align: center;
+        }
     }
 
     &__date {
         margin-bottom: 25px;
 
+    }
+
+    &__contacts {
+        display: flex;
+        flex-direction: column;
+
+        @include max-screen(1024px) {
+            width: 100%;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        @include max-screen(768px) {
+            flex-direction: column;
+            align-items: center;
+        }
     }
 
     &__phone,
@@ -83,15 +191,24 @@ footer {
         max-width: 270px;
         margin-bottom: 25px;
 
+        @include max-screen(1024px) {
+            margin: 0 20px 25px;
+        }
+
         a {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            @include max-screen(1024px) {
+                justify-content: center;
+            }
         }
 
         p {
             @include monts_500;
+            padding-right: 20px;
             margin: 0;
         }
 
@@ -102,6 +219,10 @@ footer {
         height: 2px;
         background-color: $light-blue;
         margin-bottom: 25px;
+
+        @include max-screen(1024px) {
+            width: 100%;
+        }
     }
 
     &__prompt {
@@ -110,5 +231,10 @@ footer {
         max-width: 300px;
         text-transform: none;
         margin: 0;
+
+        @include max-screen(1024px) {
+            text-align: center;
+            max-width: 100%;
+        }
     }
 }

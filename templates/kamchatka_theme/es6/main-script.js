@@ -1,7 +1,6 @@
 (function ($) {
     $(function () {
-        // Script обрезки текста
-        $('.one-news__text').ellipsis({'setTitle':'onEllipsis'} );
+
 
     });
 
@@ -13,4 +12,11 @@
             $('.news').addClass('show');
         }, 300);
     });
+
+    // Fix для Slick слайдера главная/события
+    $(window).on('resize', function () {
+        if($('#home-page').length == true ) {
+            location.reload();
+        }
+    })
 })(jQuery);

@@ -1,0 +1,82 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 22.10.2018
+ * Time: 14:33
+ */
+
+$page404 = $this->getPageById(47);
+
+$page = $variables['page'];
+$pageId = $page->id;
+$pageTitle = $page->getValue('h1');
+$pageLink = $page->link;
+$pageAlt = $page->getAltName();
+$pageContent = $page->getValue('content');
+
+$pageArea_insidePages = $this->macros('content', 'menu', array(null, 1, 4))['items'];
+
+foreach ($pageArea_insidePages as $key => $item) {
+    $pageArea_onePage[$key]['id'] = $item['id'];
+    $pageArea_onePage[$key]['title'] = $this->getPageById($item['id'])->getName();
+    $pageArea_onePage[$key]['link'] = $item['link'];
+    $pageArea_onePage[$key]['status'] = $item['status'];
+}
+
+$pageArea['id'] = $this->getPageById(4)->id;
+$pageArea['title'] = $this->getPageById(4)->getValue('h1');
+$pageArea['link'] = $this->getPageById(4)->link;
+
+if ($pageLink == $pageArea['link']) {
+    $pageArea['status'] = "active";
+}
+
+array_unshift($pageArea_onePage, $pageArea);
+
+?>
+
+<?= $this->render($variables, 'content/header-pages') ?>
+
+<div class="secondary-page area">
+    <nav>
+        <ul class="area__menu">
+            <? foreach($pageArea_onePage as $key => $item): ?>
+                <li class="about-area__item">
+                    <a id="pageId-<?= $item['id'] ?>" class="<?= $item['status'] ?>" href="<?= $item['link'] ?>">
+                        <?= $item['title'] ?>
+                    </a>
+                </li>
+            <? endforeach; ?>
+        </ul>
+    </nav>
+
+    <section class="one-page pageId-<?= $pageId ?>">
+        <h2>
+            <?= $pageTitle ?>
+        </h2>
+
+        <div class="one-page__body">
+
+            <?php if ($pageLink == $pageArea['link']): ?>
+
+                <div class="about-area">
+                    <?= $pageContent ?>
+                </div>
+
+            <?php else: ?>
+
+                <?php if(file_exists(realpath(dirname(__FILE__)).'/'.$pageAlt.'.phtml')): ?>
+                    <?= $this->render($variables, 'content/area/'.$pageAlt) ?>
+
+                <?php else: ?>
+                    <div  class="page-content">
+                        <?= $pageContent ?>
+                    </div>
+                <?php endif; ?>
+
+            <?php endif; ?>
+
+        </div>
+    </section>
+</div>

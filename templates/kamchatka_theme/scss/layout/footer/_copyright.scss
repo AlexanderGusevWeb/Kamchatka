@@ -1,9 +1,15 @@
 .copyright {
+    min-height: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
     @include monts_400;
+
+    @include max-screen(768px) {
+        text-align: center;
+        flex-direction: column;
+    }
 
     a {
         min-width: 200px;
@@ -11,12 +17,21 @@
         align-items: center;
         padding-left: 10px;
 
+        @include max-screen(768px) {
+            justify-content: center;
+            padding-left: 0;
+        }
+
         &::before {
             top: 100%;
             right: 80px;
             bottom: -1px;
             left: 10px;
             background-color: $light-blue;
+
+            @include max-screen(768px) {
+                display: none;
+            }
         }
 
         img {

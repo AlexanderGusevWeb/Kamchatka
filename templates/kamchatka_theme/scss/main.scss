@@ -7,6 +7,8 @@
 @import 'base/language-switch';
 @import 'base/map-site';
 @import 'base/eyeglasses';
+@import 'base/breadcrumbs';
+@import 'base/page404';
 
 @import 'layout/header/main-menu';
 @import 'layout/header/header-top';
@@ -20,3 +22,11 @@
 
 @import 'layout/footer/content';
 @import 'layout/footer/copyright';
+
+@import 'layout/area/area';
+@import 'layout/area/charter-area';
+@import 'layout/area/honorary-area';
+@import 'layout/area/map-area';
+@import 'layout/area/newspaper-area';
+@import 'layout/area/settlements-area';
+@import 'layout/area/symbols-area';

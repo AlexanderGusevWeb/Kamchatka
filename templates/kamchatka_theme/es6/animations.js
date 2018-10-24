@@ -29,11 +29,13 @@
                     opacity: 1
                 }, 100).css('border', '2px solid #fff');
 
+                $(".buttonSearch__main form").animate({
+                    height: 70
+                }, 800);
 
                 $(".buttonSearch__main button").animate({
                     top: 0
                 }, 800);
-
 
                 $(".buttonSearch__mobile-top button").animate({
                     top: 65
@@ -80,9 +82,17 @@
                     }, 300);
                 }, 200);
 
+                $(".buttonSearch__main form").animate({
+                    height: 0
+                }, 800);
+
                 $(".buttonSearch__main button").animate({
                     top: -70
                 }, 800);
+
+                $(".buttonSearch button.btn1 .flaticon-magnifying-glass").css('display', 'block');
+
+                $(".buttonSearch button.btn2").css('display', 'none');
 
                 $(".buttonSearch__mobile-top button").animate({
                     top: -35
@@ -273,6 +283,20 @@
         //Анимация WOW.js START
         new WOW().init();
         //Анимация WOW.js END
+
+        //Страница "Устав муниципального района" табаы START
+        // Кнопка
+        $('.charter-page__button').on('click', function () {
+            $('.button-text').toggleClass('active');
+
+            $('.charter-page__button .flaticon-back').toggleClass('active');
+
+            $('.one-tab__title').toggleClass('active');
+
+            $('.one-tab__text').toggle(500);
+        })
+        // Один таб
+        //Страница "Устав муниципального района" табаы END
     });
 
     $(window).load(function () {

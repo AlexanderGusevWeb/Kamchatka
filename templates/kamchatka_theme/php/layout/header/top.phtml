@@ -8,10 +8,10 @@
 
 $settings = $this->getSettingsContainer('main_config');
 $page = $variables['page'];
-$langId = $page->getLangId();
-$collection = langsCollection::getInstance()->getList();
 
-$lang = $collection[$langId]->getPrefix();
+$lang = $variables['lang'];
+
+$collection = langsCollection::getInstance()->getList();
 
 $main_address = $settings->getValue('main-address');
 $main_phone = $settings->getValue('main-phone');

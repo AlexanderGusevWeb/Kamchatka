@@ -1,3 +1,13 @@
+header {
+    position: relative;
+
+    @include bg_header(0, 0, -150px, 0);
+    
+    a {
+        color: #fff;
+    }
+}
+
 .header-top {
     position: relative;
     max-width: 1200px;

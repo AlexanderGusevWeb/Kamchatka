@@ -1,3 +1,20 @@
+#home-page {
+    main {
+        margin-bottom: 30px;
+    }
+
+    header {
+        margin-bottom: 0;
+    }
+
+    header,
+    footer {
+        &::before {
+            display: none;
+        }
+    }
+}
+
 .home-page {
     &__container-header {
         height: 100%;
@@ -6,21 +23,12 @@
         justify-content: center;
         align-items: center;
         padding: 100px 50px 50px;
+
         @include max-screen(1024px) {
             padding: 50px;
         }
 
-        &::before {
-            position: absolute;
-            content: '';
-            top: -200px;
-            right: 0;
-            bottom: -400px;
-            left: 0;
-            background: url(/images/images-kamchatka/promo/promo1.png) 50% 50% no-repeat;
-            background-size: cover;
-            z-index: -1;
-        }
+        @include bg_header(-200px, 0, -400px, 0);
     }
 
     &__promo1 {
@@ -55,7 +63,6 @@
     &__header-text {
         width: 70%;
         padding-left: 50px;
-
         @include max-screen(768px) {
             width: 100%;
             text-align: center;
@@ -89,4 +96,8 @@
 
         @include main-button
     }
+}
+
+.body {
+
 }

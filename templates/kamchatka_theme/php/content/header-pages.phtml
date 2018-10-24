@@ -1,0 +1,50 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 22.10.2018
+ * Time: 14:28
+ */
+
+$page = $variables['page'];
+
+$settings = $this->getSettingsContainer('main_config');
+
+$element = umiHierarchy::getInstance()->getElement($page->id);
+$objects = umiObjectsCollection::getInstance();
+
+if($element) {
+    $pageObjectId = $element->getObjectId();
+    $pageTypeId = $objects->getObject($pageObjectId)->getTypeId();
+}
+
+?>
+
+<?= $this->render($variables, 'layout/breadcrumbs') ?>
+
+<div class="section_capt">
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <?= $this->render(
+                    [
+                        'id' => $settings->getId(),
+                        'field_name' => 'logo1',
+                        'src' => $settings->getValue('logo1'),
+                        'alt' => "logo",
+                        'width' => 40,
+                        'height' => 50,
+                    ],
+                    'library/thumbnail'
+                ) ?>
+            </div>
+
+            <h1 umi:element-id="<?= $page->getId() ?>"
+                umi:field-name="h1"
+                umi:empty="<?= $this->translate('empty_page_name') ?>"
+            >
+                <?= $page->getValue('h1') ?>
+            </h1>
+        </div>
+    </div>
+</div>

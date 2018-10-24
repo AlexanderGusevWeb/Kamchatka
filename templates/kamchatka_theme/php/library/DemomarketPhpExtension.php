@@ -30,9 +30,9 @@ class DemomarketPhpExtension extends ViewPhpExtension {
 		$templateEngine->setCommonVar('request_uri', $variables['request-uri']);
 		$templateEngine->setCommonVar('user', $variables['user']);
 
-		$cart = $this->macros('emarket', 'cart');
-		$templateEngine->setCommonVar('cart', $cart);
-		$templateEngine->setCommonVar('order_id', isset($cart['id']) ? $cart['id'] : '');
+		// $cart = $this->macros('emarket', 'cart');
+		// $templateEngine->setCommonVar('cart', $cart);
+		// $templateEngine->setCommonVar('order_id', isset($cart['id']) ? $cart['id'] : '');
 	}
 
 	/**

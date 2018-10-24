@@ -5,6 +5,13 @@
  * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
  * @var array $variables
  */
+
+$homePage = $this->isHomePage($variables);
+
+if ($homePage == true) {
+    $bodyId = "home-page";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +20,7 @@
 		<?= $this->render($variables, 'layout/head') ?>
 	</head>
 
-	<body>
+	<body id="<?= $bodyId ?>">
         <div id="preloader">
             <img src="/images/images-kamchatka/logo/logo1.png" alt="preloader"/>
         </div>

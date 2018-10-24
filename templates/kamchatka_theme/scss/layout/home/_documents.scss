@@ -2,28 +2,24 @@
     &__container-footer {
         height: 100%;
         position: relative;
+        z-index: 2;
 
-        &::before {
-            position: absolute;
-            content: '';
-            top: 0;
-            right: 0;
-            bottom: -450px;
-            left: 0;
-            background: url(/images/images-kamchatka/promo/promo2.png) 50% 50% no-repeat;
-            background-size: cover;
-            z-index: -1;
-        }
+        @include bg_footer(0, 0, -480px, 0);
     }
 }
 
 .documents {
     position: relative;
     max-width: 1200px;
-    margin: 0 auto 30px;
+    margin: 0 auto;
     z-index: 2;
     background-color: #fff;
     @include monts_400;
+    box-shadow: 25px 30px 80px -35px #000, -25px 30px 80px -35px #000;
+
+    @include max-screen(1024px) {
+        margin: 0 auto;
+    }
 
     &__title {
         display: flex;
@@ -40,6 +36,12 @@
             background-color: $dark-blue;
             padding-left: 50px;
             position: relative;
+
+            @include max-screen(1024px) {
+                width: 50%;
+                padding: 0 25px;
+            }
+
             &::before {
                 position: absolute;
                 content: '';
@@ -50,12 +52,24 @@
                 background-color: $dark-blue;
                 z-index: -1;
                 transform: skewX(45.5deg);
+
+                @include max-screen(768px) {
+                    display: none;
+                }
             }
 
             h3 {
                 font-size: 24px;
                 color: #fff;
                 margin: 0;
+
+                @include max-screen(1024px) {
+                    font-size: 21px;
+                }
+
+                @include max-screen(768px) {
+                    font-size: 17px;
+                }
 
                 span {
                     color: $light-blue;
@@ -72,6 +86,11 @@
             color: $light-blue;
             padding-right: 50px;
             position: relative;
+
+            @include max-screen(1024px) {
+                width: 50%;
+                padding: 0 25px;
+            }
 
             &::before {
                 position: absolute;
@@ -92,6 +111,15 @@
                 text-transform: uppercase;
                 @include monts_500;
                 margin-right: - 10px;
+
+                @include max-screen(1024px) {
+                    font-size: 17px;
+                    text-align: right;
+                }
+
+                @include max-screen(768px) {
+                    font-size: 15px;
+                }
 
                 &::before {
                     top: 95%;
@@ -115,6 +143,11 @@
             .flat-arrow {
                 min-width: 50px;
                 padding-left: 10px;
+
+                @include max-screen(768px) {
+                    display: none;
+                }
+
                 &:hover {
                     cursor: auto;
                 }
@@ -127,12 +160,27 @@
         justify-content: space-between;
         padding: 35px 30px;
 
+        @include max-screen(1024px) {
+            flex-wrap: wrap;
+        }
+
         .one-document {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             width: calc(100% / 6);
             margin: 0 10px;
+
+            @include max-screen(1024px) {
+                width: calc(100% / 3);
+                padding: 0 20px;
+                margin: 0;
+                margin-bottom: 50px;
+            }
+
+            @include max-screen(768px) {
+                width: 50%;
+            }
 
             &__img {
                 text-align: center;

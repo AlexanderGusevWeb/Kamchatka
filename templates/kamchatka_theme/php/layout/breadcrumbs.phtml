@@ -1,0 +1,37 @@
+<?php
+/**
+ * Хлебные крошки.
+ * 
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ * @var iUmiHierarchyElement[] $parentList
+ */
+
+$parentList = $variables['parents'];
+?>
+
+<ul class="breadcrumbs">
+    <li>
+        <a href="/" class="breadcrumbs__parent">
+            Главная
+        </a>
+
+        <span class="breadcrumbs__separate">&#47;</span>
+    </li>
+
+	<?php foreach ($parentList as $parent): ?>
+		<li>
+			<a href="<?= $this->getPath($parent) ?>" class="breadcrumbs__parent">
+				<?= $parent->getName() ?>
+			</a>
+
+			<span class="breadcrumbs__separate">&#47;</span>
+		</li>
+	<?php endforeach; ?>
+
+	<li>
+		<p class="breadcrumbs__text">
+			<?= $variables['page']->getName() ?>
+		</p>
+	</li>
+</ul>
