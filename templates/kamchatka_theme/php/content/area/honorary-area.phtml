@@ -10,8 +10,75 @@ $page = $variables['page'];
 
 $pageContent = $page->getValue('content');
 
+$peopleList = $page->getValue('people-list');
+
+foreach($peopleList as $key => $item) {
+    $oneHuman[$key]['id'] = $this->getObjectById($item)->id;
+    $oneHuman[$key]['name'] = $this->getObjectById($item)->name;
+    $oneHuman[$key]['date'] = $this->getObjectById($item)->getValue('human-date');
+    $oneHuman[$key]['profession'] = $this->getObjectById($item)->getValue('human-profession');
+    $oneHuman[$key]['short-text'] = $this->getObjectById($item)->getValue('human-short-text');
+    $oneHuman[$key]['full-text'] = $this->getObjectById($item)->getValue('human-full-text');
+    $oneHuman[$key]['photo'] = $this->render(
+        [
+            'id' => $page->getId(),
+            'field_name' => 'logo1',
+            'src' => $this->getObjectById($item)->getValue('human-photo'),
+            'alt' => "logo",
+            'width' => 225,
+            'height' => 285,
+        ],
+    'library/thumbnail');
+}
+
 ?>
 
 <div class="honorary-page">
+
     <?= $pageContent ?>
+    
+    <div class="honorary-page__body">
+        <? foreach ($oneHuman as $key => $item): ?>
+
+            <div class="human">
+                <div class="human__main">
+                    <div class="human__image">
+                        <?= $item['photo'] ?>
+                    </div>
+
+                    <div class="human__info">
+                        <p class="human__name">
+                            <?= $item['name'] ?>
+                        </p>
+
+                        <p class="human__date">
+                            <?= $item['date'] ?>
+                        </p>
+
+                        <p class="human__profession">
+                            <?= $item['profession'] ?>
+                        </p>
+
+                        <p class="human__short-text">
+                            <?= $item['short-text'] ?>
+                        </p>
+
+                        <span class="tabs__button honorary-page__button">
+                            <span class="button-text active-one">Показать полную информацию</span>
+                            <span class="button-text two">Скрыть полную информацию</span>
+                            <span class="flaticon-back active"></span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="human__footer">
+                    <div class="human__full-text">
+                        <?= $item['full-text'] ?>
+                    </div>
+                </div>
+            </div>
+
+        <? endforeach; ?>
+    </div>
+    
 </div>

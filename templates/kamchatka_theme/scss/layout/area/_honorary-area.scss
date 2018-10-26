@@ -1,0 +1,89 @@
+.honorary-page {
+    &__button {
+        width: 100%;
+        max-width: 385px;
+        margin: 0;
+    }
+}
+
+.human {
+    background-color: #fff;
+    margin-bottom: 30px;
+
+    p {
+        margin: 0;
+    }
+
+    &__main {
+        display: flex;
+        max-height: 285px;
+    }
+
+    &__image {
+        width: 300px;
+    }
+
+    &__info {
+        position: relative;
+        width: calc(100% - 300px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 25px 45px 25px 0;
+
+        &::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            right: 45px;
+            bottom: 0;
+            left: 0;
+            border-bottom: 1px solid rgba(#444, .2);
+            opacity: 0;
+            transition: all .5s ease;
+        }
+
+        &.active {
+            &::before {
+                opacity: .3;
+            }
+        }
+    }
+
+    &__name {
+        @include monts_600;
+        font-size: 17px;
+    }
+
+    &__date {
+        @include monts_400;
+        font-size: 17px;
+    }
+
+    &__profession {
+        @include monts_500;
+        font-size: 17px;
+    }
+
+    &__short-text {
+        @include monts_400;
+        font-size: 14px;
+        color: rgba(#444, .3);
+    }
+
+    &__footer {
+        display: none;
+        padding: 30px 40px 0;
+    }
+
+    &__full-text {
+        display: flex;
+        flex-direction: column;
+
+        p {
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+    }
+}

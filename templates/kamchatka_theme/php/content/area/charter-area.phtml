@@ -19,11 +19,12 @@ foreach ($pageTabs as $key => $item) {
 ?>
 
 <div class="charter-page">
+
     <?= $pageContent ?>
 
-    <span class="charter-page__button">
-        <span class="button-text active">Открыть все вкладки</span>
-        <span class="button-text">Закрыть все вкладки</span>
+    <span class="tabs__button charter-page__button">
+        <span class="button-text active-one">Открыть все вкладки</span>
+        <span class="button-text two">Закрыть все вкладки</span>
         <span class="flaticon-back active"></span>
     </span>
 
@@ -36,7 +37,7 @@ foreach ($pageTabs as $key => $item) {
                         <?= $pageOneTab[$key]['title'] ?>
                     </p>
 
-                    <span class="flaticon-minus-horizontal-straight-line active"></span>
+                    <span class="flaticon-minus-horizontal-straight-line"></span>
                 </div>
 
                 <div class="one-tab__text">

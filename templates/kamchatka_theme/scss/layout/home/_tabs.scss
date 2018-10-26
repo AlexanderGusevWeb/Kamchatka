@@ -64,10 +64,6 @@
                 }
             }
 
-            //@include max-screen(768px) {
-            //    width: calc(100% / 3);
-            //}
-
             @include max-screen(768px) {
                 width: 100%;
             }

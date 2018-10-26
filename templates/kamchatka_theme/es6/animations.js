@@ -270,12 +270,12 @@
             }, 300);
 
             setTimeout(function () {
-                $('.activities__tab-body[data='+ thisTab +']').removeClass('d_none').animate({
+                $('.activities__tab-body[data=' + thisTab + ']').removeClass('d_none').animate({
                     opacity: 1
                 }, 200);
             }, 500);
 
-            $('.activities__tab-link[data='+ thisTab +']').addClass('action');
+            $('.activities__tab-link[data=' + thisTab + ']').addClass('action');
 
         });
         // Анимация табы "Направления деятельности" END
@@ -285,18 +285,70 @@
         //Анимация WOW.js END
 
         //Страница "Устав муниципального района" табаы START
-        // Кнопка
+        // Кнопка открыть/закрыть табы
         $('.charter-page__button').on('click', function () {
-            $('.button-text').toggleClass('active');
+            // Стрелка
+            $('.tabs__button .flaticon-back').toggleClass('active');
 
-            $('.charter-page__button .flaticon-back').toggleClass('active');
+            if ($('.two').length == true) {
+                // Табы откурыть
+                $('.one-tab__title').addClass('active');
+                $('.one-tab__text').show(500);
 
-            $('.one-tab__title').toggleClass('active');
+                // Смена текста кнопки
+                $('.active-one').addClass('one').removeClass('active-one');
+                $('.two').addClass('active-two').removeClass('two');
 
-            $('.one-tab__text').toggle(500);
-        })
+            } else {
+                // Табы закрыть
+                $('.one-tab__title').removeClass('active');
+                $('.one-tab__text').hide(500);
+
+                // Смена текста кнопки
+                $('.active-two').addClass('two').removeClass('active-two');
+                $('.one').addClass('active-one').removeClass('one');
+            }
+        });
+
         // Один таб
+        $('.flaticon-minus-horizontal-straight-line').on('click', function () {
+            $(this).closest('.one-tab').find('.one-tab__title').toggleClass('active');
+            $(this).closest('.one-tab').find('.one-tab__text').toggle(500);
+        });
         //Страница "Устав муниципального района" табаы END
+
+        //Страница "Почётные граждане" табаы START
+        $('.honorary-page__button').on('click', function () {
+
+            var $human = $(this).parents('.human');
+
+            // Стрелка
+            $human.find('.tabs__button .flaticon-back').toggleClass('active');
+            
+            if ($human.find('.human__info.active').length == false) {
+                // Разделительная линия показать
+                $human.find('.human__info').toggleClass('active');
+
+                // Табы откурыть
+                $human.find('.human__footer').show(500);
+
+                // Смена текста кнопки
+                $human.find('.active-one').addClass('one').removeClass('active-one');
+                $human.find('.two').addClass('active-two').removeClass('two');
+
+            } else {
+                $human.find('.human__info').toggleClass('active');
+
+                // Табы закрыть
+                $human.find('.human__footer').hide(500);
+
+                // Смена текста кнопки
+                $human.find('.active-two').addClass('two').removeClass('active-two');
+                $human.find('.one').addClass('active-one').removeClass('one');
+            }
+
+        });
+        //Страница "Почётные граждане" табаы END
     });
 
     $(window).load(function () {

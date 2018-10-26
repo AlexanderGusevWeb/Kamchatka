@@ -7,11 +7,94 @@
  */
 
 $page = $variables['page'];
+$settings = $this->getSettingsContainer('main_config');
 
-$pageContent = $page->getValue('content');
+$titleContent = $page->getValue('title-content');
+$titleContent_2 = $page->getValue('title-content_2');
+
+$content = $page->getValue('content');
+$content_2 = $page->getValue('content_2');
+
+$pageTabs = $page->getValue('symbols-list');
+
+foreach ($pageTabs as $key => $item) {
+    $pageOneTab[$key]['title'] = $this->getObjectById($item)->name;
+    $pageOneTab[$key]['text'] = $this->getObjectById($item)->getValue('symbols-text');
+}
+
 
 ?>
 
 <div class="symbols-page">
-    <?= $pageContent ?>
+    <div class="logo-block">
+        <h4>
+            <?= $titleContent ?>
+        </h4>
+
+        <div class="logo-block__body">
+            <div class="logo-block__logo">
+                <?= $this->render(
+                    [
+                        'id' => $settings->getId(),
+                        'field_name' => 'logo1',
+                        'src' => $settings->getValue('logo1'),
+                        'alt' => "logo",
+                        'width' => 130,
+                        'height' => 165,
+                    ],
+                    'library/thumbnail'
+                ) ?>
+            </div>
+
+            <div class="logo-block__text">
+                <?= $content ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="logo-block">
+        <h4>
+            <?= $titleContent_2 ?>
+        </h4>
+
+        <div class="logo-block__body">
+            <div class="logo-block__logo">
+                <?= $this->render(
+                    [
+                        'id' => $settings->getId(),
+                        'field_name' => 'logo1',
+                        'src' => $settings->getValue('logo3'),
+                        'alt' => "logo",
+                        'width' => 165,
+                        'height' => 110,
+                    ],
+                    'library/thumbnail'
+                ) ?>
+            </div>
+
+            <div class="logo-block__text">
+                <?= $content_2 ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="symbols-tabs">
+        <?php foreach($pageOneTab as $key => $item): ?>
+
+            <div class="one-tab">
+                <div class="one-tab__title">
+                    <p>
+                        <?= $pageOneTab[$key]['title'] ?>
+                    </p>
+
+                    <span class="flaticon-minus-horizontal-straight-line"></span>
+                </div>
+
+                <div class="one-tab__text">
+                    <?= $pageOneTab[$key]['text'] ?>
+                </div>
+            </div>
+
+        <?php endforeach;?>
+    </div>
 </div>

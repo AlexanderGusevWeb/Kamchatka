@@ -80,7 +80,7 @@ p {
     @include monts_400;
 }
 
-// preloader
+// Прелоадер
 #preloader {
     display: flex;
     justify-content: center;
@@ -113,7 +113,7 @@ p {
     }
 }
 
-// Стиль для Шаблона страниц
+// Стиль для общего Шаблона страниц
 .section_capt {
     max-width: 1200px;
     margin: 0 auto 20px;
@@ -134,6 +134,20 @@ p {
 
     .logo {
         padding-right: 25px;
+    }
+
+    .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        padding-bottom: 30px;
+
+        & > h2 {
+            font-size: 45px;
+            color: $dark-blue;
+            text-shadow: 2px 2px 4px #000;
+        }
     }
 }
 

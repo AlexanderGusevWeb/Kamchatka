@@ -8,10 +8,323 @@
 
 $page = $variables['page'];
 
+$settings = $this->getSettingsContainer('main_config');
+
 $pageContent = $page->getValue('content');
 
+$area[0] = $settings->getValue('sobolevo-area');
+$area[1] = $settings->getValue('ustevo-area');
+$area[2] = $settings->getValue('krutogorovo-area');
+$area[3] = $settings->getValue('ichinsky-area');
+
+$population[0] = $settings->getValue('sobolovo-population');
+$population[1] = $settings->getValue('ustevo-population');
+$population[2] = $settings->getValue('krutogorovo-population');
+$population[3] = $settings->getValue('ichinsky-population');
+
+$indigenous[0] = $settings->getValue('sobolevo-indigenous');
+$indigenous[1] = $settings->getValue('ustevo-indigenous');
+$indigenous[2] = $settings->getValue('krutogorovo-indigenous');
+$indigenous[3] = $settings->getValue('ichinsky-indigenous');
+
+function arraySumm( $array ){
+    foreach( $array as $key => $value ){
+        $array[$key] = str_replace(',', '.', $value );
+    }
+
+    return str_replace('.', ',', array_sum($array));
+}
 ?>
 
 <div class="settlements-page">
-    <?= $pageContent ?>
+    <span class="settlements-page__content">
+        <?= $pageContent ?>
+    </span>
+
+    <div class="settlements-page__list-block">
+        <ol>
+            <li>
+                <p>Административный центр с. Соболево - <span class="c_black"><?= $page->getValue('admin-center'); ?></span></p>
+            </li>
+
+            <li>
+                <p>Расстояние от административного центра до г. Петропавловска-Камчатского (км) - <span class="c_black"><?= $page->getValue('admin-way'); ?></span></p>
+                <p>По автомобильным дорогам - <span class="c_black"><?= $page->getValue('admin-road'); ?></span></p>
+                <p>Воздушным путем(км) - <span class="c_black"><?= $page->getValue('admin-air'); ?></span></p>
+            </li>
+
+            <li>
+                <p>Площадь территории (кв.км) - <span class="c_black"><?= arraySumm($area); ?></span></p>
+            </li>
+
+            <li>
+                <p>Численность населения (чел.) - <span class="c_black"><?= arraySumm($population); ?></span></p>
+                <p>в том числе относящегося к коренным малочисленным народам (чел.) - <span class="c_black"><?= arraySumm($indigenous); ?></span></p>
+            </li>
+
+            <li>
+                <p>Число административно-территориальных единиц - <span class="c_black"><?= $page->getValue('admin-number_1'); ?></span></p>
+                <p>В том числе:</p>
+                <p>сельских населенных пунктов - <span class="c_black"><?= $page->getValue('admin-number_2'); ?></span></p>
+            </li>
+        </ol>
+    </div>
+
+    <h4>
+        Населенные пункты, расположенные в границах территории  муниципального района
+    </h4>
+
+    <div class="table table1">
+        <div class="table-col table-col__1">
+            <div>
+                <span>№</span>
+                <span>п/п</span>
+            </div>
+            <div>1.</div>
+            <div>2.</div>
+            <div>3.</div>
+            <div>4.</div>
+        </div>
+
+        <div class="table-col table-col__2">
+            <div>
+                <p>
+                    Статус и наименование населенного пункта
+                </p>
+            </div>
+            <div>
+                <?= $settings->getValue('sobolevo-prefix') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ustevo-prefix') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('krutogorovo-prefix') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ichinsky-prefix') ?>
+            </div>
+        </div>
+
+        <div class="table-col table-col__3">
+            <div>
+                <p>
+                    Численность населения (чел.)
+                </p>
+            </div>
+            <div>
+                <?= $settings->getValue('sobolovo-population') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ustevo-population') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('krutogorovo-population') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ichinsky-population') ?>
+            </div>
+        </div>
+
+        <div class="table-col table-col__4">
+            <div>
+                <p>
+                    Численность населения, относящегося к коренным малочисленным народам (чел.)
+                </p>
+            </div>
+            <div>
+                <?= $settings->getValue('sobolevo-indigenous') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ustevo-indigenous') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('krutogorovo-indigenous') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ichinsky-indigenous') ?>
+            </div>
+        </div>
+
+        <div class="table-col table-col__5">
+            <div>
+                <p>
+                    Расстояние до административного центра муниципального района (км)
+                </p>
+            </div>
+            <div>
+                <?= $settings->getValue('sobolevo-center') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ustevo-center') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('krutogorovo-center') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ichinsky-center') ?>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        * населенные пункты, в соответствии с Законом Камчатского края от 29.04.2008 № 46
+        «Об административно-территориальном устройстве Камчатского края»
+    </p>
+
+    <h4>
+        Сельские  поселения в составе муниципального района
+    </h4>
+
+    <div class="table table2">
+        <div class="table-col table-col__1">
+            <div>
+                <p>
+                    Наименование поселения
+                </p>
+            </div>
+            <div>
+                <?= $settings->getValue('sobolevo-title') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ustevo-title') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('krutogorovo-title') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ichinsky-title') ?>
+            </div>
+        </div>
+
+        <div class="table-col table-col__2">
+            <div>
+                <p>
+                    Административный центр
+                </p>
+            </div>
+            <div>
+                <?= $settings->getValue('sobolevo-prefix') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ustevo-prefix') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('krutogorovo-prefix') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ichinsky-prefix') ?>
+            </div>
+        </div>
+
+        <div class="table-col table-col__3">
+            <div>
+                <p>
+                    Площадь территории (кв.км)
+                </p>
+            </div>
+            <div>
+                <?= $settings->getValue('sobolevo-area') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ustevo-area') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('krutogorovo-area') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ichinsky-area') ?>
+            </div>
+        </div>
+
+        <div class="table-col table-col__4">
+            <div>
+                <p>
+                    Численность населения (чел.)
+                </p>
+            </div>
+            <div>
+                <?= $settings->getValue('sobolovo-population') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ustevo-population') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('krutogorovo-population') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ichinsky-population') ?>
+            </div>
+        </div>
+
+        <div class="table-col table-col__5">
+            <div>
+                <p>
+                    Численность населения, относящегося к коренным малочисленным народам (чел.)
+                </p>
+            </div>
+            <div>
+                <?= $settings->getValue('sobolevo-indigenous') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ustevo-indigenous') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('krutogorovo-indigenous') ?>
+            </div>
+            <div>
+                <?= $settings->getValue('ichinsky-indigenous') ?>
+            </div>
+        </div>
+    </div>
+
+    <h4>
+        Межселенная территория
+    </h4>
+
+    <div class="table table3">
+        <div class="table-col table-col__1">
+            <div>
+                <p>
+                    Площадь территории (кв.км)
+                </p>
+            </div>
+            <div>
+                <?= $page->getValue('territory-square') ?>
+            </div>
+        </div>
+
+        <div class="table-col table-col__2">
+            <div>
+                <p>
+                    Численность населения (чел.)
+                </p>
+            </div>
+            <div>
+                <?= $page->getValue('territory-population') ?>
+            </div>
+        </div>
+
+        <div class="table-col table-col__3">
+            <div>
+                <p>
+                    Численность населения, относящегося к коренным малочисленным народам  (чел.)
+                </p>
+            </div>
+            <div>
+                <?= $page->getValue('territory-indigenous') ?>
+            </div>
+        </div>
+
+        <div class="table-col table-col__4">
+            <div>
+                <p>
+                    Статус и наименование населенного пункта, находящегося на межселенной территории
+                </p>
+            </div>
+            <div>
+                <?= $page->getValue('territory-status') ?>
+            </div>
+        </div>
+    </div>
 </div>

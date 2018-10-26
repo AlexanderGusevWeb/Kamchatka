@@ -36,7 +36,7 @@ $settings = $this->getSettingsContainer('main_config');
                 <img src="/images/images-kamchatka/map1.png" alt="map">
             </div>
             <div class="tab-one__right">
-                <h3><?= $settings->getValue('sobolevo-title') ?></h3>
+                <h3><?= $settings->getValue('sobolevo-prefix') ?></h3>
                 <div>
                     <span class="flaticon-map-location"></span>
                     <p>
@@ -80,13 +80,13 @@ $settings = $this->getSettingsContainer('main_config');
             <div class="tab-three__diagram">
                 <div
                         class='tab-three__regions'
-                        data-sobolevo='<?= $settings->getValue('sobolevo-title') ?> <?= $settings->getValue('sobolovo-population') ?>чел.'
+                        data-sobolevo='<?= $settings->getValue('sobolevo-prefix') ?> <?= $settings->getValue('sobolovo-population') ?>чел.'
                         data-sobolevo_population='<?= $settings->getValue('sobolovo-population') ?>'
-                        data-ustevo='<?= $settings->getValue('ustevo-title') ?> <?= $settings->getValue('ustevo-population') ?>чел.'
+                        data-ustevo='<?= $settings->getValue('ustevo-prefix') ?> <?= $settings->getValue('ustevo-population') ?>чел.'
                         data-ustevo_population='<?= $settings->getValue('ustevo-population') ?>'
-                        data-krutogorovo='<?= $settings->getValue('krutogorovo-title') ?> <?= $settings->getValue('krutogorovo-population') ?>чел.'
+                        data-krutogorovo='<?= $settings->getValue('krutogorovo-prefix') ?> <?= $settings->getValue('krutogorovo-population') ?>чел.'
                         data-krutogorovo_population='<?= $settings->getValue('krutogorovo-population') ?>'
-                        data-ichinsky='<?= $settings->getValue('ichinsky-title') ?> <?= $settings->getValue('ichinsky-population') ?>чел.'
+                        data-ichinsky='<?= $settings->getValue('ichinsky-prefix') ?> <?= $settings->getValue('ichinsky-population') ?>чел.'
                         data-ichinsky_population='<?= $settings->getValue('ichinsky-population') ?>'
                 ></div>
 
@@ -97,28 +97,28 @@ $settings = $this->getSettingsContainer('main_config');
 
             <div class="tab-three__mobile-text">
                 <p>
-                    <?= $settings->getValue('sobolevo-title') ?>
+                    <?= $settings->getValue('sobolevo-prefix') ?>
                     -
                     <?= $settings->getValue('sobolovo-population') ?>
                     чел.
                 </p>
 
                 <p>
-                    <?= $settings->getValue('ustevo-title') ?>
+                    <?= $settings->getValue('ustevo-prefix') ?>
                     -
                     <?= $settings->getValue('ustevo-population') ?>
                     чел.
                 </p>
 
                 <p>
-                    <?= $settings->getValue('krutogorovo-title') ?>
+                    <?= $settings->getValue('krutogorovo-prefix') ?>
                     -
                     <?= $settings->getValue('krutogorovo-population') ?>
                     чел.
                 </p>
 
                 <p>
-                    <?= $settings->getValue('ichinsky-title') ?>
+                    <?= $settings->getValue('ichinsky-prefix') ?>
                     -
                     <?= $settings->getValue('ichinsky-population') ?>
                     чел.

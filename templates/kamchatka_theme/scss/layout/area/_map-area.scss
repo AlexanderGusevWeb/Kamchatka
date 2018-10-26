@@ -1,13 +1,12 @@
 .map-page {
+    min-height: 440px;
     margin-bottom: 35px;
 
     h2 {
         padding-bottom: 25px;
     }
 
-    img {
+    iframe {
         width: 100%;
-        min-height: 440px;
-        object-fit: cover;
     }
 }
