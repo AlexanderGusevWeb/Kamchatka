@@ -17,6 +17,11 @@
     &__main {
         display: flex;
         max-height: 285px;
+
+        @include max-screen(768px) {
+            flex-direction: column;
+            max-height: 100%;
+        }
     }
 
     &__image {
@@ -32,6 +37,11 @@
         align-items: flex-start;
         padding: 25px 45px 25px 0;
 
+        @include max-screen(768px) {
+            width: 100%;
+            padding: 25px 0;
+        }
+
         &::before {
             position: absolute;
             content: "";
@@ -41,7 +51,15 @@
             left: 0;
             border-bottom: 1px solid rgba(#444, .2);
             opacity: 0;
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
             transition: all .5s ease;
+
+            @include max-screen(768px) {
+                display: none;
+            }
         }
 
         &.active {
@@ -70,11 +88,19 @@
         @include monts_400;
         font-size: 14px;
         color: rgba(#444, .3);
+
+        @include max-screen(768px) {
+            padding: 15px 0 20px;
+        }
     }
 
     &__footer {
         display: none;
         padding: 30px 40px 0;
+
+        @include max-screen(768px) {
+            padding: 0;
+        }
     }
 
     &__full-text {

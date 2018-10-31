@@ -63,6 +63,10 @@
         border: 1px solid $dark-blue;
         color: $dark-blue;
         box-shadow: 3px 3px 10px 0 $extra-dark-blue;
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        -o-transition: all .5s ease;
         transition: all .5s ease;
 
         &::before {

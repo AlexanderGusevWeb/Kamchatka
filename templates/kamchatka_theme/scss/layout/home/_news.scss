@@ -17,6 +17,10 @@
         @include monts_500;
         font-size: 18px;
         text-transform: uppercase;
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        -o-transition: all .5s ease;
         transition: all .5s ease;
     }
 
@@ -61,6 +65,10 @@
         display: flex;
         align-items: center;
         position: relative;
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        -o-transition: all .5s ease;
         transition: all .5s ease;
 
         a {
@@ -151,6 +159,10 @@
                 transform: skewX(40.5deg);
                 z-index: 2;
                 background-color: $dark-blue;
+                -webkit-transition: all .5s ease;
+                -moz-transition: all .5s ease;
+                -ms-transition: all .5s ease;
+                -o-transition: all .5s ease;
                 transition: all .5s ease;
 
                 @include max-screen(1024px) {
@@ -356,6 +368,10 @@
             transform: translateY(-25%);
             color: $light-blue;
             z-index: 3;
+            -webkit-transition: all .3s ease;
+            -moz-transition: all .3s ease;
+            -ms-transition: all .3s ease;
+            -o-transition: all .3s ease;
             transition: all .3s ease;
 
             &::before {
@@ -374,6 +390,10 @@
                 z-index: 3;
                 background-color: $light-blue;
                 transform: translateY(-50%);
+                -webkit-transition: all .3s ease;
+                -moz-transition: all .3s ease;
+                -ms-transition: all .3s ease;
+                -o-transition: all .3s ease;
                 transition: all .3s ease;
             }
 
@@ -384,6 +404,10 @@
                 position: absolute;
                 z-index: 3;
                 background: linear-gradient(135deg, $dark-blue 20%, $medium-blue 100%);
+                -webkit-transition: all .5s ease;
+                -moz-transition: all .5s ease;
+                -ms-transition: all .5s ease;
+                -o-transition: all .5s ease;
                 transition: all .5s ease;
             }
 
@@ -422,6 +446,10 @@
                 top: 200px;
                 color: $light-blue;
                 z-index: 3;
+                -webkit-transition: all .3s ease;
+                -moz-transition: all .3s ease;
+                -ms-transition: all .3s ease;
+                -o-transition: all .3s ease;
                 transition: all .3s ease;
 
                 &::before {
@@ -440,6 +468,10 @@
                     height: 3px;
                     z-index: 3;
                     background-color: $light-blue;
+                    -webkit-transition: all .3s ease;
+                    -moz-transition: all .3s ease;
+                    -ms-transition: all .3s ease;
+                    -o-transition: all .3s ease;
                     transition: all .3s ease;
                 }
 
@@ -493,6 +525,10 @@
                     @include monts_400;
                     font-size: 14px;
                     cursor: pointer;
+                    -webkit-transition: all .3s ease;
+                    -moz-transition: all .3s ease;
+                    -ms-transition: all .3s ease;
+                    -o-transition: all .3s ease;
                     transition: all .3s ease;
                     padding: 0 10px;
 

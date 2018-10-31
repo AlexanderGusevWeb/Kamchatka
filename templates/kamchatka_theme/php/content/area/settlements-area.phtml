@@ -74,95 +74,103 @@ function arraySumm( $array ){
         Населенные пункты, расположенные в границах территории  муниципального района
     </h4>
 
-    <div class="table table1">
-        <div class="table-col table-col__1">
-            <div>
-                <span>№</span>
-                <span>п/п</span>
-            </div>
-            <div>1.</div>
-            <div>2.</div>
-            <div>3.</div>
-            <div>4.</div>
-        </div>
+    <span class="flaticon-arrow-left-and-right">
+        <p>
+            Чтобы просмотреть данные таблицы проведите пальцем влево/вправо
+        </p>
+    </span>
 
-        <div class="table-col table-col__2">
-            <div>
-                <p>
-                    Статус и наименование населенного пункта
-                </p>
+    <div class="scroll-wrapper">
+        <div class="table table1">
+            <div class="table-col table-col__1">
+                <div>
+                    <span>№</span>
+                    <span>п/п</span>
+                </div>
+                <div>1.</div>
+                <div>2.</div>
+                <div>3.</div>
+                <div>4.</div>
             </div>
-            <div>
-                <?= $settings->getValue('sobolevo-prefix') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ustevo-prefix') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('krutogorovo-prefix') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ichinsky-prefix') ?>
-            </div>
-        </div>
 
-        <div class="table-col table-col__3">
-            <div>
-                <p>
-                    Численность населения (чел.)
-                </p>
+            <div class="table-col table-col__2">
+                <div>
+                    <p>
+                        Статус и наименование населенного пункта
+                    </p>
+                </div>
+                <div>
+                    <?= $settings->getValue('sobolevo-prefix') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ustevo-prefix') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('krutogorovo-prefix') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ichinsky-prefix') ?>
+                </div>
             </div>
-            <div>
-                <?= $settings->getValue('sobolovo-population') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ustevo-population') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('krutogorovo-population') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ichinsky-population') ?>
-            </div>
-        </div>
 
-        <div class="table-col table-col__4">
-            <div>
-                <p>
-                    Численность населения, относящегося к коренным малочисленным народам (чел.)
-                </p>
+            <div class="table-col table-col__3">
+                <div>
+                    <p>
+                        Численность населения (чел.)
+                    </p>
+                </div>
+                <div>
+                    <?= $settings->getValue('sobolovo-population') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ustevo-population') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('krutogorovo-population') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ichinsky-population') ?>
+                </div>
             </div>
-            <div>
-                <?= $settings->getValue('sobolevo-indigenous') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ustevo-indigenous') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('krutogorovo-indigenous') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ichinsky-indigenous') ?>
-            </div>
-        </div>
 
-        <div class="table-col table-col__5">
-            <div>
-                <p>
-                    Расстояние до административного центра муниципального района (км)
-                </p>
+            <div class="table-col table-col__4">
+                <div>
+                    <p>
+                        Численность населения, относящегося к коренным малочисленным народам (чел.)
+                    </p>
+                </div>
+                <div>
+                    <?= $settings->getValue('sobolevo-indigenous') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ustevo-indigenous') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('krutogorovo-indigenous') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ichinsky-indigenous') ?>
+                </div>
             </div>
-            <div>
-                <?= $settings->getValue('sobolevo-center') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ustevo-center') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('krutogorovo-center') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ichinsky-center') ?>
+
+            <div class="table-col table-col__5">
+                <div>
+                    <p>
+                        Расстояние до административного центра муниципального района (км)
+                    </p>
+                </div>
+                <div>
+                    <?= $settings->getValue('sobolevo-center') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ustevo-center') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('krutogorovo-center') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ichinsky-center') ?>
+                </div>
             </div>
         </div>
     </div>
@@ -176,104 +184,112 @@ function arraySumm( $array ){
         Сельские  поселения в составе муниципального района
     </h4>
 
-    <div class="table table2">
-        <div class="table-col table-col__1">
-            <div>
-                <p>
-                    Наименование поселения
-                </p>
-            </div>
-            <div>
-                <?= $settings->getValue('sobolevo-title') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ustevo-title') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('krutogorovo-title') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ichinsky-title') ?>
-            </div>
-        </div>
+    <span class="flaticon-arrow-left-and-right">
+        <p>
+            Чтобы просмотреть данные таблицы проведите пальцем влево/вправо
+        </p>
+    </span>
 
-        <div class="table-col table-col__2">
-            <div>
-                <p>
-                    Административный центр
-                </p>
+    <div class="scroll-wrapper">
+        <div class="table table2">
+            <div class="table-col table-col__1">
+                <div>
+                    <p>
+                        Наименование поселения
+                    </p>
+                </div>
+                <div>
+                    <?= $settings->getValue('sobolevo-title') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ustevo-title') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('krutogorovo-title') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ichinsky-title') ?>
+                </div>
             </div>
-            <div>
-                <?= $settings->getValue('sobolevo-prefix') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ustevo-prefix') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('krutogorovo-prefix') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ichinsky-prefix') ?>
-            </div>
-        </div>
 
-        <div class="table-col table-col__3">
-            <div>
-                <p>
-                    Площадь территории (кв.км)
-                </p>
+            <div class="table-col table-col__2">
+                <div>
+                    <p>
+                        Административный центр
+                    </p>
+                </div>
+                <div>
+                    <?= $settings->getValue('sobolevo-prefix') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ustevo-prefix') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('krutogorovo-prefix') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ichinsky-prefix') ?>
+                </div>
             </div>
-            <div>
-                <?= $settings->getValue('sobolevo-area') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ustevo-area') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('krutogorovo-area') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ichinsky-area') ?>
-            </div>
-        </div>
 
-        <div class="table-col table-col__4">
-            <div>
-                <p>
-                    Численность населения (чел.)
-                </p>
+            <div class="table-col table-col__3">
+                <div>
+                    <p>
+                        Площадь территории (кв.км)
+                    </p>
+                </div>
+                <div>
+                    <?= $settings->getValue('sobolevo-area') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ustevo-area') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('krutogorovo-area') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ichinsky-area') ?>
+                </div>
             </div>
-            <div>
-                <?= $settings->getValue('sobolovo-population') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ustevo-population') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('krutogorovo-population') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ichinsky-population') ?>
-            </div>
-        </div>
 
-        <div class="table-col table-col__5">
-            <div>
-                <p>
-                    Численность населения, относящегося к коренным малочисленным народам (чел.)
-                </p>
+            <div class="table-col table-col__4">
+                <div>
+                    <p>
+                        Численность населения (чел.)
+                    </p>
+                </div>
+                <div>
+                    <?= $settings->getValue('sobolovo-population') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ustevo-population') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('krutogorovo-population') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ichinsky-population') ?>
+                </div>
             </div>
-            <div>
-                <?= $settings->getValue('sobolevo-indigenous') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ustevo-indigenous') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('krutogorovo-indigenous') ?>
-            </div>
-            <div>
-                <?= $settings->getValue('ichinsky-indigenous') ?>
+
+            <div class="table-col table-col__5">
+                <div>
+                    <p>
+                        Численность населения, относящегося к коренным малочисленным народам (чел.)
+                    </p>
+                </div>
+                <div>
+                    <?= $settings->getValue('sobolevo-indigenous') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ustevo-indigenous') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('krutogorovo-indigenous') ?>
+                </div>
+                <div>
+                    <?= $settings->getValue('ichinsky-indigenous') ?>
+                </div>
             </div>
         </div>
     </div>
@@ -282,48 +298,55 @@ function arraySumm( $array ){
         Межселенная территория
     </h4>
 
-    <div class="table table3">
-        <div class="table-col table-col__1">
-            <div>
-                <p>
-                    Площадь территории (кв.км)
-                </p>
+    <span class="flaticon-arrow-left-and-right">
+        <p>
+            Чтобы просмотреть данные таблицы проведите пальцем влево/вправо
+        </p>
+    </span>
+    <div class="scroll-wrapper">
+        <div class="table table3">
+            <div class="table-col table-col__1">
+                <div>
+                    <p>
+                        Площадь территории (кв.км)
+                    </p>
+                </div>
+                <div>
+                    <?= $page->getValue('territory-square') ?>
+                </div>
             </div>
-            <div>
-                <?= $page->getValue('territory-square') ?>
-            </div>
-        </div>
 
-        <div class="table-col table-col__2">
-            <div>
-                <p>
-                    Численность населения (чел.)
-                </p>
+            <div class="table-col table-col__2">
+                <div>
+                    <p>
+                        Численность населения (чел.)
+                    </p>
+                </div>
+                <div>
+                    <?= $page->getValue('territory-population') ?>
+                </div>
             </div>
-            <div>
-                <?= $page->getValue('territory-population') ?>
-            </div>
-        </div>
 
-        <div class="table-col table-col__3">
-            <div>
-                <p>
-                    Численность населения, относящегося к коренным малочисленным народам  (чел.)
-                </p>
+            <div class="table-col table-col__3">
+                <div>
+                    <p>
+                        Численность населения, относящегося к коренным малочисленным народам  (чел.)
+                    </p>
+                </div>
+                <div>
+                    <?= $page->getValue('territory-indigenous') ?>
+                </div>
             </div>
-            <div>
-                <?= $page->getValue('territory-indigenous') ?>
-            </div>
-        </div>
 
-        <div class="table-col table-col__4">
-            <div>
-                <p>
-                    Статус и наименование населенного пункта, находящегося на межселенной территории
-                </p>
-            </div>
-            <div>
-                <?= $page->getValue('territory-status') ?>
+            <div class="table-col table-col__4">
+                <div>
+                    <p>
+                        Статус и наименование населенного пункта, находящегося на межселенной территории
+                    </p>
+                </div>
+                <div>
+                    <?= $page->getValue('territory-status') ?>
+                </div>
             </div>
         </div>
     </div>

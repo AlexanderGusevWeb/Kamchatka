@@ -11,6 +11,13 @@
 
     @include bg_footer(0, -100vw, 0, -100vw);
 
+    @include max-screen(1200px) {
+        &::before {
+            right: 0;
+        }
+
+    }
+
     &::after {
         position: absolute;
         content: '';

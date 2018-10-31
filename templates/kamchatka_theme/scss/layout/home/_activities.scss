@@ -83,6 +83,10 @@
                 left: 0;
                 opacity: 0;
                 background-color: $light-blue;
+                -webkit-transition: all .5s ease;
+                -moz-transition: all .5s ease;
+                -ms-transition: all .5s ease;
+                -o-transition: all .5s ease;
                 transition: all .5s ease;
             }
 
@@ -95,6 +99,10 @@
                 left: 0;
                 opacity: 0;
                 background-color: $dark-blue;
+                -webkit-transition: all .5s ease;
+                -moz-transition: all .5s ease;
+                -ms-transition: all .5s ease;
+                -o-transition: all .5s ease;
                 transition: all .5s ease;
                 z-index: -1;
             }

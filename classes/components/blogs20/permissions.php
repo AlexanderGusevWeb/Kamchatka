@@ -18,7 +18,9 @@
 			'checkallowcomments',
 			'prepareCut',
 			'prepareTags',
-			'prepareContent'
+			'prepareContent',
+            'getPostsListCustom',
+            'postsListCustom'
 		],
 		/** Права на добавление постов с клиентской части */
 		'add' => [

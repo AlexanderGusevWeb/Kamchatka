@@ -11,6 +11,6 @@ $pagination = $variables;
 
 <?php if (isset($pagination['toprev_link'])): ?>
 	<li class="prev">
-		<a href="<?= $this->getCurrentPath() . $pagination['toprev_link']['value'] ?>"></a>
+		<a class="flaticon-back" href="<?= $this->getCurrentPath() . $pagination['toprev_link']['value'] ?>"></a>
 	</li>
 <?php endif; ?>

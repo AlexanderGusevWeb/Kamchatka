@@ -2,55 +2,147 @@
     display: flex;
     justify-content: flex-start;
 
-    ul  {
-        padding: 35px 15px 35px 0;
-        margin: 0;
+    @include max-screen(1024px) {
+        flex-direction: column;
     }
 
-    li {
-        padding: 0;
-        margin: 0;
-    }
-    
-    a {
-        display: flex;
-        min-width: 250px;
-        padding: 15px;
-        @include monts_600;
-        color: #000;
+    nav {
+        ul  {
+            padding: 15px 35px;
+            margin: 0;
 
-        &::before {
-            right: 100%;
-            background-color: $dark-blue;
-            z-index: -1;
-        }
-
-        &::after {
-            position: absolute;
-            content: '';
-            top: 0;
-            right: calc(100% - 6px);
-            bottom: 0;
-            left: 0;
-            background-color: $light-blue;
-            opacity: 0;
-            transition: all .5s ease;
-        }
-
-        &:hover {
-            color: #fff;
-
-            &::before {
-                right: 0;
-                opacity: 1;
+            @include max-screen(1024px) {
+                border-top: 2px solid $dark-blue;
+                border-bottom: 2px solid $dark-blue;
+                padding: 0 35px;
             }
         }
 
-        &.active {
-            pointer-events: none;
+        li {
+            padding: 0;
+            margin: 0;
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+
+            @include max-screen(1024px) {
+                height: 0;
+                opacity: 0;
+            }
+
+            &:last-child a {
+                border-bottom: none;
+            }
+        }
+
+        a {
+            display: flex;
+            min-width: 250px;
+            padding: 15px;
+            @include monts_600;
+            color: #000;
+
+            @include max-screen(1024px) {
+                text-align: center;
+                justify-content: center;
+                padding: 15px 0;
+            }
+
+            &::before {
+                right: 100%;
+                background-color: $dark-blue;
+                z-index: -1;
+
+                @include max-screen(1024px) {
+                    right: 0;
+                    left: 0;
+                    background-color: transparent;
+                    border-bottom: 1px solid rgba(#444, .2);
+                    opacity: 1;
+                }
+            }
 
             &::after {
-                opacity: 1;
+                position: absolute;
+                content: '';
+                top: 0;
+                right: calc(100% - 6px);
+                bottom: 0;
+                left: 0;
+                background-color: $light-blue;
+                opacity: 0;
+
+                @include max-screen(1024px) {
+                    display: none;
+                }
+            }
+
+            &:hover {
+                color: #fff;
+
+                @include max-screen(1024px) {
+                    color: $dark-blue;
+                }
+
+                &::before {
+                    right: 0;
+                    opacity: 1;
+                }
+            }
+
+            &.active {
+                pointer-events: none;
+
+                @include max-screen(1024px) {
+                    color: $light-blue;
+                }
+
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &__mobile-menu {
+        display: none;
+        height: 46px;
+        background-color: $dark-blue;
+        cursor: pointer;
+
+        .flaticon-angle-arrow-down {
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+
+            &::before {
+                color: #fff;
+                font-size: 21px;
+            }
+        }
+
+        @include max-screen(1024px) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &.active {
+            .flaticon-angle-arrow-down {
+                -webkit-transform: rotate(180deg);
+                -moz-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                transform: rotate(180deg);
+
+                &::before {
+                    color: #fff;
+                    font-size: 21px;
+                }
             }
         }
     }
@@ -60,6 +152,15 @@
     width: calc(100% - 250px);
     background-color: darken(#fff, 3%) ;
     padding: 35px 35px 0;
+
+    @include max-screen(768px) {
+        padding: 35px 10px 0;
+    }
+
+    @include max-screen(1024px) {
+        width: 100%;
+        background-color: #fff;
+    }
 
     h2 {
         padding-bottom: 15px;
@@ -78,13 +179,22 @@
 // Табы для страниц Район
 .one-tab {
     margin-bottom: 20px;
-    box-shadow: 0 0 35px -8px #000;
     background-color: #fff;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+
+    &.active {
+        box-shadow: 0 0 35px -8px #000;
+    }
 
     &__title {
         position: relative;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         min-height: 60px;
         color: #fff;
         background-color: $dark-blue;
@@ -124,7 +234,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 46px;
+            min-width: 46px;
             height: 46px;
             background-color: #fff;
             margin: 7px;
@@ -166,6 +276,10 @@
 
             &.active {
                 &::before {
+                    -webkit-transform: rotate(-90deg);
+                    -moz-transform: rotate(-90deg);
+                    -ms-transform: rotate(-90deg);
+                    -o-transform: rotate(-90deg);
                     transform: rotate(-90deg);
                 }
             }
@@ -241,6 +355,7 @@
         -ms-transition: all .5s ease;
         -o-transition: all .5s ease;
         transition: all .5s ease;
+        padding-left: 25px;
 
         &.active-one,
         &.active-two {

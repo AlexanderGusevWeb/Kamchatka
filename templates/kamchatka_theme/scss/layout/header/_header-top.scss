@@ -2,6 +2,12 @@ header {
     position: relative;
 
     @include bg_header(0, 0, -150px, 0);
+
+    @include max-screen(768px) {
+        &::before {
+            display: none;
+        }
+    }
     
     a {
         color: #fff;
@@ -23,13 +29,14 @@ header {
     color: #fff;
 
     @include max-screen(1024px) {
-        padding: 0 0 0 60px;
+        padding: 0 60px;
     }
 
     @include max-screen(768px) {
         padding-top: 100px;
         height: 200px;
         padding-left: 25px;
+        padding-right: 0;
     }
 
     @include max-screen(480px) {
@@ -46,11 +53,18 @@ header {
         background-color: $dark-blue;
         z-index: 1;
         transform: skewX(40.5deg);
-        @include max-screen(1024px) {
+
+        @include max-screen(1200px) {
             right: 0;
             left: 0;
             transform: inherit;
         }
+
+        //@include max-screen(1024px) {
+        //    right: 0;
+        //    left: 0;
+        //    transform: inherit;
+        //}
     }
 
     &__logo,
@@ -96,6 +110,7 @@ header {
         &::before {
             background-color: $medium-blue;
             right: 50%;
+
             @include max-screen(768px) {
                 left: 25%;
             }
@@ -104,6 +119,7 @@ header {
         &::after {
             background-color: $dark-green;
             left: 50%;
+
             @include max-screen(768px) {
                 right: 25%;
             }

@@ -45,6 +45,10 @@
                 left: 0;
                 background-color: $medium-blue;
                 z-index: -1;
+                -webkit-transition: all .3s ease;
+                -moz-transition: all .3s ease;
+                -ms-transition: all .3s ease;
+                -o-transition: all .3s ease;
                 transition: all .3s ease;
 
                 @include max-screen(768px) {

@@ -31,6 +31,10 @@ a {
         bottom: 0;
         left: 0;
         opacity: 0;
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        -o-transition: all .5s ease;
         transition: all .5s ease;
     }
 }
@@ -57,6 +61,12 @@ g {
 
 .visible {
     opacity: 1;
+}
+
+.scroll-wrapper {
+    @include max-screen(1024px) {
+        overflow-x: scroll;
+    }
 }
 
 .address {
@@ -109,6 +119,10 @@ p {
 
     &_middle {
         margin: 0 -14px;
+        -webkit-transition: margin .5s ease;
+        -moz-transition: margin .5s ease;
+        -ms-transition: margin .5s ease;
+        -o-transition: margin .5s ease;
         transition: margin .5s ease;
     }
 }
@@ -116,13 +130,39 @@ p {
 // Стиль для общего Шаблона страниц
 .section_capt {
     max-width: 1200px;
-    margin: 0 auto 20px;
+    margin: 0 auto 26px;
+
+    @include max-screen(768px) {
+        margin: 0 auto;
+        padding: 35px;
+        position: relative;
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url(/images/images-kamchatka/promo/promo1.png) 50% 50% no-repeat;
+            background-size: cover;
+            z-index: -1;
+        }
+    }
 
     h1 {
+        position: relative;
+        top: -5px;
         @include oswald_700;
         color: #fff;
         font-size: 40px;
+        line-height: 35px;
         margin: 0;
+
+        @include max-screen(576px) {
+            margin-top: 10px;
+            text-align: center;
+        }
     }
 
     .row {
@@ -130,10 +170,19 @@ p {
         justify-content: flex-start;
         align-items: center;
         padding-left: 65px;
+
+        @include max-screen(576px) {
+            flex-direction: column;
+            padding-left: 0;
+        }
     }
 
     .logo {
         padding-right: 25px;
+
+        @include max-screen(576px) {
+            padding-right: 0;
+        }
     }
 
     .title {

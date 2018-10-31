@@ -8,10 +8,142 @@
 
 $page = $variables['page'];
 
-$pageContent = $page->getValue('content');
+$settings = $this->getSettingsContainer('main_config');
+
+$list_years = $this->macros('blogs20', 'getPostsList', array(58, null, INF))['items'];
+
+foreach ($list_years as $key => $item) {
+    $tmp_nav_year = $this->getPageById($item['id'])->getValue('publish_time')->getFormattedDate('Y');
+
+    $one_year[$tmp_nav_year]['year'] = $tmp_nav_year;
+    $one_year[$tmp_nav_year]['active'] = '';
+}
+
+function cmp_nav_year($a, $b)
+{
+    return ($a['year'] > $b['year']) ? -1 : 1;
+}
+
+uasort($one_year, "cmp_nav_year");
+
+$tmp_key = reset($one_year);
+
+$tmp_key = $tmp_key['year'];
+
+$last_year = $tmp_key;
+
+$page_content = $page->getValue('content');
+
+$main_newspaper = $this->macros('blogs20', 'getPostsListCustom', array(58, null, 9));
+
+foreach ($main_newspaper['items'] as $key => $item) {
+
+    $tmp_text_year = $this->getPageById($item['id'])->getValue('publish_time')->getFormattedDate('Y');
+
+    $one_newspaper[$tmp_text_year][] = array(
+        'number' => $this->getPageById($item['id'])->getValue('newspaper-number'),
+        'year' => $tmp_text_year,
+        'doc' => $this->getPageById($item['id'])->getValue('newspaper-doc'));
+}
+
+function cmp_number($a, $b)
+{
+    return ($a['number'] < $b['number']) ? -1 : 1;
+}
+
+uasort($one_newspaper, "cmp_number");
+
+$newspaper_image = $this->render(
+    [
+        'id' => $settings->getId(),
+        'field_name' => 'newspaper_image',
+        'src' => $settings->getValue('newspaper_image'),
+        'alt' => "doc",
+        'width' => 85,
+        'height' => 85
+    ],
+    'library/thumbnail');
+
+if (isset ($_GET['year'])) {
+    $select_year = $_GET['year'];
+
+} else {
+    $select_year = $last_year;
+}
+
+$one_year[$select_year]['active'] = 'active';
+
+$one_newspaper = $one_newspaper[$select_year];
 
 ?>
 
 <div class="newspaper-page">
-    <?= $pageContent ?>
+    <?= $page_content ?>
+
+    <div class="newspaper-page__body">
+
+        <div class="newspaper-page__header">
+            <span class="newspaper-page__years">
+                <?= $select_year ?> год
+            </span>
+
+            <span class="newspaper-page__button">
+                Выберите год
+                <span class="flaticon-back"></span>
+            </span>
+        </div>
+
+        <? foreach ($one_year as $key => $item): ?>
+            <div class="newspaper-page__header newspaper-page__header_hide <?= $item['active'] ?>">
+                <span class="newspaper-page__years">
+                    <span class="js-select-year">
+                        <? if (isset($item['year'])) {
+                            echo $item['year'];
+                        } else {
+                            echo $_GET['year'];
+                        } ?>
+                    </span>
+                    год
+                </span>
+            </div>
+        <? endforeach; ?>
+
+        <div class="newspaper-page__newspapers">
+            <? if (!$one_newspaper) {
+                ?>
+                <div class="no-newspapers">
+                    На текущий год пока что нет газет!
+                </div>
+                <?
+            } ?>
+
+            <div class="all-newspaper">
+                <? foreach ($one_newspaper as $item):?>
+                    <div class="one-newspaper">
+                        <?= $newspaper_image ?>
+
+                        <span class="one-newspaper__info">
+                            <div class="one-newspaper__name">
+                                <span class="">&#8470;</span>
+                                <?= $item['number'] ?>
+                                -
+                                <?= $item['year'] ?>
+                            </div>
+
+                            <div class="one-newspaper__doc">
+                                <a href="<?= $item['doc'] ?>" download>
+                                    Скачать файл
+                                    <span class="flaticon-back"></span>
+                                </a>
+                            </div>
+                        </span>
+                    </div>
+                <? endforeach; ?>
+            </div>
+
+            <div class="pagination">
+                <?= $this->render($main_newspaper, 'library/pagination') ?>
+            </div>
+        </div>
+    </div>
 </div>

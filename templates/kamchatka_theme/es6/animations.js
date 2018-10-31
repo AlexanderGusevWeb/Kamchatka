@@ -17,7 +17,7 @@
         //Анимация мобильного меню END
 
         // Анимация поиск START
-        // Open
+        //// Open
         $(".buttonSearch .btn1 .flaticon-magnifying-glass").click(function () {
             if ($('.buttonSearch__mobile-bottom.active').length != true) {
                 $(".buttonSearch").animate({
@@ -68,7 +68,7 @@
             }
         });
 
-        // Close
+        //// Close
         $(".flaticon-close, .mobile-menu__icon").click(function () {
             if ($('.buttonSearch__mobile-bottom.active').length == true) {
                 $(".buttonSearch input").animate({
@@ -284,14 +284,43 @@
         new WOW().init();
         //Анимация WOW.js END
 
+        //Страница "O Районе" мобильное меню START
+        $('.area__mobile-menu').on('click', function () {
+            $(this).toggleClass('active');
+
+            if ($('.area__mobile-menu.active').length == true) {
+
+                setTimeout(function () {
+                    $('.area nav li').animate({
+                        'height': 50
+                    }, 100).animate({
+                        'opacity': 1
+                    }, 150);
+                }, 10);
+
+            } else {
+
+                setTimeout(function () {
+                    $('.area nav li').animate({
+                        'opacity': 0
+                    }, 150).animate({
+                        'height': 0
+                    }, 100);
+                }, 10);
+            }
+
+        });
+        //Страница "O Районе" мобильное меню END
+
         //Страница "Устав муниципального района" табаы START
-        // Кнопка открыть/закрыть табы
+        //// Кнопка открыть/закрыть табы
         $('.charter-page__button').on('click', function () {
             // Стрелка
             $('.tabs__button .flaticon-back').toggleClass('active');
 
             if ($('.two').length == true) {
                 // Табы откурыть
+                $('.one-tab').addClass('active');
                 $('.one-tab__title').addClass('active');
                 $('.one-tab__text').show(500);
 
@@ -301,6 +330,7 @@
 
             } else {
                 // Табы закрыть
+                $('.one-tab').removeClass('active');
                 $('.one-tab__title').removeClass('active');
                 $('.one-tab__text').hide(500);
 
@@ -310,10 +340,28 @@
             }
         });
 
-        // Один таб
+        //// Один таб
         $('.flaticon-minus-horizontal-straight-line').on('click', function () {
-            $(this).closest('.one-tab').find('.one-tab__title').toggleClass('active');
+            $(this).closest('.one-tab').toggleClass('active').find('.one-tab__title').toggleClass('active');
             $(this).closest('.one-tab').find('.one-tab__text').toggle(500);
+
+            //// Смена кнопки если все табы открыты/закрыты
+            var oneTabLength = $('.one-tab').length;
+            var oneTabActiveLength = $('.one-tab__title.active').length;
+
+            if (oneTabLength == oneTabActiveLength) {
+                $('.tabs__button .flaticon-back').removeClass('active');
+
+                // Смена текста кнопки
+                $('.active-one').addClass('one').removeClass('active-one');
+                $('.two').addClass('active-two').removeClass('two');
+            } else {
+                $('.tabs__button .flaticon-back').addClass('active');
+
+                //// Смена текста кнопки
+                $('.active-two').addClass('two').removeClass('active-two');
+                $('.one').addClass('active-one').removeClass('one');
+            }
         });
         //Страница "Устав муниципального района" табаы END
 
@@ -322,33 +370,63 @@
 
             var $human = $(this).parents('.human');
 
-            // Стрелка
+            //// Стрелка
             $human.find('.tabs__button .flaticon-back').toggleClass('active');
-            
+
             if ($human.find('.human__info.active').length == false) {
-                // Разделительная линия показать
+                //// Разделительная линия показать
                 $human.find('.human__info').toggleClass('active');
 
-                // Табы откурыть
+                //// Табы откурыть
                 $human.find('.human__footer').show(500);
 
-                // Смена текста кнопки
+                //// Смена текста кнопки
                 $human.find('.active-one').addClass('one').removeClass('active-one');
                 $human.find('.two').addClass('active-two').removeClass('two');
 
             } else {
                 $human.find('.human__info').toggleClass('active');
 
-                // Табы закрыть
+                //// Табы закрыть
                 $human.find('.human__footer').hide(500);
 
-                // Смена текста кнопки
+                //// Смена текста кнопки
                 $human.find('.active-two').addClass('two').removeClass('active-two');
                 $human.find('.one').addClass('active-one').removeClass('one');
             }
 
         });
         //Страница "Почётные граждане" табаы END
+
+        //Страница "Районная газета" табаы START
+        $('.newspaper-page__button').on('click', function () {
+            $(this).toggleClass('active');
+
+            $('.newspaper-page__header_hide').animate({
+                'height': '60'
+            }, 100).toggle(400);
+
+            $('.newspaper-page__header_hide .newspaper-page__years').animate({
+                'opacity': '1'
+            }, 400);
+
+
+            if ($('.newspaper-page__button.active').length == true) {
+                $(this).parent().addClass('newspaper-page__header_border');
+            } else {
+                setTimeout(function () {
+                    $('.newspaper-page__header_border').removeClass('newspaper-page__header_border');
+                }, 400)
+            }
+        });
+
+        //// Выбор года
+        $('.newspaper-page__header_hide').on('click', function () {
+            var year = $(this).find('.js-select-year').text().trim();
+
+            window.location.href = "/page-area/newspaper-area/?year=" + year;
+        });
+        //Страница "Районная газета" табаы END
     });
 
     $(window).load(function () {

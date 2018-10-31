@@ -4,6 +4,7 @@
     margin: 0 auto;
     background-color: $light-blue;
     z-index: 1;
+
     @include max-screen(1024px) {
         display: none;
     }
@@ -19,6 +20,10 @@
         background-color: $light-blue;
         z-index: 1;
         transform: skewX(40.5deg);
+
+        @include max-screen(1200px) {
+            right: 30px;
+        }
     }
 
     ul {
@@ -48,6 +53,10 @@
                 left: 50%;
                 opacity: 0;
                 background-color: $medium-blue;
+                -webkit-transition: all .3s ease;
+                -moz-transition: all .3s ease;
+                -ms-transition: all .3s ease;
+                -o-transition: all .3s ease;
                 transition: all .3s ease;
                 z-index: -1;
             }
@@ -140,11 +149,18 @@
         outline: none;
         border: none;
         background: transparent;
+        -webkit-transition: all .6s ease;
+        -moz-transition: all .6s ease;
+        -ms-transition: all .6s ease;
+        -o-transition: all .6s ease;
         transition: all .6s ease;
         top: 0;
         right: 0;
         z-index: 2;
         cursor: pointer;
+        @include max-screen(1024px) {
+            top: 35px;
+        }
 
         &::-webkit-input-placeholder {
             color: #fff;

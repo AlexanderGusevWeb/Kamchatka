@@ -1,6 +1,6 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 24/10/2018 17:18
+    Creation date: 30/10/2018 13:44
     */
 
     @font-face {
@@ -54,6 +54,8 @@
 .flaticon-circular-shape-silhouette:before { content: "\f10f"; }
 .flaticon-close:before { content: "\f110"; }
 .flaticon-minus-horizontal-straight-line:before { content: "\f111"; }
+.flaticon-angle-arrow-down:before { content: "\f112"; }
+.flaticon-arrow-left-and-right:before { content: "\f113"; }
     
     $font-Flaticon-placeholder: "\f100";
     $font-Flaticon-cloudy: "\f101";
@@ -73,3 +75,5 @@
     $font-Flaticon-circular-shape-silhouette: "\f10f";
     $font-Flaticon-close: "\f110";
     $font-Flaticon-minus-horizontal-straight-line: "\f111";
+    $font-Flaticon-angle-arrow-down: "\f112";
+    $font-Flaticon-arrow-left-and-right: "\f113";
