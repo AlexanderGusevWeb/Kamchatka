@@ -10,9 +10,9 @@ $main_news = $this->macros('news', 'lastlist', array('main-news', null, null, tr
 $main_event = $this->macros('news', 'lastlist', array('main-event', null, INF, true));
 ?>
 
-<div class="news home-page__news wow bounceInUp">
+<div class="news home-page__news">
     <nav  class="news__links">
-        <div class="news__link news__link-one news__active">
+        <div class="news__link news__link-one news__active wow bounceInLeft">
             <h3>Новости</h3>
 
             <span class="news__separate"></span>
@@ -28,7 +28,7 @@ $main_event = $this->macros('news', 'lastlist', array('main-event', null, INF, t
             </div>
         </div>
 
-        <div class="news__link news__link-two news__passive">
+        <div class="news__link news__link-two news__passive wow bounceInRight">
             <div class="news__link-view">
                 <div class="flat-arrow">
                     <span class="flaticon-back"></span>
@@ -45,13 +45,20 @@ $main_event = $this->macros('news', 'lastlist', array('main-event', null, INF, t
         </div>
     </nav>
 
-    <section class="news__body">
+    <section class="news__body wow bounceInUp">
         <div class="block-news block-news__one">
             <? foreach ($main_news['items'] as $item):
                 $news_date = $this->macros('system', 'convertDate', array($item['publish_time'], date("m.d.Y")));
+                $news_image = $this->getPageById($item['id'])->getValue('anons_pic');
+
+                if (isset($news_image)) {
+                    $news_image = str_replace('./','/', ($news_image->getFilePath()));
+                } else {
+                    $news_image = '/templates/kamchatka_theme/images/noimage.jpeg';
+                }
                 ?>
                 <div class="one-news">
-                    <img src="<?= str_replace('./','/',$this->getPageById($item['id'])->getValue('anons_pic')->getFilePath()) ?>" alt="news">
+                    <img src="<?= $news_image ?>" alt="news">
 
                     <p class="one-news__text"><?= $item['header'] ?></p>
 
@@ -72,21 +79,64 @@ $main_event = $this->macros('news', 'lastlist', array('main-event', null, INF, t
 
             <? foreach ($main_event['items'] as $item): ?>
 
-            <div class="three-event">
-                <? foreach ($item as $val):
-                    $event_date = $this->macros('system', 'convertDate', array($val['publish_time'], date("m.d.Y"))); ?>
-                    <div class="one-event">
-                        <p class="one-event__text">
-                            <?= $val['header'] ?>
-                        </p>
+                <div class="three-event">
+                    <? foreach ($item as $val):
+                        $event_date = $this->macros('system', 'convertDate', array($val['publish_time'], date("m.d.Y"))); ?>
+                        <div class="one-event">
+                            <p class="one-event__text">
+                                <?= $val['header'] ?>
+                            </p>
 
-                        <span class="one-event__date">
-                            <?= $event_date ?>
-                        </span>
-                    </div>
-                 <? endforeach; ?>
+                            <span class="one-event__date">
+                                <?= $event_date ?>
+                            </span>
+                        </div>
+                     <? endforeach; ?>
+                </div>
+            <? endforeach;?>
+        </div>
+    </section>
+</div>
 
+
+<!--Блок для телефонной версии-->
+<div class="news home-page__news mobile-event">
+    <nav  class="news__links mobile-event__links">
+        <div class="news__link news__link-mobile-event news__active wow bounceInLeft">
+            <h3>События</h3>
+
+            <span class="news__separate"></span>
+
+            <div class="news__link-view">
+                <a href="/">Смотреть все</a>
+
+                <div class="flat-arrow">
+                    <span class="flaticon-next-1"></span>
+                    <span class="flaticon-next-1 flat-arrow_middle"></span>
+                    <span class="flaticon-next-1"></span>
+                </div>
             </div>
+        </div>
+    </nav>
+
+    <section class="news__body wow bounceInUp">
+        <div class="block-news block-news__mobile">
+            <? foreach ($main_event['items'] as $item): ?>
+
+                <div class="three-event">
+                    <? foreach ($item as $val):
+                        $event_date = $this->macros('system', 'convertDate', array($val['publish_time'], date("m.d.Y"))); ?>
+                        <div class="one-event">
+                            <p class="one-event__text">
+                                <?= $val['header'] ?>
+                            </p>
+
+                            <span class="one-event__date">
+                                <?= $event_date ?>
+                            </span>
+                        </div>
+                    <? endforeach; ?>
+                </div>
             <? endforeach;?>
         </div>
     </section>

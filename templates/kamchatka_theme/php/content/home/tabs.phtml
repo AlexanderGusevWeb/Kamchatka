@@ -7,22 +7,56 @@
  */
 
 $settings = $this->getSettingsContainer('main_config');
+$settings->getValue('sobolevo-prefix');
+
+$cityPoint = [];
+$cityPoint[0]['active'] = 'active';
+$cityPoint[0]['class_name'] = 'sobolevo';
+$cityPoint[0]['title'] = $settings->getValue('sobolevo-prefix');
+$cityPoint[0]['area'] = $settings->getValue('sobolevo-area');
+$cityPoint[0]['population'] = $settings->getValue('sobolovo-population');
+$cityPoint[0]['link_map'] = $settings->getValue('sobolevo-link_map');
+
+$cityPoint[1]['active'] = '';
+$cityPoint[1]['class_name'] = 'ustevo';
+$cityPoint[1]['title'] = $settings->getValue('ustevo-prefix');
+$cityPoint[1]['area'] = $settings->getValue('ustevo-area');
+$cityPoint[1]['population'] = $settings->getValue('ustevo-population');
+$cityPoint[1]['link_map'] = $settings->getValue('ustevo-link_map');
+
+$cityPoint[2]['active'] = '';
+$cityPoint[2]['class_name'] = 'krutogorovo';
+$cityPoint[2]['title'] = $settings->getValue('krutogorovo-prefix');
+$cityPoint[2]['area'] = $settings->getValue('krutogorovo-area');
+$cityPoint[2]['population'] = $settings->getValue('krutogorovo-population');
+$cityPoint[2]['link_map'] = $settings->getValue('krutogorovo-link_map');
+
+$cityPoint[3]['active'] = '';
+$cityPoint[3]['class_name'] = 'ichinsky';
+$cityPoint[3]['title'] = $settings->getValue('ichinsky-prefix');
+$cityPoint[3]['area'] = $settings->getValue('ichinsky-area');
+$cityPoint[3]['population'] = $settings->getValue('ichinsky-population');
+$cityPoint[3]['link_map'] = $settings->getValue('ichinsky-link_map');
+
+$objectsCollection = umiObjectsCollection::getInstance();
+$arrAreaMap = $objectsCollection->getGuidedItems(388);
+
 ?>
 
-<div class="tabs home-page__tabs wow bounceInUp">
+<div class="tabs home-page__tabs">
     <nav>
         <ul class="tabs__link">
-            <li class="tab-link tab-link-one">
+            <li class="tab-link tab-link-one wow bounceInLeft">
                 <span class="flaticon-placeholder"></span>
                 <span class="tab-link__background"></span>
                 <p>Карта района</p>
             </li>
-            <li class="tab-link tab-link-two">
+            <li class="tab-link tab-link-two wow bounceInDown">
                 <span class="flaticon-cloudy"></span>
                 <span class="tab-link__background"></span>
                 <p>Климат</p>
             </li>
-            <li class="tab-link tab-link-three">
+            <li class="tab-link tab-link-three wow bounceInRight">
                 <span class="flaticon-child"></span>
                 <span class="tab-link__background"></span>
                 <p>Население</p>
@@ -30,37 +64,75 @@ $settings = $this->getSettingsContainer('main_config');
         </ul>
     </nav>
 
-    <section class="tabs__body">
+    <section class="tabs__body wow bounceInUp">
         <div class="tab tab-one">
             <div class="tab-one__left">
-                <img src="/images/images-kamchatka/map1.png" alt="map">
+                <img src="/images/images-kamchatka/map/home-page-map.svg" alt="map">
+
+                <? foreach ($cityPoint as $key => $item): ?>
+                    <div class="map-item city-<?= $item['class_name'] ?> <?= $item['active'] ?> ">
+                        <span class="flaticon-dot"></span>
+
+                        <div class="map-item__title">
+                            <p>
+                                <?= $item['title'] ?>
+                            </p>
+
+                            <span class="map-item__line"></span>
+                        </div>
+                    </div>
+                <? endforeach; ?>
+
+                <!-- Дополнительные населенные пункты карты -->
+                <div class="map-item__add-area">
+                    <? foreach ($arrAreaMap as $key => $item): ?>
+                        <span class="item-id-<?= $key ?>"><?= $item ?></span>
+                    <? endforeach; ?>
+                </div>
             </div>
+
             <div class="tab-one__right">
-                <h3><?= $settings->getValue('sobolevo-prefix') ?></h3>
-                <div>
-                    <span class="flaticon-map-location"></span>
-                    <p>
-                        <span>
-                            Площадь -
-                        </span>
-                        <?= $settings->getValue('sobolevo-area') ?> км<sup>2</sup>
-                    </p>
-                </div>
-                <div>
-                    <span class="flaticon-multiple-users-silhouette"></span>
-                    <p>
-                        <span>
-                            Население -
-                        </span>
-                        <?= $settings->getValue('sobolovo-population') ?> человек
-                    </p>
-                </div>
-                <div>
-                    <span class="flaticon-grid-world"></span>
-                    <a href="<?= $settings->getValue('sobolevo-link_map') ?>">
-                        <?= $settings->getValue('sobolevo-link_map') ?>
-                    </a>
-                </div>
+                <? foreach ($cityPoint as $key => $item): ?>
+                    <div class="city city-<?= $item['class_name'] ?> <?= $item['active'] ?> ">
+                        <div class="wrapper">
+                            <h3>
+                                <?= $item['title'] ?>
+                            </h3>
+
+                            <div>
+                                <span class="flaticon-map-location"></span>
+
+                                <p>
+                                <span>
+                                    Площадь -
+                                </span>
+
+                                    <?= $item['area'] ?> км<sup>2</sup>
+                                </p>
+                            </div>
+
+                            <div>
+                                <span class="flaticon-multiple-users-silhouette"></span>
+
+                                <p>
+                                <span>
+                                    Население -
+                                </span>
+
+                                    <?= $item['population'] ?> человек
+                                </p>
+                            </div>
+
+                            <div>
+                                <span class="flaticon-grid-world"></span>
+
+                                <a href="<?= $item['link_map'] ?>">
+                                    <?= $item['link_map'] ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <? endforeach; ?>
             </div>
         </div>
 

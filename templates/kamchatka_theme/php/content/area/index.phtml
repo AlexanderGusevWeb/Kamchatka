@@ -5,9 +5,6 @@
  * Date: 22.10.2018
  * Time: 14:33
  */
-
-$page404 = $this->getPageById(47);
-
 $page = $variables['page'];
 $pageId = $page->id;
 $pageTitle = $page->getValue('h1');
@@ -17,38 +14,31 @@ $pageContent = $page->getValue('content');
 
 $pageArea_insidePages = $this->macros('content', 'menu', array(null, 1, 4))['items'];
 
-foreach ($pageArea_insidePages as $key => $item) {
-    $pageArea_onePage[$key]['id'] = $item['id'];
-    $pageArea_onePage[$key]['title'] = $this->getPageById($item['id'])->getName();
-    $pageArea_onePage[$key]['link'] = $item['link'];
-    $pageArea_onePage[$key]['status'] = $item['status'];
-}
-
 $pageArea['id'] = $this->getPageById(4)->id;
-$pageArea['title'] = $this->getPageById(4)->getValue('h1');
+$pageArea['name'] = $this->getPageById(4)->getValue('h1');
 $pageArea['link'] = $this->getPageById(4)->link;
 
 if ($pageLink == $pageArea['link']) {
     $pageArea['status'] = "active";
 }
 
-array_unshift($pageArea_onePage, $pageArea);
+array_unshift($pageArea_insidePages, $pageArea);
 
 ?>
 
 <?= $this->render($variables, 'content/header-pages') ?>
 
-<div class="secondary-page area">
+<div class="secondary-page area-page">
     <nav>
-        <div class="area__mobile-menu">
+        <div class="secondary-page__mobile-menu">
             <span class="flaticon-angle-arrow-down"></span>
         </div>
 
-        <ul class="area__menu">
-            <? foreach($pageArea_onePage as $key => $item): ?>
-                <li class="about-area__item">
+        <ul class="secondary-page__menu">
+            <? foreach($pageArea_insidePages as $key => $item): ?>
+                <li class="secondary-page__item">
                     <a id="pageId-<?= $item['id'] ?>" class="<?= $item['status'] ?>" href="<?= $item['link'] ?>">
-                        <?= $item['title'] ?>
+                        <?= $item['name'] ?>
                     </a>
                 </li>
             <? endforeach; ?>
@@ -56,7 +46,8 @@ array_unshift($pageArea_onePage, $pageArea);
     </nav>
 
     <section class="one-page pageId-<?= $pageId ?>">
-        <h2>
+        <h2 umi:element-id="<?= $page->getId() ?>"
+            umi:field-name="h1">
             <?= $pageTitle ?>
         </h2>
 
@@ -64,7 +55,9 @@ array_unshift($pageArea_onePage, $pageArea);
 
             <?php if ($pageLink == $pageArea['link']): ?>
 
-                <div class="about-area">
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="content"
+                     class="about-area">
                     <?= $pageContent ?>
                 </div>
 
@@ -74,7 +67,9 @@ array_unshift($pageArea_onePage, $pageArea);
                     <?= $this->render($variables, 'content/area/'.$pageAlt) ?>
 
                 <?php else: ?>
-                    <div  class="page-content">
+                    <div umi:element-id="<?= $page->getId() ?>"
+                         umi:field-name="content"
+                         class="page-content">
                         <?= $pageContent ?>
                     </div>
                 <?php endif; ?>

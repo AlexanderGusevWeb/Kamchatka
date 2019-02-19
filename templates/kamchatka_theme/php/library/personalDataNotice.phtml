@@ -9,7 +9,8 @@ $settingsContainer = $this->getSettingsContainer();
 ?>
 
 <div class="personal_data_wrapper">
-	<input id="<?= $inputId ?>" type="checkbox" name="personal" required checked >
+	<input id="<?= $inputId ?>" type="checkbox" name="personal" required checked />
+
 	<label for="<?= $inputId ?>">
 		<?= $settingsContainer->getValue('personal_data_text') ?>
 	</label>

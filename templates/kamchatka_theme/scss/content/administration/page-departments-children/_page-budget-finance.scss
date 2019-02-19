@@ -1,0 +1,146 @@
+.budget-finance-page {
+    .one-tab {
+        &__text {
+            padding-top: 30px;
+        }
+    }
+
+    .main-text {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
+
+.documents-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 35px;
+    width: calc((100% / 4) - (25px / 4));
+
+    @include max-screen(1200px) {
+        width: calc((100% / 3) - (25px / 3));
+    }
+
+    @include max-screen(768px) {
+        width: calc((100% / 2) - (25px / 2));
+    }
+
+    @include max-screen(576px) {
+        width: 100%;
+    }
+
+    &:hover {
+        .documents-list__name {
+            color: $dark-blue;
+        }
+
+        .documents-list__doc {
+            a {
+                color: $light-blue;
+            }
+
+            &::before {
+                background-color: rgba($dark-blue, 1);
+            }
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__name {
+        @include monts_600;
+        font-size: 17px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 10px;
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    &__doc {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 10px;
+        position: relative;
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: calc(100% - 1px);
+            left: 0;
+            background-color: rgba($dark, .2);
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+        }
+
+        a {
+            @include monts_600;
+            font-size: 17px;
+            min-width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            color: $dark-blue;
+            padding: 0;
+            cursor: pointer;
+
+            .flaticon-back {
+                &::before {
+                    font-size: 16px;
+                }
+            }
+
+            &::before,
+            &::after {
+                display: none;
+            }
+        }
+
+        span {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            opacity: 1;
+            margin-left: 10px;
+
+            &::before {
+                font-weight: 600;
+
+                -webkit-transform: rotate(-90deg);
+                -moz-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+
+                border-left: 1px solid $dark-blue;
+                position: relative;
+                bottom: -1px;
+            }
+        }
+    }
+}

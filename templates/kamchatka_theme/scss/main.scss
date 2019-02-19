@@ -1,32 +1,54 @@
-@import 'fonts';
-@import 'media-queries';
+@import
+'media-queries',
 
-@import 'base/colors';
-@import 'base/mixins';
-@import 'base/base';
-@import 'base/language-switch';
-@import 'base/map-site';
-@import 'base/eyeglasses';
-@import 'base/breadcrumbs';
-@import 'base/page404';
+'base/colors',
+'base/mixins',
+'base/fonts',
+'base/base',
 
-@import 'layout/header/main-menu';
-@import 'layout/header/header-top';
+'layout/header/main-menu',
+'layout/header/header-top',
 
-@import 'layout/home/home';
-@import 'layout/home/tabs';
-@import 'layout/home/news';
-@import 'layout/home/activities';
-@import 'layout/home/links';
-@import 'layout/home/documents';
+'layout/preloader',
+'layout/language-switch',
+'layout/map-site',
+'layout/eyeglasses',
+'layout/tabs-all-page',
+'layout/doc-tabs',
+'layout/secondary-page',
+'layout/table-pages',
+'layout/contact-us-form',
+'layout/breadcrumbs',
+'layout/page404',
 
-@import 'layout/footer/content';
-@import 'layout/footer/copyright';
+'layout/footer/content',
+'layout/footer/copyright',
 
-@import 'layout/area/area';
-@import 'layout/area/charter-area';
-@import 'layout/area/honorary-area';
-@import 'layout/area/map-area';
-@import 'layout/area/newspaper-area';
-@import 'layout/area/settlements-area';
-@import 'layout/area/symbols-area';
+'content/home/home',
+
+'content/home/tabs/tabs',
+'content/home/tabs/map-item',
+'content/home/tabs/climate',
+
+'content/home/news',
+'content/home/activities',
+'content/home/links',
+'content/home/documents',
+
+'content/area/about-area',
+'content/area/charter-area',
+'content/area/honorary-area',
+'content/area/map-area',
+'content/area/newspaper-area',
+'content/area/settlements-area',
+'content/area/symbols-area',
+
+'content/administration/page-collegiate',
+'content/administration/page-district-head',
+
+'content/administration/page-departments-children/page-budget-finance',
+'content/administration/page-departments-children/page-tek-zhkh',
+
+'content/administration/page-structure',
+
+'content/administration/page-work-plan/page-work-plan';

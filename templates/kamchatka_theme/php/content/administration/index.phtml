@@ -1,0 +1,247 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 22.10.2018
+ * Time: 14:33
+ */
+
+$settings = $this->getSettingsContainer('main_config');
+
+$page = $variables['page'];
+$pageId = $page->id;
+$pageTitle = $page->getValue('h1');
+$pageLink = $page->link;
+$pageAlt = $page->getAltName();
+$pageContent = $page->getValue('content');
+$pageDocList = $page->getValue('main-doc_list');
+
+$oneDoc = [];
+$fileWithText = 0;
+if (isset($pageDocList)) {
+    foreach ($pageDocList as $key => $item) {
+        $oneDoc[$key]['name'] = $this->getObjectById($item)->getName();
+        $oneDoc[$key]['doc'] = $this->getObjectById($item)->getValue('main-doc');
+        $oneDoc[$key]['text'] = trim($this->getObjectById($item)->getValue('main-doc-text'));
+
+        $textLength = mb_strlen($oneDoc[$key]['text'], 'windows-1251');
+
+        if ($textLength == 0) {
+            $oneDoc[$key]['text'] = NULL;
+
+        } else {
+            $fileWithText++;
+
+        }
+    }
+}
+
+$parentList = $variables['parents'];
+
+$parent = '';
+foreach ($parentList as $item) {
+    $parent = $this->getPath($item);
+}
+
+$sidebar_leftBlock = $this->macros('content', 'menu', array(null, 10, 6))['items'];
+$insidePages_rightBlock = $this->macros('content', 'menu', array(null, 10, $pageId))['items'];
+
+$title_parentArray = [];
+$title_parentName = [];
+
+foreach ($sidebar_leftBlock as $key => $item) {
+    $title_parentArray[$key]['id'] = $item['id'];
+    $title_parentArray[$key]['name'] = $item['name'];
+};
+
+$title_parent = '';
+$parent_active = '';
+
+foreach ($title_parentArray as $key => $item) {
+    if ($item['id'] == $pageId) {
+        $parent_active = 'active';
+    }
+};
+
+$pageAdministration['id'] = $this->getPageById(6)->id;
+$pageAdministration['link'] = $this->getPageById(6)->link;
+
+$find_dir_patch = realpath(dirname(__FILE__));
+$find_file = $pageAlt . '.phtml';
+$find = $this->macros('content', 'parseDir_file', array($find_dir_patch, $find_file, true, true));
+
+$newspaper_image = $this->render(
+    [
+        'id' => $settings->getId(),
+        'field_name' => 'newspaper_image',
+        'src' => $settings->getValue('newspaper_image'),
+        'alt' => "doc",
+        'width' => 85,
+        'height' => 85
+    ],
+    'library/thumbnail');
+?>
+
+<?= $this->render($variables, 'content/header-pages') ?>
+
+<div class="secondary-page administration-page">
+    <nav>
+        <div class="secondary-page__mobile-menu">
+            <span class="flaticon-angle-arrow-down"></span>
+        </div>
+
+        <ul class="secondary-page__menu">
+            <? foreach ($sidebar_leftBlock as $key1 => $item1): ?>
+
+                <? if ($item1['status'] == 'active') {
+                    $title_parent = $item1['name'];
+                } ?>
+
+                <li class="secondary-page__item <?= $item1['status'] ?>">
+                    <a id="pageId-<?= $item1['id'] ?>" class="<?= $item1['status'] ?>" href="<?= $item1['link'] ?>">
+                        <?= $item1['name'] ?>
+                    </a>
+
+                    <? if ($item1['items'] == true): ?>
+                        <ul class="second-level-menu">
+
+                            <? foreach ($item1['items'] as $key2 => $item2): ?>
+                                <li class="second-level-menu__item">
+                                    <a id="pageId-<?= $item2['id'] ?>" class="<?= $item2['status'] ?>"
+                                       href="<?= $item2['link'] ?>">
+                                        <?= $item2['name'] ?>
+                                    </a>
+                                </li>
+                            <? endforeach; ?>
+
+                        </ul>
+                    <? endif; ?>
+
+                </li>
+            <? endforeach; ?>
+        </ul>
+    </nav>
+
+    <section class="one-page pageId-<?= $pageId ?>">
+        <div class="one-page__title">
+            <h2>
+                <?= $title_parent ?>
+            </h2>
+
+            <? if ($parent_active != 'active'): ?>
+                <a href="<?= $parent ?>" class="button-back">
+                    <span class="flaticon-back arrow1"></span>
+                    <span class="flaticon-back arrow2"></span>
+                    <span class="flaticon-back arrow3"></span>
+                    <span class="button-text">Вернуться назад</span>
+                </a>
+
+                <span class="button-back__separate"></span>
+            <? endif; ?>
+        </div>
+
+        <? if ($parent_active != 'active'): ?>
+
+            <h3 class="secondary-inside-title">
+                <?= $pageTitle ?>
+            </h3>
+
+        <? endif; ?>
+
+        <div class="one-page__body">
+            <?php if ($pageLink == $pageAdministration['link']): ?>
+                <? header('location: /page-administration/page-district-head/'); ?>
+
+            <?php else: ?>
+
+                <?php if (!isset($find['error']) && !empty($find)): ?>
+                    <?php //Проверка существует ли отдельный шаблон вывода страницы в папке 'administration'?>
+                    <?php $find = str_replace(array('.phtml', $find_dir_patch), '', trim($find[0]));
+                    echo $this->render($variables, 'content/administration' . $find); ?>
+
+                <?php else: ?>
+
+                    <?php //Если нет шаблона, проверить на существрвания поля 'контент' или поля 'документы'?>
+                    <?php if (isset($pageContent) || $pageDocList != false): ?>
+                        <div class="page-content">
+                            <?php if (isset($pageDocList)): ?>
+                                <?= $pageContent ?>
+                            <?php endif ?>
+
+                            <?php if ($pageDocList != false): ?>
+                                <?php //Если есть хоть один файл '?>
+                                <?php if($fileWithText > 0): ?>
+                                    <span class="tabs__button charter-page__button">
+                                        <span class="button-text active-one">Открыть все вкладки</span>
+                                        <span class="button-text two">Закрыть все вкладки</span>
+                                        <span class="flaticon-back active"></span>
+                                    </span>
+
+                                <?php endif; ?>
+
+                                <div class="charter-tabs">
+                                    <?php foreach ($oneDoc as $key => $item): ?>
+                                        <div class="one-tab">
+                                            <div class="one-tab__title">
+                                                <div class="left">
+                                                    <span class="flaticon-document"></span>
+
+                                                    <p>
+                                                        <?= $item['name'] ?>
+                                                    </p>
+                                                </div>
+
+                                                <div class="right">
+                                                    <div class="doc-load">
+                                                        <a href="<?= $item['doc'] ?>" download>
+                                                            Скачать файл
+                                                            <span class="flaticon-back"></span>
+                                                        </a>
+                                                    </div>
+
+                                                    <?php if (isset($item['text'])): ?>
+                                                        <span class="flaticon-minus-horizontal-straight-line"></span>
+
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+
+                                            <?php if (isset($item['text'])): ?>
+                                                <div class="one-tab__text">
+                                                    <div class="main-text">
+                                                        <?= $item['text'] ?>
+                                                    </div>
+                                                </div>
+
+                                            <?php endif; ?>
+                                        </div>
+
+                                    <?php endforeach; ?>
+                                </div>
+
+                            <?php endif; ?>
+                        </div>
+
+                    <?php //Если все NULL вывести вложенные страницы?>
+                    <?php elseif (is_null($pageContent)): ?>
+                        <div class="page-content__menu">
+                            <? if ($insidePages_rightBlock == true): ?>
+                                <ul>
+                                    <? foreach ($insidePages_rightBlock as $key => $item): ?>
+                                        <li>
+                                            <a id="page-content-Id-<?= $item['id'] ?>" href="<?= $item['link'] ?>">
+                                                <?= $item['name'] ?>
+                                            </a>
+                                        </li>
+                                    <? endforeach; ?>
+
+                                </ul>
+                            <? endif; ?>
+                        </div>
+
+                    <?php endif; ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+    </section>
+</div>

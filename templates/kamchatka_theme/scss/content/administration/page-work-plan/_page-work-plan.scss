@@ -1,0 +1,20 @@
+.work-plan-page {
+
+    .no-docs {
+        width: 100%;
+        @include monts_600;
+        font-size: 23px;
+        color: $dark-blue;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 30px 0 50px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba($dark, 0.2);
+    }
+
+    &__docs {
+        padding: 30px 0 10px;
+    }
+
+    @include doc-list;
+}

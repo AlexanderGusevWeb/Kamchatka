@@ -1,0 +1,354 @@
+.secondary-page {
+    display: flex;
+    justify-content: flex-start;
+
+    @include max-screen(1024px) {
+        flex-direction: column;
+    }
+
+    nav {
+        width: 100%;
+        padding: 15px;
+
+        @include min-screen(1025px) {
+            max-width: 265px;
+        }
+
+        ul  {
+            border: none;
+            margin: 0;
+            padding: 0;
+
+            @include max-screen(1024px) {
+                border-top: 2px solid $dark-blue;
+                border-bottom: 2px solid $dark-blue;
+                padding: 0 35px;
+            }
+        }
+
+        li {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            opacity: 1;
+
+            padding: 0;
+            margin: 0;
+
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+
+            @include max-screen(1024px) {
+                display: none;
+                height: 0;
+                opacity: 0;
+            }
+
+            &:last-child a::before {
+                border-bottom: none;
+            }
+
+            .second-level-menu {
+                display: none;
+            }
+
+            &.active {
+                .second-level-menu {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+        }
+
+        a {
+            display: flex;
+            width: 100%;
+            padding: 15px;
+            @include monts_600;
+            color: #000;
+
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+
+            @include max-screen(1024px) {
+                text-align: center;
+                justify-content: center;
+                padding: 15px 0;
+            }
+
+            &::before {
+                right: 100%;
+                background-color: $dark-blue;
+                z-index: -1;
+
+                @include max-screen(1024px) {
+                    right: 0;
+                    left: 0;
+                    background-color: transparent;
+                    border-bottom: 1px solid rgba($dark, .2);
+                    opacity: 1;
+                }
+            }
+
+            &::after {
+                display: inherit;
+                position: absolute;
+                content: '';
+                top: 0;
+                right: calc(100% - 6px);
+                bottom: 0;
+                left: 0;
+                background-color: $light-blue;
+                opacity: 0;
+
+                @include max-screen(1024px) {
+                    display: none;
+                }
+            }
+
+            &:hover {
+                color: $white;
+
+                @include max-screen(1024px) {
+                    color: $medium-blue;
+                }
+
+                &::before {
+                    right: 0;
+                    opacity: 1;
+                }
+            }
+
+            &.active {
+                pointer-events: none;
+
+                @include max-screen(1024px) {
+                    color: $light-blue;
+                }
+
+                &::after {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .second-level-menu {
+        padding: 6px 0 6px 50px;
+
+        @include max-screen(1024px) {
+            display: none !important;
+        }
+
+        a {
+            @include monts_500;
+            padding: 6px 0;
+
+            &::before,
+            &::after {
+                display: none;
+            }
+
+            &:hover {
+                color: $dark-blue;
+            }
+        }
+    }
+
+    &__mobile-menu {
+        display: none;
+        height: 46px;
+        background-color: $dark-blue;
+        cursor: pointer;
+
+        .flaticon-angle-arrow-down {
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+
+            &::before {
+                color: $white;
+                font-size: 21px;
+            }
+        }
+
+        @include max-screen(1024px) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &.active {
+            .flaticon-angle-arrow-down {
+                -webkit-transform: rotate(180deg);
+                -moz-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                transform: rotate(180deg);
+
+                &::before {
+                    color: $white;
+                    font-size: 21px;
+                }
+            }
+        }
+    }
+}
+
+.one-page {
+    width: calc(100% - 250px);
+    background-color: darken($white, 3%);
+    padding: 35px 35px 0;
+
+    @include max-screen(768px) {
+        padding: 35px 10px 0;
+    }
+
+    @include max-screen(1024px) {
+        width: 100%;
+        background-color: $white;
+    }
+
+    h2 {
+        padding-bottom: 15px;
+        margin: 0;
+    }
+
+    h3 {
+        @include monts_600;
+        font-size: 17px;
+    }
+
+    h4 {
+        @include monts_600;
+        font-size: 17px;
+    }
+
+    p {
+        line-height: 22px;
+    }
+
+    &__title {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h2 {
+            @include monts_700;
+            font-size: 30px;
+        }
+    }
+}
+
+.page-content__menu {
+    ul {
+        padding: 0;
+
+        li {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: flex;
+            color: $white;
+            text-transform: uppercase;
+            font-size: 17px;
+            @include monts_600;
+            background-color: $dark-blue;
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+
+            &:hover {
+                background-color: $light-blue;
+            }
+        }
+    }
+}
+
+.second-level-menu {
+    a.active {
+        color: $light-blue;
+    }
+}
+
+
+// Стили для кнопки назад
+.button-back {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    max-width: 235px;
+    min-height: 60px;
+    color: $white;
+    background-color: $dark-blue;
+    padding-right: 30px;
+    cursor: pointer;
+
+    span {
+        @include monts_600;
+    }
+
+    .flaticon-back {
+        position: absolute;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+
+
+        &::before {
+            font-size: 21px;
+        }
+    }
+
+    &:hover {
+        .arrow1 {
+            left: 6px;
+        }
+
+        .arrow2 {
+            left: -3px;
+        }
+
+        .arrow3 {
+            left: -12px;
+        }
+    }
+
+    &__separate {
+        position: absolute;
+        top: calc(100% - 1px);
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        border-bottom: 1px solid $gray;
+    }
+}

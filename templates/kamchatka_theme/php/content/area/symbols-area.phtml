@@ -17,8 +17,10 @@ $content_2 = $page->getValue('content_2');
 
 $pageTabs = $page->getValue('symbols-list');
 
+$pageOneTab = [];
 foreach ($pageTabs as $key => $item) {
     $pageOneTab[$key]['title'] = $this->getObjectById($item)->name;
+    $pageOneTab[$key]['doc'] = $this->getObjectById($item)->getValue('symbols-doc');
     $pageOneTab[$key]['text'] = $this->getObjectById($item)->getValue('symbols-text');
 }
 
@@ -27,7 +29,8 @@ foreach ($pageTabs as $key => $item) {
 
 <div class="symbols-page">
     <div class="logo-block">
-        <h4>
+        <h4 umi:element-id="<?= $page->getId() ?>"
+            umi:field-name="title-content">
             <?= $titleContent ?>
         </h4>
 
@@ -46,14 +49,18 @@ foreach ($pageTabs as $key => $item) {
                 ) ?>
             </div>
 
-            <div class="logo-block__text">
+            <div umi:element-id="<?= $page->getId() ?>"
+                 umi:field-name="content"
+                 class="logo-block__text">
                 <?= $content ?>
             </div>
         </div>
     </div>
 
     <div class="logo-block">
-        <h4>
+
+        <h4 umi:element-id="<?= $page->getId() ?>"
+            umi:field-name="title-content_2">
             <?= $titleContent_2 ?>
         </h4>
 
@@ -72,22 +79,40 @@ foreach ($pageTabs as $key => $item) {
                 ) ?>
             </div>
 
-            <div class="logo-block__text">
+            <div umi:element-id="<?= $page->getId() ?>"
+                 umi:field-name="content_2"
+                 class="logo-block__text">
                 <?= $content_2 ?>
             </div>
         </div>
     </div>
 
     <div class="symbols-tabs">
-        <?php foreach($pageOneTab as $key => $item): ?>
+        <?php foreach ($pageOneTab as $key => $item): ?>
 
             <div class="one-tab">
                 <div class="one-tab__title">
-                    <p>
-                        <?= $pageOneTab[$key]['title'] ?>
-                    </p>
+                    <div class="left">
+                        <span class="flaticon-document"></span>
 
-                    <span class="flaticon-minus-horizontal-straight-line"></span>
+                        <p>
+                            <?= $pageOneTab[$key]['title'] ?>
+                        </p>
+                    </div>
+
+                    <div class="right">
+                        <div class="doc-load">
+                            <a href="<?= $item['doc'] ?>" download>
+                                Скачать файл
+                                <span class="flaticon-back"></span>
+                            </a>
+                        </div>
+
+                        <?php if (isset($item['text'])): ?>
+                            <span class="flaticon-minus-horizontal-straight-line"></span>
+
+                        <?php endif; ?>
+                    </div>
                 </div>
 
                 <div class="one-tab__text">
@@ -95,6 +120,6 @@ foreach ($pageTabs as $key => $item) {
                 </div>
             </div>
 
-        <?php endforeach;?>
+        <?php endforeach; ?>
     </div>
 </div>

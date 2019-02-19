@@ -11,40 +11,80 @@ $page = $variables['page'];
 $pageContent = $page->getValue('content');
 $pageTabs = $page->getValue('charter-list');
 
-foreach ($pageTabs as $key => $item) {
-    $pageOneTab[$key]['title'] = $this->getObjectById($item)->name;
-    $pageOneTab[$key]['text'] = $this->getObjectById($item)->getValue('charter-text');
+$pageOneTab = [];
+foreach ($pageTabs as $key1 => $item1) {
+    $pageOneTab[$key1]['title'] = $this->getObjectById($item1)->name;
+    $pageOneTab[$key1]['text'] = $this->getObjectById($item1)->getValue('charter-text');
+    $extraTabs = $this->getObjectById($item1)->getValue('charter-extra-tabs');
+
+    foreach ($extraTabs as $key2 => $item2) {
+        $pageOneTab[$key1]['extra-tab'][$key2]['extra-title'] = $this->getObjectById($item2)->name;
+        $pageOneTab[$key1]['extra-tab'][$key2]['extra-text'] = $this->getObjectById($item2)->getValue('charter-extra-text');
+    }
 }
+
+$charterDoc = $page->getValue('charter-doc');
 
 ?>
 
 <div class="charter-page">
 
-    <?= $pageContent ?>
 
-    <span class="tabs__button charter-page__button">
-        <span class="button-text active-one">Открыть все вкладки</span>
-        <span class="button-text two">Закрыть все вкладки</span>
-        <span class="flaticon-back active"></span>
-    </span>
+    <div umi:element-id="<?= $page->getId() ?>"
+         umi:field-name="content">
+        <?= $pageContent ?>
+    </div>
+
+    <div class="charter-page__header-tabs">
+        <div class="documents-list__doc">
+            <a href="<?= $charterDoc ?>" download>
+                Скачать "Устав муниципального района"
+                <span class="flaticon-back"></span>
+            </a>
+        </div>
+
+        <span class="tabs__button charter-page__button">
+            <span class="button-text active-one">Открыть все вкладки</span>
+            <span class="button-text two">Закрыть все вкладки</span>
+            <span class="flaticon-back active"></span>
+        </span>
+    </div>
 
     <div class="charter-tabs">
-        <?php foreach($pageOneTab as $key => $item): ?>
+        <?php foreach ($pageOneTab as $key1 => $item1): ?>
 
             <div class="one-tab">
                 <div class="one-tab__title">
                     <p>
-                        <?= $pageOneTab[$key]['title'] ?>
+                        <?= $item1['title'] ?>
                     </p>
 
                     <span class="flaticon-minus-horizontal-straight-line"></span>
                 </div>
 
                 <div class="one-tab__text">
-                    <?= $pageOneTab[$key]['text'] ?>
+                    <div class="main-text">
+                        <?= $item1['text'] ?>
+                    </div>
+
+                    <?php foreach ($pageOneTab[$key1]['extra-tab'] as $key2 => $item2): ?>
+                        <div class="extra-tab extra-tab-id<?= $key2 ?>">
+                            <div class="extra-tab__title">
+                                <p>
+                                    <?= $item2['extra-title'] ?>
+                                </p>
+
+                                <span class="flaticon-back"></span>
+                            </div>
+
+                            <div class="extra-tab__text">
+                                <?= $item2['extra-text'] ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
-        <?php endforeach;?>
+        <?php endforeach; ?>
     </div>
 </div>

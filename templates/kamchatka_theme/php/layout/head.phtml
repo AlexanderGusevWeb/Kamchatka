@@ -11,6 +11,7 @@
 <title><?= $variables['title'] ?></title>
 
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="<?= $variables['meta']['description'] ?>">
 <meta name="keywords" content="<?= $variables['meta']['keywords'] ?>">
@@ -19,27 +20,23 @@
 
 <?= $this->macros('system', 'includeQuickEditJs') ?>
 
-<!-- Анимация Slick слайдер css -->
+<!-- Slick слайдер css -->
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<!-- Анимация css -->
-<link rel="stylesheet" href="./plugins/animated/css/animate.css">
-<!-- Style css main -->
-<link rel="stylesheet" href="css/main.min.css">
 <!-- Style css libs -->
 <link rel="stylesheet" href="css/libs.min.css">
+<!-- Style css main -->
+<link rel="stylesheet" href="css/main.min.css">
 
 <?= $this->getCanonicalLinkTag($variables) ?>
 <script type="text/javascript" src="/ulang/<?= $variables['lang'] ?>/common/emarket/?js" charset="utf-8"></script>
 
-<!-- Анимация Slick слайдер js -->
+<!-- Slick слайдер js -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <!-- google График -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<!-- Анимация js -->
-<script src="./plugins/animated/js/wow.min.js"></script>
-<!-- Style js main -->
-<script type="text/javascript" src="./js/libs.min.js" charset="utf-8"></script>
 <!-- Style js libs -->
+<script type="text/javascript" src="./js/libs.min.js" charset="utf-8"></script>
+<!-- Style js main-script -->
 <script type="text/javascript" src="./js/main-script.min.js" charset="utf-8"></script>
 
 <?php if ($this->isRecaptchaEnabled()): ?>

@@ -23,13 +23,13 @@ foreach ($activities as $key => $item) {
 
 ?>
 
-<div class="activities home-page__activities wow bounceInUp">
-    <div class="activities__title">
+<div class="activities home-page__activities">
+    <div class="activities__title wow bounceInUp">
         <h3>Направления деятельности</h3>
     </div>
 
     <section class="activities__body">
-        <div class="activities__left">
+        <div class="activities__left wow bounceInLeft">
             <? foreach ($tabs as $key => $item): ?>
                 <div class="activities__tab-link" data="id-<?= $item['id'] ?>">
                     <p><?= $item['title'] ?></p>
@@ -37,7 +37,7 @@ foreach ($activities as $key => $item) {
             <? endforeach; ?>
         </div>
 
-        <div class="activities__right">
+        <div class="activities__right wow bounceInRight">
             <? foreach ($tabs as $key => $item): ?>
             <div class="tab-body activities__tab-body d_none" data="id-<?= $item['id'] ?>">
                 <div class="tab-body__header">

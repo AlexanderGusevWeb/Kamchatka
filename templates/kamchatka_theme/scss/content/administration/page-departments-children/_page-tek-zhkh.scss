@@ -1,0 +1,30 @@
+.tek-zhkh-page {
+    .one-tab {
+        &__text {
+            padding: 25px;
+        }
+    }
+
+    .extra-tab {
+        &__title {
+            p {
+                text-align: left;
+            }
+        }
+
+        &__text {
+            p {
+                display: flex;
+            }
+
+            a {
+                @include monts_600;
+                font-size: 17px;
+                text-align: left;
+                padding: 25px 30px;
+                margin: 15px 0;
+                background-color: $dark-blue;
+            }
+        }
+    }
+}

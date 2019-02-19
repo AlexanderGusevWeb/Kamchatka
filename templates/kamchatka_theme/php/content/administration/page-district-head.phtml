@@ -1,0 +1,320 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 26.11.2018
+ * Time: 15:14
+ */
+$page = $variables['page'];
+$content = $page->getValue('content');
+
+$head_area['photo'] = $this->render(
+    [
+        'id' => $page->getId(),
+        'field_name' => 'logo2',
+        'src' => $page->getValue('head-area_photo'),
+        'alt' => "logo",
+        'width' => 210,
+        'height' => 160,
+    ],
+    'library/thumbnail'
+);
+
+$head_area['name'] = $page->getValue('head-area_full-name');
+$head_area['position'] = $page->getValue('head-area_position');
+$head_area['birthday'] = $page->getValue('head-area_birthday')->getFormattedDate('d.m.Y');
+$head_area['birthplace'] = $page->getValue('head-area_birthplace');
+$head_area['date-start'] = $page->getValue('head-area_date-start')->getFormattedDate('d.m.Y');
+$head_area['date-end'] = $page->getValue('head-area_date-end')->getFormattedDate('d.m.Y');
+
+$data_tables['education'] = $page->getValue('head-area_education-list');
+$data_tables['work'] = $page->getValue('head-area_work-experience');
+$data_tables['extra-work'] = $page->getValue('head-area_extra-work-experience');
+
+$tables = [];
+foreach ($data_tables['education'] as $key => $item) {
+    $tables['education'][$key]['name'] = $this->getObjectById($item)->getName();
+    $tables['education'][$key]['date-start'] = $this->getObjectById($item)->getValue('info_date-start')->getFormattedDate('Y');
+    $tables['education'][$key]['date-end'] = $this->getObjectById($item)->getValue('info_date-end')->getFormattedDate('Y');
+}
+
+foreach ($data_tables['work'] as $key => $item) {
+    $tables['work'][$key]['name'] = $this->getObjectById($item)->getName();
+    $tables['work'][$key]['date-start'] = $this->getObjectById($item)->getValue('info_date-start')->getFormattedDate('d.m.Y');
+    $tables['work'][$key]['date-end'] = $this->getObjectById($item)->getValue('info_date-end')->getFormattedDate('d.m.Y');
+}
+
+foreach ($data_tables['extra-work'] as $key => $item) {
+    $tables['extra-work'][$key]['name'] = $this->getObjectById($item)->getName();
+    $tables['extra-work'][$key]['date-start'] = $this->getObjectById($item)->getValue('info_date-start')->getFormattedDate('d.m.Y');
+    $tables['extra-work'][$key]['date-end'] = $this->getObjectById($item)->getValue('info_date-end')->getFormattedDate('d.m.Y');
+}
+?>
+
+<div class="district-head-page table-page">
+    <div class="district-head">
+        <div class="district-head__name">
+            <p>
+                <?= $head_area['name'] ?>
+            </p>
+        </div>
+
+        <div class="district-head__info">
+
+            <?= $head_area['photo'] ?>
+
+            <div class="district-head__text">
+                <p>
+                    <?= $head_area['position'] ?>
+                </p>
+
+                <p>
+                    Дата избрания —
+                    <span>
+                        <?= $head_area['date-start'] ?>
+                    </span>
+                </p>
+
+                <p>
+                    Дата окончания срока полномочия —
+                    <span>
+                        <?= $head_area['date-end'] ?>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <h4>
+        Глава района
+    </h4>
+
+    <span class="flaticon-arrow-left-and-right">
+        <p>
+            Чтобы просмотреть данные таблицы проведите пальцем влево/вправо
+        </p>
+    </span>
+
+    <div class="scroll-wrapper">
+        <div class="table table1">
+            <div class="table-col table-col__1">
+                <div>
+                    <p>Фамилия, имя, отчество</p>
+                </div>
+                <div>
+                    <?= $head_area['name'] ?>
+                </div>
+            </div>
+
+            <div class="table-col table-col__2">
+                <div>
+                    <p>Дата избрания</p>
+                </div>
+
+                <div>
+                    <?= $head_area['date-start'] ?>
+                </div>
+            </div>
+
+            <div class="table-col table-col__3">
+                <div>
+                    <p>Дата окончания срока полномочия</p>
+                </div>
+                <div>
+                    <?= $head_area['date-end'] ?>
+                </div>
+            </div>
+
+            <div class="table-col table-col__4">
+                <div>
+                    <p>Число, месяц, год рождения</p>
+                </div>
+                <div>
+                    <?= $head_area['birthday'] ?>
+                </div>
+            </div>
+
+            <div class="table-col table-col__5">
+                <div>
+                    <p>Место рождения</p>
+                </div>
+                <div>
+                    <?= $head_area['birthplace'] ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4>
+        Образование
+    </h4>
+
+    <span class="flaticon-arrow-left-and-right">
+        <p>
+            Чтобы просмотреть данные таблицы проведите пальцем влево/вправо
+        </p>
+    </span>
+
+    <div class="scroll-wrapper">
+        <div class="table table2">
+            <div class="table-col table-col__1">
+                <div>
+                    <p>
+                        Год поступления
+                    </p>
+                </div>
+
+                <? foreach($tables['education'] as $key => $item): ?>
+                    <div>
+                        <?=  $item['date-start']?>
+                    </div>
+                <? endforeach; ?>
+            </div>
+
+            <div class="table-col table-col__2">
+                <div>
+                    <p>
+                        Год окончания
+                    </p>
+                </div>
+
+                <? foreach($tables['education'] as $key => $item): ?>
+                    <div>
+                        <?=  $item['date-end']?>
+                    </div>
+                <? endforeach; ?>
+            </div>
+
+            <div class="table-col table-col__3">
+                <div>
+                    <p>
+                        Полное наименование учебного заведения,
+                        специальность по диплому
+                    </p>
+                </div>
+
+                <? foreach($tables['education'] as $key => $item): ?>
+                    <div>
+                        <?=  $item['name']?>
+                    </div>
+                <? endforeach; ?>
+            </div>
+        </div>
+    </div>
+
+    <h4>
+        Предыдущий опыт трудовой деятельности
+    </h4>
+
+    <span class="flaticon-arrow-left-and-right">
+        <p>
+            Чтобы просмотреть данные таблицы проведите пальцем влево/вправо
+        </p>
+    </span>
+
+    <div class="scroll-wrapper">
+        <div class="table table3">
+            <div class="table-col table-col__1">
+                <div>
+                    <p>
+                        Дата поступления
+                    </p>
+                </div>
+
+                <? foreach($tables['work'] as $key => $item): ?>
+                    <div>
+                        <?=  $item['date-start']?>
+                    </div>
+                <? endforeach; ?>
+            </div>
+
+            <div class="table-col table-col__2">
+                <div>
+                    <p>
+                        Дата увольнения
+                    </p>
+                </div>
+
+                <? foreach($tables['work'] as $key => $item): ?>
+                    <div>
+                        <?=  $item['date-end']?>
+                    </div>
+                <? endforeach; ?>
+            </div>
+
+            <div class="table-col table-col__3">
+                <div>
+                    <p>
+                        Полное наименование организации, должность
+                    </p>
+                </div>
+
+                <? foreach($tables['work'] as $key => $item): ?>
+                    <div>
+                        <?=  $item['name']?>
+                    </div>
+                <? endforeach; ?>
+            </div>
+        </div>
+    </div>
+
+    <h4>
+        Предыдущий опыт Опыт работы в представительных органах государственной власти и (или) местного самоуправлениятрудовой деятельности
+    </h4>
+
+    <span class="flaticon-arrow-left-and-right">
+        <p>
+            Чтобы просмотреть данные таблицы проведите пальцем влево/вправо
+        </p>
+    </span>
+
+    <div class="scroll-wrapper">
+        <div class="table table4">
+            <div class="table-col table-col__1">
+                <div>
+                    <p>
+                        Дата избрания
+                    </p>
+                </div>
+
+                <? foreach($tables['extra-work'] as $key => $item): ?>
+                    <div>
+                        <?=  $item['date-start']?>
+                    </div>
+                <? endforeach; ?>
+            </div>
+
+            <div class="table-col table-col__2">
+                <div>
+                    <p>
+                        Дата окончания полномочий
+                    </p>
+                </div>
+
+                <? foreach($tables['extra-work'] as $key => $item): ?>
+                    <div>
+                        <?=  $item['date-end']?>
+                    </div>
+                <? endforeach; ?>
+            </div>
+
+            <div class="table-col table-col__3">
+                <div>
+                    <p>
+                        Полное наименование представительного органа
+                    </p>
+                </div>
+
+                <? foreach($tables['extra-work'] as $key => $item): ?>
+                    <div>
+                        <?=  $item['name']?>
+                    </div>
+                <? endforeach; ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-text">
+        <?= $content ?>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+.pageId-16 {
+    table {
+        width: 100% !important;
+    }
+
+    tbody {
+        tr:first-child {
+            th {
+                border-bottom: 1px solid #fff;
+
+                &:first-child {
+                    max-width: 60px;
+                }
+            }
+        }
+    }
+
+    th {
+        width: 100% !important;
+    }
+
+    tr {
+        height: auto !important;
+
+        td {
+            width: 100% !important;
+            max-width: calc(100% / 3);
+        }
+
+        td:first-child {
+            max-width: 60px;
+        }
+    }
+
+    td {
+        height: auto !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        p {
+            margin: 0;
+        }
+    }
+}

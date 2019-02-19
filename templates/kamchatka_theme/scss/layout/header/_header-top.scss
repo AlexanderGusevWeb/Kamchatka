@@ -10,7 +10,7 @@ header {
     }
     
     a {
-        color: #fff;
+        color: $white;
     }
 }
 
@@ -26,7 +26,7 @@ header {
     align-items: center;
     z-index: 3;
     @include monts_400;
-    color: #fff;
+    color: $white;
 
     @include max-screen(1024px) {
         padding: 0 60px;
@@ -161,7 +161,7 @@ header {
             right: 0;
             bottom: -13px;
             left: 0;
-            border-right: 1px solid #fff;
+            border-right: 1px solid $white;
         }
     }
 
@@ -173,7 +173,7 @@ header {
         display: block;
         width: 1px;
         height: 60px;
-        background-color: #fff;
+        background-color: $white;
         margin: 0 20px;
     }
 

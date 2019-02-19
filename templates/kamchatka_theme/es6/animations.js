@@ -3,7 +3,7 @@
  */
 (function ($) {
     $(function () {
-        //Анимация мобильного меню START
+        // Анимация мобильного меню START
         $('.mobile-menu__links').animate({
             height: "hide"
         }, 0);
@@ -17,7 +17,7 @@
         //Анимация мобильного меню END
 
         // Анимация поиск START
-        //// Open
+        //// Открыть
         $(".buttonSearch .btn1 .flaticon-magnifying-glass").click(function () {
             if ($('.buttonSearch__mobile-bottom.active').length != true) {
                 $(".buttonSearch").animate({
@@ -68,7 +68,7 @@
             }
         });
 
-        //// Close
+        //// Закрыть
         $(".flaticon-close, .mobile-menu__icon").click(function () {
             if ($('.buttonSearch__mobile-bottom.active').length == true) {
                 $(".buttonSearch input").animate({
@@ -115,7 +115,7 @@
         });
         // Анимация поиск END
 
-        // Анимация табы(header) START
+        // Анимация табы "Главная"/"Header" START
         $('.tab-link').on('click', function () {
             $('.tab-link__background').animate({
                 top: 150
@@ -169,9 +169,9 @@
                 }, 300);
             }, 300);
         });
-        // Анимация табы(header) END
+        // Анимация табы "Главная"/"Header" END
 
-        // Анимация слайдер новости/события START
+        // Анимация слайдер "Главная"/"Новости, События" START
         $('.news__link').on('click', function () {
             if ($(this).hasClass('news__passive')) {
                 $('.news__link').toggleClass('news__active').toggleClass('news__passive');
@@ -249,11 +249,13 @@
                 }, 400);
             }, 100);
         });
-        // Анимация слайдер новости/события END
+        // Анимация слайдер "Главная"/"Новости, События" END
 
-        // Анимация табы "Направления деятельности" START
-        $('.tab-body:first-child').removeClass('d_none').css('opacity', '1');
-        $('.activities__tab-link:first-child').addClass('action');
+        // Анимация табы "Главная"/"Направления деятельности" START
+        if ($('#home-page').length == true) {
+            $('.tab-body:first-child').removeClass('d_none').css('opacity', '1');
+            $('.activities__tab-link:first-child').addClass('action');
+        }
 
         $('.activities__tab-link').on('click', function () {
 
@@ -278,20 +280,17 @@
             $('.activities__tab-link[data=' + thisTab + ']').addClass('action');
 
         });
-        // Анимация табы "Направления деятельности" END
+        // Анимация табы "Главная"/"Направления деятельности" END
 
-        //Анимация WOW.js START
-        new WOW().init();
-        //Анимация WOW.js END
-
-        //Страница "O Районе" мобильное меню START
-        $('.area__mobile-menu').on('click', function () {
+        //Мобильное сайдбар-меню START
+        $('.secondary-page__mobile-menu').on('click', function () {
             $(this).toggleClass('active');
 
-            if ($('.area__mobile-menu.active').length == true) {
+            if ($('.secondary-page__mobile-menu.active').length == true) {
+                $('.secondary-page nav li').css({'display': 'flex'});
 
                 setTimeout(function () {
-                    $('.area nav li').animate({
+                    $('.secondary-page nav li').animate({
                         'height': 50
                     }, 100).animate({
                         'opacity': 1
@@ -299,51 +298,66 @@
                 }, 10);
 
             } else {
-
+                console.log('123');
                 setTimeout(function () {
-                    $('.area nav li').animate({
+                    $('.secondary-page nav li').animate({
                         'opacity': 0
                     }, 150).animate({
-                        'height': 0
+                        'height': 0,
+                        'display': 'none'
                     }, 100);
                 }, 10);
             }
 
         });
-        //Страница "O Районе" мобильное меню END
+        //Мобильное сайдбар-меню  END
 
-        //Страница "Устав муниципального района" табаы START
-        //// Кнопка открыть/закрыть табы
-        $('.charter-page__button').on('click', function () {
-            // Стрелка
-            $('.tabs__button .flaticon-back').toggleClass('active');
+        // Кнопка открыть/закрыть все табы START
+        $('.tabs__button').on('click', function () {
+            //// Стрелка
+            $(this).find('.flaticon-back').toggleClass('active');
 
             if ($('.two').length == true) {
-                // Табы откурыть
+                //// Табы откурыть
                 $('.one-tab').addClass('active');
                 $('.one-tab__title').addClass('active');
                 $('.one-tab__text').show(500);
 
-                // Смена текста кнопки
+                //// Смена текста кнопки
                 $('.active-one').addClass('one').removeClass('active-one');
                 $('.two').addClass('active-two').removeClass('two');
 
             } else {
-                // Табы закрыть
+                //// Табы закрыть
                 $('.one-tab').removeClass('active');
                 $('.one-tab__title').removeClass('active');
                 $('.one-tab__text').hide(500);
 
-                // Смена текста кнопки
+                //// Вложенные табы закрыть
+                $('.extra-tab__text').hide(400);
+                $('.extra-tab .flaticon-back').removeClass('active');
+                $('.extra-tab').removeClass('active');
+                $('.extra-tab__title').removeClass('active');
+
+                //// Смена текста кнопки
                 $('.active-two').addClass('two').removeClass('active-two');
                 $('.one').addClass('active-one').removeClass('one');
+
+                $('.doc-tab').slideUp();
             }
         });
+        // Кнопка открыть/закрыть все табы END
 
-        //// Один таб
+        // Один таб открыть/закрыть START
         $('.flaticon-minus-horizontal-straight-line').on('click', function () {
             $(this).closest('.one-tab').toggleClass('active').find('.one-tab__title').toggleClass('active');
             $(this).closest('.one-tab').find('.one-tab__text').toggle(500);
+
+            //// Вложенные табы закрыть
+            $(this).parents('.one-tab').find('.extra-tab__text').hide(400);
+            $(this).parents('.one-tab').find('.extra-tab .flaticon-back').removeClass('active');
+            $(this).parents('.one-tab').find('.extra-tab').removeClass('active');
+            $(this).parents('.one-tab').find('.extra-tab__title').removeClass('active');
 
             //// Смена кнопки если все табы открыты/закрыты
             var oneTabLength = $('.one-tab').length;
@@ -352,9 +366,10 @@
             if (oneTabLength == oneTabActiveLength) {
                 $('.tabs__button .flaticon-back').removeClass('active');
 
-                // Смена текста кнопки
+                //// Смена текста кнопки
                 $('.active-one').addClass('one').removeClass('active-one');
                 $('.two').addClass('active-two').removeClass('two');
+
             } else {
                 $('.tabs__button .flaticon-back').addClass('active');
 
@@ -362,43 +377,46 @@
                 $('.active-two').addClass('two').removeClass('active-two');
                 $('.one').addClass('active-one').removeClass('one');
             }
-        });
-        //Страница "Устав муниципального района" табаы END
 
-        //Страница "Почётные граждане" табаы START
+            // Свернуть таб с документами
+            $(this).find('.doc-tab').slideUp();
+        });
+        // Один таб открыть/закрыть END
+
+        // Вложенные таб открыть/закрыть START
+        $('.extra-tab__title').on('click', function () {
+            $(this).toggleClass('active').parent().toggleClass('active');
+            $(this).parent().find('.extra-tab__text').toggle(400);
+            $(this).find('.flaticon-back').toggleClass('active');
+        });
+        // Вложенные таб открыть/закрыть END
+
+        // Страница "Район"/"Почётные граждане" табаы START
         $('.honorary-page__button').on('click', function () {
 
+            $(this).parents('.human').toggleClass('active');
+
             var $human = $(this).parents('.human');
+            var $humanActive = $(this).parents('.human.active');
 
-            //// Стрелка
-            $human.find('.tabs__button .flaticon-back').toggleClass('active');
-
-            if ($human.find('.human__info.active').length == false) {
-                //// Разделительная линия показать
-                $human.find('.human__info').toggleClass('active');
-
+            if ($human.length == $humanActive.length) {
                 //// Табы откурыть
                 $human.find('.human__footer').show(500);
 
-                //// Смена текста кнопки
-                $human.find('.active-one').addClass('one').removeClass('active-one');
-                $human.find('.two').addClass('active-two').removeClass('two');
+                // Смена текста кнопки
+                $human.find('.button-text').toggleClass('active');
 
             } else {
-                $human.find('.human__info').toggleClass('active');
-
-                //// Табы закрыть
+                //// Табы откурыть
                 $human.find('.human__footer').hide(500);
 
-                //// Смена текста кнопки
-                $human.find('.active-two').addClass('two').removeClass('active-two');
-                $human.find('.one').addClass('active-one').removeClass('one');
+                // Смена текста кнопки
+                $human.find('.button-text').toggleClass('active');
             }
-
         });
-        //Страница "Почётные граждане" табаы END
+        // Страница "Район"/"Почётные граждане" табаы END
 
-        //Страница "Районная газета" табаы START
+        // Страница "Район"/"Районная газета" табаы START
         $('.newspaper-page__button').on('click', function () {
             $(this).toggleClass('active');
 
@@ -420,16 +438,83 @@
             }
         });
 
-        //// Выбор года
         $('.newspaper-page__header_hide').on('click', function () {
-            var year = $(this).find('.js-select-year').text().trim();
+            //// Выбор года (Район/Районная газета)
+            if($('.js-select-year').length > 1) {
+                let year = $(this).find('.js-select-year').text().trim();
+                window.location.href = "/page-area/newspaper-area/?year=" + year;
+            }
 
-            window.location.href = "/page-area/newspaper-area/?year=" + year;
+            //// Выбор года (Администрация/План работы)
+            if($('.js-doc-year').length > 1) {
+                let year = $(this).find('.js-doc-year').text().trim();
+                window.location.href = "/page-administration/page-work-plan/?year=" + year;
+            }
         });
-        //Страница "Районная газета" табаы END
+        // Страница "Район"/"Районная газета" табаы END
+
+        // Главня страница переключение городов карты START
+        $('.map-item').on('click', function () {
+            $('.map-item').removeClass('active');
+            $(this).addClass('active');
+
+            let itemClass = $(this).attr('class');
+            itemClass = itemClass.replace('map-item', '');
+            itemClass = itemClass.replace('active', '');
+            itemClass = itemClass.replace(/\s/g, '');
+            itemClass = "." + itemClass;
+
+            $('.city').removeClass('active');
+            $('.tab-one__right').find(itemClass).addClass('active');
+
+        });
+        // Главня страница переключение городов карты END
+
+        // Страница "Коллегиальные органы" Анимация кнопки Документы START
+        $('.collegiate-page__doc-link').on('click', function () {
+            $(this).find('.collegiate-page__button').toggleClass('active');
+            $(this).parent().find('.doc-tab').slideToggle();
+        });
+        // Страница "Коллегиальные органы" Анимация кнопки Документы END
     });
 
+    // Windows Load START
+    // Fix для Slick слайдера при load главная страница новости/события
     $(window).load(function () {
         $('.news__link-one').trigger('click');
     });
+    // Windows Load END
+
+    // Windows Load and Resize START
+    function windowSize() {
+        if ($(window).width() >= '992') {
+            //// Инициализировать анимацию WOW.js только при экранах болше 992px START
+            new WOW().init();
+            //// Инициализировать анимацию WOW.js только при экранах болше 992px END
+
+            //// При экране болье 992px развернуть сайдбар-меню
+            $('.secondary-page nav li').css({
+                'height': 'auto',
+                'opacity': 1,
+                'display': 'flex'
+            });
+
+            //// При Resize свернуть мобильное сайдбар-меню
+            $('.secondary-page__mobile-menu').removeClass('active');
+
+        } else {
+            //// При экране меньше 992px свернуть сайдбар-меню
+            $('.secondary-page nav li').css({
+                'height': 0,
+                'opacity': 0,
+                'display': 'none'
+            });
+
+            //// При Resize свернуть мобильное сайдбар-меню
+            $('.secondary-page__mobile-menu').removeClass('active');
+        }
+    }
+
+    $(window).on('load', windowSize);
+    // Windows Load and Resize END
 })(jQuery);

@@ -1,0 +1,58 @@
+@import '../fonts/Montserrat/stylesheet.css';
+@import '../fonts/Oswald/stylesheet.css';
+@import '../fonts/Flaticon/font/flaticon.css';
+
+[class*="flaticon-"]:before,
+[class*="flaticon-"]:after {
+    font-size: inherit;
+    font-weight: normal;
+    margin-left: 0;
+}
+
+@mixin font-family($font) {
+    font-family: $font, sans-serif;
+    font-style: normal;
+}
+
+$M: 'Montserrat';
+$O: 'Oswald';
+
+@mixin monts_400 {
+    @include font-family ($M);
+    font-weight: 400;
+}
+
+@mixin monts_500 {
+    @include font-family ($M);
+    font-weight: 500;
+}
+
+@mixin monts_600 {
+    @include font-family ($M);
+    font-weight: 600;
+}
+
+@mixin monts_700 {
+    @include font-family ($M);
+    font-weight: 700;
+}
+
+@mixin oswald_400 {
+    @include font-family ($O);
+    font-weight: 400;
+}
+
+@mixin oswald_500{
+    @include font-family ($O);
+    font-weight: 500;
+}
+
+@mixin oswald_600{
+    @include font-family ($O);
+    font-weight: 600;
+}
+
+@mixin oswald_700 {
+    @include font-family ($O);
+    font-weight: 700;
+}

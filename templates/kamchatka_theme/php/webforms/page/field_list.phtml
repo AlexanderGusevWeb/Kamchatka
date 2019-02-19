@@ -1,0 +1,41 @@
+<?php
+/**
+ * Список полей формы обратной связи.
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ */
+?>
+<div class="contact-us-form__left">
+    <?php foreach ($variables['groups']['group'] as $group): ?>
+        <?php foreach ($group['fields'] as $field): ?>
+            <?php if ($field['id'] != 653 && $field['id'] != 652): ?>
+                <div class="<?= $this->getFormFieldClass($field) ?> contact-us-form__input">
+                    <?= $this->render($field, "data/form_field/{$field['type']}") ?>
+                </div>
+            <? endif; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+
+</div>
+
+<div class="contact-us-form__right">
+    <?php foreach ($variables['groups']['group'] as $group): ?>
+        <?php foreach ($group['fields'] as $field): ?>
+            <?php if ($field['id'] == 653 && $field['id'] != 652): ?>
+                <div class="<?= $this->getFormFieldClass($field) ?> contact-us-form__textarea">
+                    <?= $this->render($field, "data/form_field/{$field['type']}") ?>
+                </div>
+            <? endif; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+</div>
+
+<?php foreach ($variables['groups']['group'] as $group): ?>
+    <?php foreach ($group['fields'] as $field): ?>
+        <?php if ($field['id'] == 652): ?>
+            <div class="<?= $this->getFormFieldClass($field) ?> contact-us-form__file">
+                <?= $this->render($field, "data/form_field/{$field['type']}") ?>
+            </div>
+        <? endif; ?>
+    <?php endforeach; ?>
+<?php endforeach; ?>

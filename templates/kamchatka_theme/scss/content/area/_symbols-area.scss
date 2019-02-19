@@ -1,0 +1,47 @@
+.symbols-page {
+    .symbols-tabs {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo-block {
+        padding-bottom: 25px;
+        border-bottom: 1px solid rgba($dark, .2);
+
+        h4 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 30px;
+        }
+
+        &__body {
+            display: flex;
+
+            @include max-screen(768px) {
+                flex-direction: column;
+            }
+
+            p {
+                margin-top: 0;
+            }
+        }
+
+        &__logo {
+            width: 225px;
+
+            @include max-screen(768px) {
+                width: 100%;
+            }
+        }
+
+        &__text {
+            width: calc(100% - 225px);
+
+            @include max-screen(768px) {
+                margin-top: 25px;
+                width: 100%;
+            }
+        }
+    }
+}

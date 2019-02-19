@@ -5,10 +5,7 @@
  * Date: 03.09.2018
  * Time: 10:44
  */
-
 $settings = $this->getSettingsContainer('main_config');
-$page = $variables['page'];
-
 $lang = $variables['lang'];
 
 $collection = langsCollection::getInstance()->getList();
@@ -46,7 +43,7 @@ foreach ($menu_items as $item) {
 <div class="header-top">
 
     <div class="header-top__logo">
-        <a href="../../../../../index.php">
+        <a href="<?= $this->getHomePageUrl() ?>">
             <?= $url_logo ?>
         </a>
     </div>
@@ -65,7 +62,7 @@ foreach ($menu_items as $item) {
     </div>
 
     <div class="map-site header-top__map-site">
-        <a href="/">
+        <a href="javascript:void(0)">
             <span class="map-site__image flaticon-diagram"></span>
             <p class="map-site__text">
                 Карта сайта
@@ -89,7 +86,7 @@ foreach ($menu_items as $item) {
     </div>
 
     <div class="eyeglasses header-top__eyeglasses">
-        <a href="/">
+        <a href="javascript:void(0)">
             <span class="eyeglasses__image flaticon-glasses"></span>
             <p class="eyeglasses__text">
                 Версия для слабовидящих

@@ -1,6 +1,6 @@
 *,
 *:before,
-*:after{
+*:after {
     box-sizing: border-box;
 }
 
@@ -11,6 +11,10 @@ body {
     min-width: 300px;
     overflow-x: hidden;
     margin: 0;
+
+    &.no-scroll {
+        position: fixed;
+    }
 }
 
 main {
@@ -19,9 +23,15 @@ main {
 }
 
 a {
-    color: #fff;
+    color: $white;
     text-decoration: none;
     position: relative;
+
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
 
     &::before {
         position: absolute;
@@ -31,6 +41,8 @@ a {
         bottom: 0;
         left: 0;
         opacity: 0;
+        z-index: -1;
+
         -webkit-transition: all .5s ease;
         -moz-transition: all .5s ease;
         -ms-transition: all .5s ease;
@@ -86,31 +98,12 @@ h3 {
     text-transform: uppercase;
 }
 
-p {
-    @include monts_400;
+h4 {
+    @include monts_700;
 }
 
-// Прелоадер
-#preloader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 99999;
-    background: $light-blue; /* Old browsers */
-    background: -moz-linear-gradient(35deg, $medium-blue 20%, $dark_blue 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(35deg, $medium-blue 20%, $dark_blue 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(35deg, $medium-blue 20%, $dark_blue 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='00A3E4', endColorstr='#006ABB',GradientType=0 ); /* IE6-9 */
-
-    overflow: visible;
-    img {
-        animation: flipInY 2s ease-in;
-    }
+p, span, ol, ul, li {
+    @include monts_400;
 }
 
 .flat-arrow {
@@ -119,6 +112,7 @@ p {
 
     &_middle {
         margin: 0 -14px;
+
         -webkit-transition: margin .5s ease;
         -moz-transition: margin .5s ease;
         -ms-transition: margin .5s ease;
@@ -130,7 +124,19 @@ p {
 // Стиль для общего Шаблона страниц
 .section_capt {
     max-width: 1200px;
-    margin: 0 auto 26px;
+    margin: 0 auto;
+
+    .container {
+        .row {
+            display: flex;
+            min-height: 80px;
+            align-items: center;
+
+            @include max-screen(1024px) {
+                min-height: 150px;
+            }
+        }
+    }
 
     @include max-screen(768px) {
         margin: 0 auto;
@@ -154,7 +160,7 @@ p {
         position: relative;
         top: -5px;
         @include oswald_700;
-        color: #fff;
+        color: $white;
         font-size: 40px;
         line-height: 35px;
         margin: 0;
@@ -187,15 +193,27 @@ p {
 
     .title {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 300px;
         padding-bottom: 30px;
 
+        .flaticon-seo {
+            margin-top: 60px;
+
+            &::before {
+                font-size: 100px;
+                font-weight: 500;
+                color: $dark-blue;
+            }
+        }
+
         & > h2 {
-            font-size: 45px;
+            @include monts_700;
+            font-size: 55px;
             color: $dark-blue;
-            text-shadow: 2px 2px 4px #000;
+            margin-top: 0;
         }
     }
 }
@@ -205,4 +223,11 @@ p {
     max-width: 1200px;
     padding: 0;
     margin: 0 auto;
+}
+
+// Подзаголовок внутренних страниц
+.secondary-inside-title {
+    padding: 25px 0;
+    margin: 0;
+    border-bottom: 1px solid $gray;
 }

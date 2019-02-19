@@ -1,0 +1,358 @@
+// Кнопка для табов
+.tabs__button {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    max-width: 280px;
+    min-height: 60px;
+    color: $white;
+    background-color: $dark-blue;
+    margin: 0 0 20px auto;
+    cursor: pointer;
+
+    .button-text,
+    .flaticon-back {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .button-text {
+        justify-content: flex-end;
+        width: calc(100% - 60px);
+        @include monts_600;
+        font-size: 17px;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        padding-left: 25px;
+
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+
+        &.active,
+        &.active-one,
+        &.active-two {
+            opacity: 1;
+            top: 0;
+        }
+    }
+
+    .flaticon-back {
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+
+        &::before {
+            font-weight: 700;
+            opacity: 1 !important;
+
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            transform: rotate(90deg);
+
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+        }
+
+        &.active {
+            &::before {
+
+                -webkit-transform: rotate(-90deg);
+                -moz-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+            }
+        }
+    }
+}
+
+// Табы для страниц
+.one-tab {
+    margin-bottom: 20px;
+    background-color: $white;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+
+    &.active {
+        box-shadow: 0 0 35px -8px #000;
+    }
+
+    &__title {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 60px;
+        color: $white;
+        background-color: $dark-blue;
+
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 7px;
+            bottom: 0;
+            left: 25px;
+            border-bottom: 1px solid $dark;
+            opacity: 0;
+
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+        }
+
+        p {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include monts_600;
+            font-size: 17px;
+            text-transform: uppercase;
+            padding-left: 25px;
+        }
+
+        .flaticon-minus-horizontal-straight-line {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 46px;
+            height: 46px;
+            background-color: $white;
+            margin: 7px;
+            z-index: 1;
+            cursor: pointer;
+
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+
+            &::before {
+                color: $dark-blue;
+                font-size: 25px;
+                font-weight: 700;
+
+                -webkit-transform: rotate(90deg);
+                -moz-transform: rotate(90deg);
+                -ms-transform: rotate(90deg);
+                -o-transform: rotate(90deg);
+                transform: rotate(90deg);
+
+                -webkit-transition: all .5s ease;
+                -moz-transition: all .5s ease;
+                -ms-transition: all .5s ease;
+                -o-transition: all .5s ease;
+                transition: all .5s ease;
+            }
+
+            &::after {
+                position: absolute;
+                font-family: Flaticon;
+                content: "\f112";
+                color: $dark-blue;
+                font-size: 25px;
+                font-weight: 700;
+                transform: rotate(0deg);
+                opacity: 1;
+
+                -webkit-transition: all .5s ease;
+                -moz-transition: all .5s ease;
+                -ms-transition: all .5s ease;
+                -o-transition: all .5s ease;
+                transition: all .5s ease;
+            }
+
+            &.active {
+                &::before {
+                    -webkit-transform: rotate(-90deg);
+                    -moz-transform: rotate(-90deg);
+                    -ms-transform: rotate(-90deg);
+                    -o-transform: rotate(-90deg);
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+
+        &.active {
+            color: $dark-blue;
+            background-color: $white;
+
+            &::before {
+                opacity: .3;
+            }
+
+            .flaticon-minus-horizontal-straight-line {
+                background-color: $dark-blue;
+
+                &::before {
+                    color: $white;
+                    transform: rotate(0deg);
+                }
+
+                &::after {
+                    opacity: 0;
+                }
+            }
+        }
+
+    }
+
+    &__text {
+        display: none;
+        padding: 15px 25px;
+
+        -webkit-transition: opacity .3s ease;
+        -moz-transition: opacity .3s ease;
+        -ms-transition: opacity .3s ease;
+        -o-transition: opacity .3s ease;
+        transition: opacity .3s ease;
+
+        p {
+            text-align: justify;
+            padding: 0;
+            margin: 0;
+        }
+    }
+}
+
+// Вложенные табы
+.extra-tab {
+    display: flex;
+    flex-direction: column;
+    background-color: $gray;
+    padding-right: 20px;
+    padding-left: 30px;
+    margin-bottom: 15px;
+
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+
+    &.active {
+        background-color: darken($white, 3%);
+    }
+
+    &__title {
+        min-height: 60px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 10px 0;
+        box-sizing: border-box;
+
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -ms-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+
+        &::before {
+            position: absolute;
+            content: '';
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-bottom: 1px solid $dark;
+            opacity: 0;
+
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+        }
+
+        &.active {
+            &::before {
+                opacity: .3;
+            }
+        }
+
+        p {
+            display: inline-block;
+            width: calc(100% - 60px);
+            @include monts_600;
+            padding: 0;
+            margin: 0;
+
+            @include max-screen(768px) {
+                font-size: 15px;
+            }
+        }
+    }
+
+    .flaticon-back {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &::before {
+            font-size: 25px;
+            font-weight: 900;
+            opacity: 1 !important;
+
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+        }
+
+        &.active {
+            &::before {
+
+                -webkit-transform: rotate(90deg);
+                -moz-transform: rotate(90deg);
+                -ms-transform: rotate(90deg);
+                -o-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+        }
+    }
+    
+    &__text {
+        display: none;
+    }
+
+    .flaticon-arrow-left-and-right {
+        margin-top: 20px;
+        margin-bottom: -10px !important;
+    }
+}

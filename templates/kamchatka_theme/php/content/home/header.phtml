@@ -8,13 +8,40 @@
 //$hierarchy = umiHierarchy::getInstance();
 //$element = $hierarchy->getElement(1);
 
-$settings = $this->getSettingsContainer('main_config');
+//->getFilepath(true)
 
+$settings = $this->getSettingsContainer('main_config');
 $page = $variables['page'];
+
+$objectsCollection = umiObjectsCollection::getInstance();
+$arrImage = $objectsCollection->getGuidedItems(390);
+$oneImage = [];
+foreach ($arrImage as $key => $name) {
+    $image = $this->getObjectById($key)->getValue('home-slide_image');
+
+    if (isset($image)) {
+        $image = $image->getFilepath(true);
+
+    } else {
+        $image = '/templates/kamchatka_theme/images/noimage.jpeg';
+    }
+
+    $oneImage[$key] = array(
+            'name' => $name,
+            'image'=> $image
+    );
+}
+
 ?>
 
-<div class="home-page__container-header wow bounceInDown">
-    <div class="home-page__promo1">
+<div class="home-page__container-header">
+    <div class="home-page__slider">
+        <? foreach($oneImage as $item):?>
+            <img src="<?= $item['image'] ?>" alt="<?= $item['name'] ?>"/>
+        <? endforeach; ?>
+    </div>
+
+    <div class="home-page__promo1 wow bounceInDown">
         <div class="home-page__logo">
             <?= $this->render(
                 [

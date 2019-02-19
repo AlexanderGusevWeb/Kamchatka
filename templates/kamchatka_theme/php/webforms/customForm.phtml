@@ -1,0 +1,33 @@
+<?php
+/**
+ * Форма обратной связи.
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ */
+$form = $this->macros('webforms', 'add', [382]);
+$action = $this->getCommonVar('pre_lang') . '/webforms/send/';
+?>
+
+<span class="contact-us-form__separate"></span>
+
+<h4>
+    Свяжитесь с нами:
+</h4>
+
+<form class="contact-us-form" method="post" action="<?= $action ?>" enctype="multipart/form-data">
+
+    <?= $this->render($form, 'webforms/page/recipient_list') ?>
+    <?= $this->render($form, 'webforms/page/field_list') ?>
+
+    <input type="hidden" name="system_form_id" value="<?= $form['form_id'] ?>" />
+    <input type="hidden" name="ref_onsuccess" value="<?= $this->getWebformSuccessUrl($form['form_id']) ?>" />
+
+    <?= $this->renderCaptcha() ?>
+
+    <div class="contact-us-form__button">
+        <input type="submit" value="<?= $this->translate('send_form') ?>" />
+    </div>
+
+</form>
+
+<?= $this->render($this->macros('system', 'listErrorMessages'), 'library/errors') ?>

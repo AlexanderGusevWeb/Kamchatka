@@ -1,0 +1,66 @@
+.district-head-page {
+    h4 {
+        margin: 25px 0;
+    }
+
+    .table {
+        .table-col {
+            justify-content: space-between;
+
+            & > div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                padding: 25px;
+            }
+        }
+    }
+
+    .table1 {
+        .table-col {
+            &__5 {
+                max-width: 300px;
+            }
+        }
+    }
+
+    .table2,
+    .table3,
+    .table4 {
+        .table-col {
+            width: 25%;
+
+            &:last-child {
+                width: 50%;
+            }
+        }
+    }
+
+    .footer-text {
+        margin: 35px 0 40px;
+    }
+}
+
+.district-head {
+    p, span {
+        font-size: 17px;
+    }
+
+    &__name {
+        @include monts_600;
+        margin: 0;
+    }
+
+    &__info {
+        display: flex;
+
+        img {
+            margin: 20px 0;
+        }
+    }
+
+    &__text {
+        padding-left: 20px;
+    }
+}

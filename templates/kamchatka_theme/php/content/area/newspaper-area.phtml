@@ -19,39 +19,28 @@ foreach ($list_years as $key => $item) {
     $one_year[$tmp_nav_year]['active'] = '';
 }
 
-function cmp_nav_year($a, $b)
-{
+function cmp_nav_year($a, $b) {
     return ($a['year'] > $b['year']) ? -1 : 1;
 }
 
 uasort($one_year, "cmp_nav_year");
 
 $tmp_key = reset($one_year);
-
 $tmp_key = $tmp_key['year'];
-
 $last_year = $tmp_key;
 
 $page_content = $page->getValue('content');
-
 $main_newspaper = $this->macros('blogs20', 'getPostsListCustom', array(58, null, 9));
 
 foreach ($main_newspaper['items'] as $key => $item) {
-
     $tmp_text_year = $this->getPageById($item['id'])->getValue('publish_time')->getFormattedDate('Y');
+    $tmp_text_number = $this->getPageById($item['id'])->getValue('newspaper-number');
 
     $one_newspaper[$tmp_text_year][] = array(
-        'number' => $this->getPageById($item['id'])->getValue('newspaper-number'),
         'year' => $tmp_text_year,
+        'number' => $tmp_text_number,
         'doc' => $this->getPageById($item['id'])->getValue('newspaper-doc'));
 }
-
-function cmp_number($a, $b)
-{
-    return ($a['number'] < $b['number']) ? -1 : 1;
-}
-
-uasort($one_newspaper, "cmp_number");
 
 $newspaper_image = $this->render(
     [
@@ -78,7 +67,10 @@ $one_newspaper = $one_newspaper[$select_year];
 ?>
 
 <div class="newspaper-page">
-    <?= $page_content ?>
+    <div umi:element-id="<?= $page->getId() ?>"
+         umi:field-name="content">
+        <?= $page_content ?>
+    </div>
 
     <div class="newspaper-page__body">
 
@@ -122,7 +114,7 @@ $one_newspaper = $one_newspaper[$select_year];
                     <div class="one-newspaper">
                         <?= $newspaper_image ?>
 
-                        <span class="one-newspaper__info">
+                        <div class="one-newspaper__info">
                             <div class="one-newspaper__name">
                                 <span class="">&#8470;</span>
                                 <?= $item['number'] ?>
@@ -136,7 +128,7 @@ $one_newspaper = $one_newspaper[$select_year];
                                     <span class="flaticon-back"></span>
                                 </a>
                             </div>
-                        </span>
+                        </div>
                     </div>
                 <? endforeach; ?>
             </div>

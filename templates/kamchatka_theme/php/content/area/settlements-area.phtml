@@ -7,7 +7,6 @@
  */
 
 $page = $variables['page'];
-
 $settings = $this->getSettingsContainer('main_config');
 
 $pageContent = $page->getValue('content');
@@ -36,10 +35,12 @@ function arraySumm( $array ){
 }
 ?>
 
-<div class="settlements-page">
-    <span class="settlements-page__content">
+<div class="settlements-page table-page">
+    <div umi:element-id="<?= $page->getId() ?>"
+         umi:field-name="content"
+         class="settlements-page__content">
         <?= $pageContent ?>
-    </span>
+    </div>
 
     <div class="settlements-page__list-block">
         <ol>
@@ -99,16 +100,20 @@ function arraySumm( $array ){
                         Статус и наименование населенного пункта
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="sobolevo-prefix">
                     <?= $settings->getValue('sobolevo-prefix') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ustevo-prefix">
                     <?= $settings->getValue('ustevo-prefix') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="krutogorovo-prefix">
                     <?= $settings->getValue('krutogorovo-prefix') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ichinsky-prefix">
                     <?= $settings->getValue('ichinsky-prefix') ?>
                 </div>
             </div>
@@ -119,16 +124,20 @@ function arraySumm( $array ){
                         Численность населения (чел.)
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="sobolovo-population">
                     <?= $settings->getValue('sobolovo-population') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ustevo-population">
                     <?= $settings->getValue('ustevo-population') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="krutogorovo-population">
                     <?= $settings->getValue('krutogorovo-population') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ichinsky-population">
                     <?= $settings->getValue('ichinsky-population') ?>
                 </div>
             </div>
@@ -139,16 +148,20 @@ function arraySumm( $array ){
                         Численность населения, относящегося к коренным малочисленным народам (чел.)
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="sobolevo-indigenous">
                     <?= $settings->getValue('sobolevo-indigenous') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ustevo-indigenous">
                     <?= $settings->getValue('ustevo-indigenous') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="krutogorovo-indigenous">
                     <?= $settings->getValue('krutogorovo-indigenous') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ichinsky-indigenous">
                     <?= $settings->getValue('ichinsky-indigenous') ?>
                 </div>
             </div>
@@ -159,16 +172,20 @@ function arraySumm( $array ){
                         Расстояние до административного центра муниципального района (км)
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="sobolevo-center">
                     <?= $settings->getValue('sobolevo-center') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ustevo-center">
                     <?= $settings->getValue('ustevo-center') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="krutogorovo-center">
                     <?= $settings->getValue('krutogorovo-center') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ichinsky-center">
                     <?= $settings->getValue('ichinsky-center') ?>
                 </div>
             </div>
@@ -198,16 +215,20 @@ function arraySumm( $array ){
                         Наименование поселения
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="sobolevo-title">
                     <?= $settings->getValue('sobolevo-title') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ustevo-title">
                     <?= $settings->getValue('ustevo-title') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="krutogorovo-title">
                     <?= $settings->getValue('krutogorovo-title') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ichinsky-title">
                     <?= $settings->getValue('ichinsky-title') ?>
                 </div>
             </div>
@@ -218,16 +239,20 @@ function arraySumm( $array ){
                         Административный центр
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="sobolevo-prefix">
                     <?= $settings->getValue('sobolevo-prefix') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ustevo-prefix">
                     <?= $settings->getValue('ustevo-prefix') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="krutogorovo-prefix">
                     <?= $settings->getValue('krutogorovo-prefix') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ichinsky-prefix">
                     <?= $settings->getValue('ichinsky-prefix') ?>
                 </div>
             </div>
@@ -238,16 +263,20 @@ function arraySumm( $array ){
                         Площадь территории (кв.км)
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="sobolevo-area">
                     <?= $settings->getValue('sobolevo-area') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ustevo-area">
                     <?= $settings->getValue('ustevo-area') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="krutogorovo-area">
                     <?= $settings->getValue('krutogorovo-area') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ichinsky-area">
                     <?= $settings->getValue('ichinsky-area') ?>
                 </div>
             </div>
@@ -258,16 +287,20 @@ function arraySumm( $array ){
                         Численность населения (чел.)
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="sobolovo-population">
                     <?= $settings->getValue('sobolovo-population') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ustevo-population">
                     <?= $settings->getValue('ustevo-population') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="krutogorovo-population">
                     <?= $settings->getValue('krutogorovo-population') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ichinsky-population">
                     <?= $settings->getValue('ichinsky-population') ?>
                 </div>
             </div>
@@ -278,16 +311,20 @@ function arraySumm( $array ){
                         Численность населения, относящегося к коренным малочисленным народам (чел.)
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="sobolevo-indigenous">
                     <?= $settings->getValue('sobolevo-indigenous') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ustevo-indigenous">
                     <?= $settings->getValue('ustevo-indigenous') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="krutogorovo-indigenous">
                     <?= $settings->getValue('krutogorovo-indigenous') ?>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="ichinsky-indigenous">
                     <?= $settings->getValue('ichinsky-indigenous') ?>
                 </div>
             </div>
@@ -311,7 +348,8 @@ function arraySumm( $array ){
                         Площадь территории (кв.км)
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="erritory-square">
                     <?= $page->getValue('territory-square') ?>
                 </div>
             </div>
@@ -322,7 +360,8 @@ function arraySumm( $array ){
                         Численность населения (чел.)
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="territory-population">
                     <?= $page->getValue('territory-population') ?>
                 </div>
             </div>
@@ -333,7 +372,8 @@ function arraySumm( $array ){
                         Численность населения, относящегося к коренным малочисленным народам  (чел.)
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="territory-indigenous">
                     <?= $page->getValue('territory-indigenous') ?>
                 </div>
             </div>
@@ -344,7 +384,8 @@ function arraySumm( $array ){
                         Статус и наименование населенного пункта, находящегося на межселенной территории
                     </p>
                 </div>
-                <div>
+                <div umi:element-id="<?= $page->getId() ?>"
+                     umi:field-name="territory-status">
                     <?= $page->getValue('territory-status') ?>
                 </div>
             </div>

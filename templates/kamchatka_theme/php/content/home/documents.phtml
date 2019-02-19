@@ -40,14 +40,14 @@ $arr = array_slice($arr,0,6);
 
 ?>
 
-<div class="home-page__container-footer wow bounceInUp">
+<div class="home-page__container-footer">
     <div class="documents home-page__documents">
         <div class="documents__title">
-            <div class="documents__title-left">
+            <div class="documents__title-left wow bounceInLeft">
                 <h3>Новые документы</h3>
             </div>
 
-            <div class="documents__title-right">
+            <div class="documents__title-right wow bounceInRight">
                 <a href="/">Смотреть все
 
                     <div class="flat-arrow">
@@ -59,7 +59,7 @@ $arr = array_slice($arr,0,6);
             </div>
         </div>
 
-        <section class="documents__body">
+        <section class="documents__body wow bounceInUp">
             <? foreach ($arr as $key => $item): ?>
             <a href="<?= $item['file-doc'] ?>" class="one-document" download>
                 <div class="one-document__img">
@@ -79,5 +79,4 @@ $arr = array_slice($arr,0,6);
             <? endforeach; ?>
         </section>
     </div>
-
 </div>

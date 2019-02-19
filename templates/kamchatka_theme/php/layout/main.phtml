@@ -5,9 +5,13 @@
  * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
  * @var array $variables
  */
+$pageId = $variables['pageId'];
 ?>
 
 <main>
-    <?= $this->render($this->macros('system', 'listErrorMessages'), 'library/errors') ?>
+    <? if ($pageId != 83) {
+        echo $this->render($this->macros('system', 'listErrorMessages'), 'library/errors');
+    } ?>
+
     <?= $this->render($variables, "{$variables['module']}/{$variables['method']}") ?>
 </main>

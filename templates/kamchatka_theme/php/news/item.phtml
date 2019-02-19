@@ -1,0 +1,53 @@
+<?php
+/**
+ * Страница новости.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ * @var iUmiHierarchyElement $newsItem
+ */
+
+$settings = $this->getSettingsContainer('main_config');
+$newsItem = $variables['page'];
+?>
+
+<?= $this->render($variables, 'layout/breadcrumbs') ?>
+
+<div class="section_capt">
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <?= $this->render(
+                    [
+                        'id' => $settings->getId(),
+                        'field_name' => 'logo1',
+                        'src' => $settings->getValue('logo1'),
+                        'alt' => "logo",
+                        'width' => 40,
+                        'height' => 50,
+                    ],
+                    'library/thumbnail'
+                ) ?>
+            </div>
+
+            <h1 umi:element-id="<?= $newsItem->getId() ?>"
+                umi:field-name="h1"
+                umi:empty="<?= $this->translate('empty_page_name') ?>"
+            >
+                <?= $newsItem->getValue('h1') ?>
+            </h1>
+        </div>
+
+        <div class="title">
+            <span class="flaticon-seo"></span>
+
+            <h2>
+                Раздел находится в разработке
+            </h2>
+        </div>
+    </div>
+</div>
+
+<?//= $this->render($variables, 'news/item/caption') ?>
+<?//= $this->render($variables, 'news/item/back_link') ?>
+<?//= $this->render($variables, 'news/item/content') ?>

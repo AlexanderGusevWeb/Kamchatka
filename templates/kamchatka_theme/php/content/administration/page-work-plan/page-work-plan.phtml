@@ -1,0 +1,127 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 23.10.2018
+ * Time: 11:42
+ */
+
+$page = $variables['page'];
+$page_content = $page->getValue('content');
+$settings = $this->getSettingsContainer('main_config');
+
+$list_years = $this->macros('blogs20', 'getPostsList', array(361, null, INF))['items'];
+
+foreach ($list_years as $key => $item) {
+    $tmp_nav_year = date('Y', $item['publish_time']);
+
+    $one_year[$tmp_nav_year]['year'] = $tmp_nav_year;
+    $one_year[$tmp_nav_year]['active'] = '';
+}
+
+function cmp_nav_year($a, $b) {
+    return ($a['year'] > $b['year']) ? -1 : 1;
+}
+
+uasort($one_year, "cmp_nav_year");
+
+$tmp_key = reset($one_year);
+$tmp_key = $tmp_key['year'];
+$last_year = $tmp_key;
+
+$main_newspaper = $this->macros('blogs20', 'getPostsListCustom', array(361, null, INF))['items'] ;
+
+$one_newspaper = [];
+foreach ($main_newspaper as $key => $item) {
+    $doc_year = date('Y', $item['publish_time']);
+    $doc_time = date('d.m.Y', $item['publish_time']);
+    $doc_name = $item['name'];
+    $doc = $this->getPageById($item['id'])->getValue('doc-file');
+
+    $one_newspaper[$doc_year][] = array(
+        'doc-time' => $doc_time,
+        'doc-name' => $doc_name,
+        'doc' => $doc
+    );
+}
+
+if (isset ($_GET['year'])) {
+    $select_year = $_GET['year'];
+
+} else {
+    $select_year = $last_year;
+}
+
+$one_year[$select_year]['active'] = 'active';
+
+$one_newspaper = $one_newspaper[$select_year];
+
+?>
+
+<div class="newspaper-page work-plan-page">
+    <?= $page_content ?>
+
+    <div class="newspaper-page__body">
+
+        <div class="newspaper-page__header">
+            <span class="newspaper-page__years">
+                <?= $select_year ?> год
+            </span>
+
+            <span class="newspaper-page__button">
+                Выберите год
+                <span class="flaticon-back"></span>
+            </span>
+        </div>
+
+        <? foreach ($one_year as $key => $item): ?>
+            <div class="newspaper-page__header newspaper-page__header_hide <?= $item['active'] ?>">
+                <span class="newspaper-page__years">
+                    <span class="js-doc-year">
+                        <? if (isset($item['year'])) {
+                            echo $item['year'];
+                        } else {
+                            echo $_GET['year'];
+                        } ?>
+                    </span>
+                    год
+                </span>
+            </div>
+        <? endforeach; ?>
+
+        <div class="work-plan-page__docs">
+            <? if (!$one_newspaper) {
+                ?>
+                <div class="no-docs">
+                    На текущий год пока что нет документов!
+                </div>
+                <?
+            } ?>
+
+            <? foreach ($one_newspaper as $item): ?>
+                <div class="documents-list">
+                    <p class="documents-list__time">
+                        <?= $item['doc-time'] ?>
+                    </p>
+
+                    <div class="documents-list__info">
+                        <p class="documents-list__name">
+                            <?= $item['doc-name'] ?>
+                        </p>
+
+                        <div class="documents-list__doc">
+                            <a href="<?= $item['doc'] ?>" download>
+                                Скачать файл
+                                <span class="flaticon-back"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <? endforeach; ?>
+
+<!--            <div class="pagination">-->
+<!--                --><?//= $this->render($main_newspaper, 'library/pagination') ?>
+<!--            </div>-->
+        </div>
+    </div>
+</div>

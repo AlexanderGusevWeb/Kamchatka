@@ -1,0 +1,99 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 29.11.2018
+ * Time: 15:29
+ */
+$page = $variables['page'];
+$settings = $this->getSettingsContainer('main_config');
+$pageTitle = $page->getValue('h1');
+
+$newspaper_image = $this->render(
+    [
+        'id' => $settings->getId(),
+        'field_name' => 'newspaper_image',
+        'src' => $settings->getValue('newspaper_image'),
+        'alt' => "doc",
+        'width' => 85,
+        'height' => 85
+    ],
+    'library/thumbnail');
+
+$pageTabs['results-work'] = $page->getValue('budget-finance_results-work');
+$pageTabs['work-plans'] = $page->getValue('budget-finance_work-plans');
+$pageTabs['financial_control'] = $page->getValue('budget-finance_financial_control');
+
+$pageOneTab = [];
+
+$tabsTitle[0] = 'Итоги работы';
+$tabsTitle[1] = 'Планы работы';
+$tabsTitle[2] = 'Финансовый контроль';
+
+foreach ($pageTabs['results-work'] as $key => $item) {
+    $pageOneTab[0][$key]['doc-name'] = $this->getObjectById($item)->name;
+    $pageOneTab[0][$key]['doc'] = $this->getObjectById($item)->getValue('results-work_doc');
+}
+
+foreach ($pageTabs['work-plans'] as $key => $item) {
+    $pageOneTab[1][$key]['doc-name'] = $this->getObjectById($item)->name;
+    $pageOneTab[1][$key]['doc'] = $this->getObjectById($item)->getValue('work-plans_doc');
+}
+
+foreach ($pageTabs['financial_control'] as $key => $item) {
+    $pageOneTab[2][$key]['doc-name'] = $this->getObjectById($item)->name;
+    $pageOneTab[2][$key]['doc'] = $this->getObjectById($item)->getValue('financial_control_doc');
+}
+?>
+
+<div class="budget-finance-page">
+    <h4>
+        Текущая деятельность
+    </h4>
+
+    <span class="tabs__button charter-page__button">
+        <span class="button-text active-one">Открыть все вкладки</span>
+        <span class="button-text two">Закрыть все вкладки</span>
+        <span class="flaticon-back active"></span>
+    </span>
+
+    <div class="charter-tabs">
+        <?php foreach($tabsTitle as $key1 => $item1): ?>
+
+            <div class="one-tab">
+                <div class="one-tab__title">
+                    <p>
+                        <?= $item1 ?>
+                    </p>
+
+                    <span class="flaticon-minus-horizontal-straight-line"></span>
+                </div>
+
+                <div class="one-tab__text">
+                    <div class="main-text">
+                        <?php foreach($pageOneTab[$key1] as $key2 => $item2): ?>
+                                <div class="documents-list">
+                                    <?= $newspaper_image ?>
+
+                                    <div class="documents-list__info">
+                                        <div class="documents-list__name">
+                                            <?= $item2['doc-name'] ?>
+                                        </div>
+
+                                        <div class="documents-list__doc">
+                                            <a href="<?= $item2['doc'] ?>" download>
+                                                Скачать файл
+                                                <span class="flaticon-back"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                        <?php endforeach; ?>
+
+                    </div>
+                </div>
+            </div>
+
+        <?php endforeach; ?>
+    </div>
+</div>

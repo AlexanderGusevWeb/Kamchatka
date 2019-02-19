@@ -1,0 +1,29 @@
+<?php
+/**
+ * Поле типа "Файл".
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ */
+
+$field = $variables;
+?>
+
+<label class="file">
+	<input
+		type="file"
+		placeholder="<?= $field['title'] ?>"
+		<?= (isset($field['required']) ? ' required ' : '') ?>
+		name="<?= $field['input_name'] ?>"
+		value="<?= isset($field['value']) ? $field['value'] : '' ?>"
+	/>
+
+	<div class="file__button">
+        <span class="flaticon-clip"></span>
+        <p><?= $this->translate('upload_file') ?></p>
+    </div>
+
+    <span class="file__text removeText-js">
+        <p>Файл не прикреплен</p>
+    </span>
+</label>

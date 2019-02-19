@@ -8,6 +8,7 @@
 
 $homePage = $this->isHomePage($variables);
 
+$bodyId = "";
 if ($homePage == true) {
     $bodyId = "home-page";
 }
@@ -20,7 +21,7 @@ if ($homePage == true) {
 		<?= $this->render($variables, 'layout/head') ?>
 	</head>
 
-	<body id="<?= $bodyId ?>">
+	<body class="no-scroll" id="<?= $bodyId ?>">
         <div id="preloader">
             <img src="/images/images-kamchatka/logo/logo1.png" alt="preloader"/>
         </div>

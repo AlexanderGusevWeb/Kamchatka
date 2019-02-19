@@ -1,0 +1,60 @@
+.one-tab {
+    &__title {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .left {
+        display: flex;
+        align-items: flex-start;
+        margin: 7px;
+
+        .flaticon-document {
+            padding-left: 20px;
+            margin: 15px 0;
+
+            &::before {
+                font-size: 40px;
+            }
+        }
+
+        p {
+            font-size: 15px;
+            text-transform: none;
+        }
+    }
+
+    .right {
+        display: flex;
+        align-items: center;
+
+        .doc-load {
+            background-color: $dark-blue;
+            margin: 7px;
+            margin-right: 0;
+
+            a {
+                @include monts_600;
+                font-size: 17px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 220px;
+                height: 46px;
+                position: relative;
+                color: $white;
+            }
+
+            .flaticon-back {
+                position: relative;
+                left: 18px;
+                transform: rotate(-90deg);
+
+                &::before {
+                    font-weight: 500;
+                    border-left: 1px solid $white;
+                }
+            }
+        }
+    }
+}

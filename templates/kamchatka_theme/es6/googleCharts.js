@@ -5,7 +5,6 @@
     $(function () {
         // Переменные для Google Charts
         if($('#home-page').length == true) {
-            console.log('qwe');
             var sobolevo = $('.tab-three__regions').attr('data-sobolevo');
             var sobolevo_population = $('.tab-three__regions').attr('data-sobolevo_population').replace(' ', '');
             sobolevo_population = parseInt(sobolevo_population, 10);

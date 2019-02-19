@@ -29,6 +29,7 @@
 			'setmobilemode',
 			'page',
 			'includeFrontendResources',
+            'parseDir_file',
 		],
 		/** Администрирование модуля */
 		'sitetree' => [

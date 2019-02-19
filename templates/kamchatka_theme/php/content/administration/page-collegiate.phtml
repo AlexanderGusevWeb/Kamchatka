@@ -1,0 +1,115 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 26.11.2018
+ * Time: 15:14
+ */
+
+$page = $variables['page'];
+
+$pageContent = $page->getValue('content');
+$pageTabs = $page->getValue('page-collegiate_tabs');
+
+$pageOneTab = [];
+foreach ($pageTabs as $key1 => $item1) {
+    $pageOneTab[$key1]['title'] = $this->getObjectById($item1)->name;
+    $extraTabs = $this->getObjectById($item1)->getValue('collegiate_inside-tabs');
+    $docList = $this->getObjectById($item1)->getValue('collegiate_doc-list');
+
+    foreach ($extraTabs as $key2 => $item2) {
+        $pageOneTab[$key1]['extra-tab'][$key2]['extra-title'] = $this->getObjectById($item2)->name;
+        $pageOneTab[$key1]['extra-tab'][$key2]['extra-text'] = $this->getObjectById($item2)->getValue('commission-inside-text');
+    }
+
+    if (count($docList) > 0) {
+        foreach ($docList as $key3 => $item3) {
+            $pageOneTab[$key1]['doc'][$key3]['doc-name'] = $this->getObjectById($item3)->name;
+            $pageOneTab[$key1]['doc'][$key3]['doc'] = $this->getObjectById($item3)->getValue('main-doc');
+        }
+    }
+}
+
+?>
+
+<div class="collegiate-page">
+
+    <?= $pageContent ?>
+
+    <span class="tabs__button">
+        <span class="button-text active-one">Открыть все вкладки</span>
+        <span class="button-text two">Закрыть все вкладки</span>
+        <span class="flaticon-back active"></span>
+    </span>
+
+    <div class="charter-tabs">
+        <?php foreach($pageOneTab as $key1 => $item1): ?>
+
+            <div class="one-tab">
+                <div class="one-tab__title">
+                    <p>
+                        <?= $item1['title'] ?>
+                    </p>
+
+                    <span class="flaticon-minus-horizontal-straight-line"></span>
+                </div>
+
+                <div class="one-tab__text">
+                    <div class="main-text">
+                        <?= $item1['text'] ?>
+                    </div>
+
+                    <?php foreach($pageOneTab[$key1]['extra-tab'] as $key2 => $item2): ?>
+                        <div class="extra-tab extra-tab-id<?= $key2 ?>">
+                            <div class="extra-tab__title">
+                                <p>
+                                    <?= $item2['extra-title'] ?>
+                                </p>
+
+                                <span class="flaticon-back"></span>
+                            </div>
+
+                            <div class="extra-tab__text">
+                                <?= $item2['extra-text'] ?>
+                            </div>
+                        </div>
+                    <?php endforeach;?>
+
+                    <? if(isset($pageOneTab[$key1]['doc'])): ?>
+                    <div class="collegiate-page__doc-link">
+                        <div class="collegiate-page__button active">
+                            <span>
+                                Документы
+                            </span>
+                        </div>
+
+                        <div class="collegiate-page__button">
+                            <span>
+                                Свернуть
+                            </span>
+                        </div>
+                    </div>
+
+                        <? foreach ($pageOneTab[$key1]['doc'] as $item3): ?>
+                            <div class="documents-list doc-tab">
+                                <div class="documents-list__info">
+                                    <p class="documents-list__name">
+                                        <?= $item3['doc-name'] ?>
+                                    </p>
+
+                                    <div class="documents-list__doc">
+                                        <a href="<?= $item3['doc'] ?>" download>
+                                            Скачать файл
+                                            <span class="flaticon-back"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <? endforeach; ?>
+                    <? endif; ?>
+                </div>
+            </div>
+
+        <?php endforeach;?>
+    </div>
+</div>

@@ -9,7 +9,6 @@
  */
 
 $page = $variables['page'];
-
 $settings = $this->getSettingsContainer('main_config');
 
 // Получени type id через umiHierarchy(старый код)
@@ -24,19 +23,24 @@ $pageTypeId = $page->getObjectTypeId();
 
 $area_insidePages = array(132, 134, 135, 136, 137, 138, 139);
 
+$administration_insidePages = range(150, 370);
+array_push($administration_insidePages, 386);
+
 ?>
 
 <?php if ($this->isHomePage($variables)): ?>
     <?= $this->render($variables, 'content/home/index') ?>
 
-<?php elseif ( in_array($pageTypeId, $area_insidePages)):?>
+<?php elseif (in_array($pageTypeId, $area_insidePages)): ?>
     <?= $this->render($variables, 'content/area/index') ?>
+
+<?php elseif (in_array($pageTypeId, $administration_insidePages)): ?>
+    <?= $this->render($variables, 'content/administration/index') ?>
 
 <?php elseif ($this->is404Page($variables)): ?>
     <?= $this->render($variables, 'content/notfound') ?>
 
 <?php else: ?>
-
     <?= $this->render($variables, 'layout/breadcrumbs') ?>
 
     <div class="section_capt">
@@ -65,6 +69,8 @@ $area_insidePages = array(132, 134, 135, 136, 137, 138, 139);
             </div>
 
             <div class="title">
+                <span class="flaticon-seo"></span>
+
                 <h2>
                     Раздел находится в разработке
                 </h2>
@@ -72,11 +78,4 @@ $area_insidePages = array(132, 134, 135, 136, 137, 138, 139);
         </div>
     </div>
 
-    <div class="container grey_border"
-         umi:element-id="<?= $page->getId() ?>"
-         umi:field-name="content"
-         umi:empty="<?= $this->translate('empty_page_content') ?>"
-    >
-        <?= $page->getValue('content') ?>
-    </div>
 <?php endif; ?>

@@ -1,0 +1,149 @@
+/**
+ * Общие стили таблиц
+ */
+.table-page {
+    overflow-x: scroll;
+
+    h4 {
+        @include monts_600;
+        font-size: 17px;
+        margin-top: 50px;
+    }
+
+    .flaticon-arrow-left-and-right {
+        color: $dark-blue;
+        display: none;
+        margin-bottom: 10px;
+
+        p {
+            @include monts_600;
+            font-size: 17px;
+            padding-left: 10px;
+            padding-bottom: 5px;
+        }
+
+        &::before {
+            text-align: center;
+            min-width: 60px;
+            font-size: 30px;
+        }
+
+        @include max-screen(1024px) {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .table {
+        min-width: 835px;
+        display: flex;
+        @include monts_400;
+        font-size: 17px;
+
+        p {
+            @include monts_600;
+            font-size: 14px;
+            line-height: 15px;
+            margin: 0;
+        }
+
+        &-col {
+            display: flex;
+            flex-direction: column;
+
+            & > div {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                min-height: 50px;
+                padding: 0 13px;
+
+                &:first-child {
+                    height: calc(100% - 200px);
+                    min-height: 120px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    color: $white;
+                    background-color: $dark-blue;
+                    padding: 20px 13px;
+                    box-sizing: border-box;
+                    border-right: 1px solid $white;
+                }
+
+                &:nth-child(n+2) {
+                    border-right: 1px solid #000;
+                    border-bottom: 1px solid #000;
+                }
+            }
+
+            &:first-child {
+                & > div {
+                    &:first-child {
+                        border-left: 1px solid $dark-blue;
+                    }
+
+                    &:nth-child(n+2) {
+                        border-left: 1px solid #000;
+                    }
+                }
+            }
+
+            &:last-child {
+                & > div {
+                    &:first-child {
+                        border-right: 1px solid $dark-blue;
+                    }
+                }
+            }
+        }
+    }
+}
+
+table {
+    min-width: 765px;
+    width: 100%;
+    margin: 30px 0;
+
+    tr {
+        display: flex;
+    }
+
+    th, td {
+        width: 25% !important;
+        font-size: 15px;
+    }
+
+    th {
+        @include monts_600;
+        min-height: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $white;
+        background-color: $dark-blue;
+        box-sizing: border-box;
+        border-right: 1px solid $white;
+
+        &:last-child {
+            border-right: 1px solid $dark-blue;
+        }
+    }
+
+    td {
+        @include monts_500;
+        min-height: 120px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+        padding: 10px 25px;
+        text-align: left !important;
+
+        &:first-child {
+            border-left: 1px solid #000;
+        }
+    }
+}

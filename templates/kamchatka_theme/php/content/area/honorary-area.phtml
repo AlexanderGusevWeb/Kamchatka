@@ -34,8 +34,10 @@ foreach($peopleList as $key => $item) {
 ?>
 
 <div class="honorary-page">
-
-    <?= $pageContent ?>
+    <div umi:element-id="<?= $page->getId() ?>"
+         umi:field-name="content">
+        <?= $pageContent ?>
+    </div>
     
     <div class="honorary-page__body">
         <? foreach ($oneHuman as $key => $item): ?>
@@ -64,8 +66,8 @@ foreach($peopleList as $key => $item) {
                         </p>
 
                         <span class="tabs__button honorary-page__button">
-                            <span class="button-text active-one">Показать полную информацию</span>
-                            <span class="button-text two">Скрыть полную информацию</span>
+                            <span class="button-text active">Показать полную информацию</span>
+                            <span class="button-text ">Скрыть полную информацию</span>
                             <span class="flaticon-back active"></span>
                         </span>
                     </div>

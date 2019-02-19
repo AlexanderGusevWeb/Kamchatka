@@ -1,0 +1,89 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 29.11.2018
+ * Time: 15:29
+ */
+$page = $variables['page'];
+$pageTitle = $page->getValue('h1');
+$pageTabs = $page->getValue('tek-zhkh_tabs-list');
+
+$pageOneTab = [];
+$pageInsideOneTab = [];
+foreach ($pageTabs as $key1 => $item1) {
+    $pageOneTab[$key1]['title'] = $this->getObjectById($item1)->getName();
+    $pageOneTab[$key1]['inside-tabs'] = $this->getObjectById($item1)->getValue('tek-zhkh_inside-tabs-link');
+
+    foreach ($pageOneTab[$key1]['inside-tabs'] as $key2 => $item2) {
+        $pageInsideOneTab[$key1][$key2]['extra-title']= $this->getObjectById($item2)->getName();
+        $pageInsideOneTab[$key1][$key2]['content'] = $this->getObjectById($item2)->getValue('tek-zhkh_content');
+    }
+}
+
+?>
+<div class="tek-zhkh-page">
+    <h4>
+        Текущая деятельность
+    </h4>
+
+    <span class="tabs__button charter-page__button">
+        <span class="button-text active-one">Открыть все вкладки</span>
+        <span class="button-text two">Закрыть все вкладки</span>
+        <span class="flaticon-back active"></span>
+    </span>
+
+    <div class="charter-tabs">
+
+        <?php foreach($pageOneTab as $key1 => $item1): ?>
+
+            <div class="one-tab">
+                <div class="one-tab__title">
+                    <p>
+                        <?= $item1['title'] ?>
+                    </p>
+
+                    <span class="flaticon-minus-horizontal-straight-line"></span>
+                </div>
+
+                <div class="one-tab__text">
+                    <div class="main-text">
+                        <?= $item1['text'] ?>
+                    </div>
+
+                    <?php foreach($pageInsideOneTab[$key1] as $key2 => $item2): ?>
+                        <div class="extra-tab extra-tab-id<?= $key2 ?>">
+                            <div class="extra-tab__title">
+                                <p>
+                                    <?= $item2['extra-title'] ?>
+                                </p>
+
+                                <span class="flaticon-back"></span>
+                            </div>
+
+                            <div class="extra-tab__text">
+                                <? if ($item2['extra-title'] == 'Горячая линия по связи инвесторов с администрацией Соболевского муниципального района'): ?>
+                                    <span class="flaticon-arrow-left-and-right">
+                                        <p>
+                                            Чтобы просмотреть данные таблицы проведите пальцем влево/вправо
+                                        </p>
+                                    </span>
+                                <? endif; ?>
+
+                                <?= $item2['content'] ?>
+                            </div>
+
+
+                            <? if ($item2['extra-title'] == 'Горячая линия по связи инвесторов с администрацией Соболевского муниципального района'): ?>
+                                <div class="extra-tab__text">
+                                    <?= $this->render($variables, 'webforms/customForm') ?>
+                                </div>
+                            <? endif; ?>
+                        </div>
+                    <?php endforeach;?>
+                </div>
+            </div>
+
+        <?php endforeach;?>
+    </div>
+</div>

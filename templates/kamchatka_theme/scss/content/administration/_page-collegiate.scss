@@ -1,0 +1,74 @@
+.collegiate-page {
+    .one-tab {
+        &__text {
+            padding-top: 25px;
+            padding-bottom: 25px;
+        }
+    }
+
+    &__doc-link {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        max-width: 150px;
+        min-height: 50px;
+        margin-right: 0;
+        margin-left: auto;
+    }
+
+    &__button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: $dark-blue;
+        color: $white;
+        text-align: center;
+        @include monts_600;
+        transition: all .5s ease;
+
+        span {
+            position: relative;
+            top: -15px;
+            opacity: 0;
+            transition: all .5s ease;
+            z-index: 1;
+        }
+
+        &:hover {
+            background-color: $medium-blue;
+        }
+
+        &.active {
+            span {
+                top: 0;
+                opacity: 1;
+            }
+        }
+    }
+
+    @include doc-list;
+
+    .documents-list {
+        &__name {
+            &::before {
+                display: none;
+            }
+        }
+
+        &__info {
+            width: 100%;
+        }
+    }
+
+    .doc-tab {
+        display: none;
+        padding: 10px;
+        margin: 20px 0 0;
+    }
+}

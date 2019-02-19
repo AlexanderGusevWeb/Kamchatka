@@ -108,7 +108,14 @@
 
             @include max-screen(768px) {
                 width: 50%;
+                padding: 0;
+                padding-right: 20px;
                 margin-bottom: 15px;
+
+                &:nth-child(2n) {
+                    width: calc(50% - 20px);
+                    padding-right: 0;
+                }
             }
 
             &:hover {
@@ -127,14 +134,14 @@
             text-transform: uppercase;
 
             @include max-screen(768px) {
-                font-size: 14px;
+                font-size: 12px;
             }
 
             &::before {
                 top: 110%;
                 bottom: -20%;
                 right: 100%;
-                background-color: #fff;
+                background-color: $white;
 
                 @include max-screen(1024px) {
                     display: none;
@@ -149,7 +156,7 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        color: #fff;
+        color: $white;
         text-transform: uppercase;
         margin-bottom: 25px;
         @include monts_500;
@@ -195,7 +202,7 @@
     &__phone,
     &__mail {
         width: 100%;
-        max-width: 270px;
+        max-width: 370px;
         margin-bottom: 25px;
 
         @include max-screen(1024px) {
@@ -208,6 +215,29 @@
             justify-content: space-between;
             align-items: center;
 
+            @include max-screen(768px) {
+                text-transform: initial;
+                flex-direction: column;
+            }
+
+            &::before {
+                top: 110%;
+                bottom: -20%;
+                right: 100%;
+                background-color: #fff;
+
+                @include max-screen(1024px) {
+                    display: none;
+                }
+            }
+
+            &:hover {
+                &::before {
+                    right: 0;
+                    opacity: 1;
+                }
+            }
+
             @include max-screen(1024px) {
                 justify-content: center;
             }
@@ -217,6 +247,12 @@
             @include monts_500;
             padding-right: 20px;
             margin: 0;
+
+            @include max-screen(768px) {
+                color: $light-blue;
+                padding-right: 0;
+                margin-bottom: 5px;
+        }
         }
 
     }

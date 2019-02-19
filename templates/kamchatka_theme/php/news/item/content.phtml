@@ -1,0 +1,53 @@
+<?php
+/**
+ * Контент новости.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ * @var iUmiHierarchyElement $newsItem
+ * @var string|null $photoPath
+ */
+
+$newsItem = $variables['page'];
+$photoPath = $this->getNewsItemPhotoPath($newsItem);
+?>
+
+<div class="one_news">
+	<div class="container">
+		<div class="grey_border">
+			<div class="left_block">
+				<div class="news_date">
+					<div><?= $this->getPublishDay($newsItem) ?></div>
+
+					<div>
+						<p><?= $this->getPublishMonth($newsItem) ?></p>
+						<p><?= $this->getPublishYear($newsItem) ?></p>
+					</div>
+				</div>
+
+				<div class="free_text" umi:element-id="<?= $variables['pageId'] ?>" umi:field-name="content"
+					 umi:empty="<?= $this->translate('empty_page_content') ?>">
+					<?= $newsItem->getValue('content') ?>
+				</div>
+
+				<div class="social_technology catalog_item">
+					<?= $this->render($variables, 'library/social_count') ?>
+				</div>
+			</div>
+
+			<?php if ($photoPath): ?>
+				<div class="right_block">
+					<?= $this->render(
+						[
+							'id' => $newsItem->getId(),
+							'field_name' => 'photo',
+							'src' => $photoPath,
+							'alt' => $newsItem->getValue('title'),
+						],
+						'library/thumbnail'
+					) ?>
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>

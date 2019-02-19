@@ -1,0 +1,112 @@
+.settlements-page {
+    padding-bottom: 55px;
+    overflow: hidden;
+
+    .c_black {
+        @include monts_600;
+        font-size: 17px;
+    }
+
+    li {
+        list-style: inherit;
+    }
+
+    &__content {
+        p {
+            @include monts_600;
+            font-size: 17px;
+        }
+    }
+
+    .table1 {
+        .table-col {
+            &__1 {
+                min-width: 60px;
+
+                & > div {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0;
+                }
+            }
+
+            &__2 {
+                width: calc(30% - 45px);
+            }
+
+            &__3 {
+                width: calc(20% - 10px);
+            }
+
+            &__4 {
+                width: calc(28% - 5px);
+            }
+
+            &__5 {
+                width: 22%;
+            }
+        }
+    }
+
+    .table2 {
+        .table-col {
+            &__1 {
+                & > div {
+                    padding: 0 2px;
+
+                    &:first-child {
+                        padding: 0 13px;
+                    }
+                }
+
+                width: 18%;
+            }
+
+            &__2 {
+                width: 22%;
+            }
+
+            &__3 {
+                width: 15%;
+            }
+
+            &__4 {
+                width: 20%;
+            }
+
+            &__5 {
+                width: 30%;
+            }
+        }
+    }
+
+    .table3 {
+        .table-col {
+            & > div {
+                padding: 0 30px;
+
+                &:first-child {
+                    padding: 15px 30px;
+                }
+            }
+
+            &__1 {
+                width: 18%;
+            }
+
+            &__2 {
+                width: 19%;
+            }
+
+            &__3 {
+                width: 31%;
+            }
+
+            &__4 {
+                width: 32%;
+            }
+        }
+    }
+}
