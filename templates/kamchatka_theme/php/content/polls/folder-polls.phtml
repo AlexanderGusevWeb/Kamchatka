@@ -1,0 +1,219 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 13.08.2019
+ * Time: 16:56
+ */
+
+$page = $variables['page'];
+$pageId = $variables['pageId'];
+$pageTitle = $page->getValue('h1');
+$pageLink = $page->link;
+$pageAlt = $page->getAltName();
+$pageContent = $page->getValue('content');
+$pageTypeId = $page->getObjectTypeId();
+
+$pageMenu = $this->macros('content', 'menu', array(null, 1, 32))['items'];
+
+$timestampNow = strtotime("now");
+$voting = $this->macros('content', 'menu', array(null, 1, 710))['items'];
+
+$oneVoting = [];
+$yearsList = [];
+foreach ($voting as $key => $item) {
+    $objVoting = $this->getPageById($item['id']);
+    $hierarchy = umiHierarchy::getInstance();
+    $votingId = $hierarchy->getChildrenTree($item['id']);
+    $votingLength = count($votingId);
+    $votingSum = 0;
+
+    foreach ($votingId as $votingKey => $votingItem) {
+        $resultVoting = $this->macros('vote', 'results', array($votingKey));
+        $votingSum = $votingSum + $resultVoting["total_posts"];
+    }
+
+    $timestampStart = $objVoting->getValue('start_date_survey')->timestamp;
+    $timestampEnd = $objVoting->getValue('end_date_survey')->timestamp;
+    $start_years = date('Y', $timestampStart);
+    array_push($yearsList, $start_years);
+    $end_years = date('Y', $timestampEnd);
+    array_push($yearsList, $end_years);
+
+    if (isset($_GET['year']) && ($_GET['year'] == $start_years || $_GET['year'] == $end_years)) {
+        $oneVoting[$key]['link'] = $item['link'];
+        $oneVoting[$key]['name'] = $item['name'];
+        $oneVoting[$key]['count'] = round($votingSum / $votingLength);
+        $oneVoting[$key]['start_date'] = date('d.m.Y', $timestampStart);
+        $oneVoting[$key]['end_date'] = date('d.m.Y', $timestampEnd);
+        $oneVoting[$key]['template'] = $timestampNow >= $timestampEnd ? 'result' : 'form';
+
+    } else if (!isset($_GET['year']) || $_GET['year'] === 'все') {
+        $oneVoting[$key]['link'] = $item['link'];
+        $oneVoting[$key]['name'] = $item['name'];
+        $oneVoting[$key]['count'] = round($votingSum / $votingLength);
+        $oneVoting[$key]['start_date'] = date('d.m.Y', $timestampStart);
+        $oneVoting[$key]['end_date'] = date('d.m.Y', $timestampEnd);
+        $oneVoting[$key]['template'] = $timestampNow >= $timestampEnd ? 'result' : 'form';
+    }
+}
+
+$yearsList = array_unique($yearsList);
+array_multisort($yearsList);
+
+$templateArray = [];
+if ($pageTypeId === 421) {
+    foreach ($oneVoting as $itemVoting) {
+        if ($itemVoting['template'] == 'form') array_push($templateArray, $itemVoting);
+    }
+}
+
+if ($pageTypeId === 423) {
+    foreach ($oneVoting as $itemVoting) {
+        if ($itemVoting['template'] == 'result') array_push($templateArray, $itemVoting);
+    }
+}
+$oneVoting = $templateArray;
+$limit_page = 4;
+$total_page = count($oneVoting);
+$oneVoting = array_chunk($oneVoting, $limit_page);
+
+isset($_GET['p']) ? $current_page = (int)$_GET['p'] : $current_page = 0;
+
+$oneVoting = $oneVoting[$current_page];
+
+?>
+
+<?= $this->render($variables, 'content/header-pages') ?>
+
+<div class="secondary-page anti-corruption-page">
+    <nav>
+        <div class="secondary-page__mobile-menu">
+            <span class="flaticon-angle-arrow-down"></span>
+        </div>
+
+        <ul class="secondary-page__menu">
+            <? foreach ($pageMenu as $key => $item): ?>
+                <li class="secondary-page__item">
+                    <a id="pageId-<?= $item['id'] ?>" class="<?= $item['status'] ?>" href="<?= $item['link'] ?>">
+                        <?= $item['name'] ?>
+                    </a>
+                </li>
+            <? endforeach; ?>
+        </ul>
+    </nav>
+
+    <section class="one-page docs-list pageId-<?= $pageId ?>">
+        <div class="one-page__title">
+            <h2>
+                <?= $pageTitle ?>
+            </h2>
+        </div>
+
+        <? if ($pageTypeId === 421 || $pageTypeId === 423): ?>
+            <div class="docs-list__result">
+                <p class="docs-list__result-title">
+                    Опросы
+                </p>
+
+                <div class="docs-list__result-filter">
+                    <div class="wrapper">
+                        <p>
+                            Показать:
+                        </p>
+
+                        <span class="time-step active">все</span>
+
+                        <span class="flaticon-angle-arrow-down"></span>
+                    </div>
+
+                    <form id="voting-js" class="wrapper_hide">
+                        <? foreach ($yearsList as $item): ?>
+                            <label for="year-<?= $item ?>">
+                                <input id="year-<?= $item ?>" class="time-step" type="submit" name="year"
+                                       value="<?= $item ?>"/>
+                            </label>
+                        <? endforeach; ?>
+
+                        <label for="year-all">
+                            <input id="year-all" class="time-step hide" type="submit" name="year" value="все"/>
+                        </label>
+                    </form>
+                </div>
+            </div>
+        <? endif; ?>
+
+        <div class="one-page__body">
+            <? if ($pageTypeId === 421): ?>
+                <div class="folder-poll">
+                    <div class="folder-poll__list">
+                        <? foreach ($oneVoting as $key => $item): ?>
+                            <? if ($item['template'] === 'form'): ?>
+                                <a class="folder-poll__item" href="<?= $item['link'] ?>">
+                                    <div class="folder-poll__header">
+                                        <p class="folder-poll__title folder-poll__text">
+                                            <span>Дата проведения:</span>
+                                            <span class="folder-poll__date-start"><?= $item['start_date'] ?></span>
+                                            <span class="folder-poll__separator"> - </span>
+                                            <span class="folder-poll__date-end"><?= $item['end_date'] ?></span>
+                                        </p>
+
+                                        <p class="folder-poll__status folder-poll__status_c-blue">Опрос открыт</p>
+                                    </div>
+
+                                    <p class="folder-poll__name folder-poll__text"><?= $item['name'] ?></p>
+
+                                    <p class="folder-poll__count">
+                                        <span class="folder-poll__text">Голосов: </span>
+                                        <span class="folder-poll__sum folder-poll__text"><?= $item['count'] ?></span>
+                                    </p>
+                                </a>
+                            <? endif; ?>
+                        <? endforeach; ?>
+                    </div>
+
+                    <?= $this->render(['total' => $total_page, 'per_page' => $limit_page], 'library/pagination') ?>
+                </div>
+
+            <? elseif ($pageTypeId === 423): ?>
+                <div class="folder-poll">
+                    <div class="folder-poll__list">
+                        <? foreach ($oneVoting as $key => $item): ?>
+                            <? if ($item['template'] === 'result'): ?>
+                                <a class="folder-poll__item folder-js" href="<?= $item['link'] ?>?result=true">
+                                    <div class="folder-poll__header">
+                                        <p class="folder-poll__title folder-poll__text">
+                                            <span>Дата проведения:</span>
+                                            <span class="folder-poll__date-start"><?= $item['start_date'] ?></span>
+                                            <span class="folder-poll__separator"> - </span>
+                                            <span class="folder-poll__date-end"><?= $item['end_date'] ?></span>
+                                        </p>
+
+                                        <p class="folder-poll__status folder-poll__status_c-gray">Опрос открыт</p>
+                                    </div>
+
+                                    <p class="folder-poll__name folder-poll__text"><?= $item['name'] ?></p>
+
+                                    <p class="folder-poll__count">
+                                        <span class="folder-poll__text">Голосов: </span>
+                                        <span class="folder-poll__sum"><?= $item['count'] ?></span>
+                                    </p>
+                                </a>
+                            <? endif; ?>
+                        <? endforeach; ?>
+                    </div>
+                </div>
+
+            <? else: ?>
+                <? if (isset($pageContent)): ?>
+                    <div umi:element-id="<?= $page->getId() ?>"
+                         umi:field-name="content"
+                         class="about-area">
+                        <?= $pageContent ?>
+                    </div>
+                <? endif; ?>
+
+            <? endif; ?>
+        </div>
+    </section>
+</div>

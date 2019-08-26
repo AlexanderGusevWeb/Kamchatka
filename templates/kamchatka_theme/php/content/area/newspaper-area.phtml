@@ -19,7 +19,8 @@ foreach ($list_years as $key => $item) {
     $one_year[$tmp_nav_year]['active'] = '';
 }
 
-function cmp_nav_year($a, $b) {
+function cmp_nav_year($a, $b)
+{
     return ($a['year'] > $b['year']) ? -1 : 1;
 }
 
@@ -51,7 +52,8 @@ $newspaper_image = $this->render(
         'width' => 85,
         'height' => 85
     ],
-    'library/thumbnail');
+    'library/thumbnail'
+);
 
 if (isset ($_GET['year'])) {
     $select_year = $_GET['year'];
@@ -63,7 +65,6 @@ if (isset ($_GET['year'])) {
 $one_year[$select_year]['active'] = 'active';
 
 $one_newspaper = $one_newspaper[$select_year];
-
 ?>
 
 <div class="newspaper-page">
@@ -110,7 +111,7 @@ $one_newspaper = $one_newspaper[$select_year];
             } ?>
 
             <div class="all-newspaper">
-                <? foreach ($one_newspaper as $item):?>
+                <? foreach ($one_newspaper as $item): ?>
                     <div class="one-newspaper">
                         <?= $newspaper_image ?>
 
@@ -123,7 +124,7 @@ $one_newspaper = $one_newspaper[$select_year];
                             </div>
 
                             <div class="one-newspaper__doc">
-                                <a href="<?= $item['doc'] ?>" download>
+                                <a href="<?= $item['doc'] ?>">
                                     Скачать файл
                                     <span class="flaticon-back"></span>
                                 </a>

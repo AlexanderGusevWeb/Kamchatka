@@ -1,0 +1,52 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 26.11.2018
+ * Time: 15:14
+ */
+
+$page = $variables['page'];
+
+$pageContent = $page->getValue('content');
+$pageTabs = $page->getValue('page-tasks-powers_tabs');
+
+$pageOneTab = [];
+foreach ($pageTabs as $key => $item) {
+    $objPage = $this->getObjectById($item);
+    $pageOneTab[$key]['title'] = $objPage->name;
+    $pageOneTab[$key]['content'] = $objPage->getValue('tasks-powers_content');
+}
+
+?>
+
+<div class="tasks-powers-page">
+
+    <?= $pageContent ?>
+
+    <span class="tabs__button">
+        <span class="button-text active-one">Открыть все вкладки</span>
+        <span class="button-text two">Закрыть все вкладки</span>
+        <span class="flaticon-back active"></span>
+    </span>
+
+    <div class="charter-tabs">
+        <?php foreach($pageOneTab as $key => $item): ?>
+            <div class="one-tab">
+                <div class="one-tab__title">
+                    <p>
+                        <?= $item['title'] ?>
+                    </p>
+
+                    <span class="flaticon-minus-horizontal-straight-line"></span>
+                </div>
+
+                <div class="one-tab__text">
+                    <div class="main-text">
+                        <?= $item['content'] ?>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach;?>
+    </div>
+</div>

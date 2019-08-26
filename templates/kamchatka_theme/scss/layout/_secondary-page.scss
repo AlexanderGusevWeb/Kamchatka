@@ -1,4 +1,9 @@
 .secondary-page {
+    position: relative;
+    z-index: 0;
+    max-width: 1200px;
+    padding: 0;
+    margin: 0 auto;
     display: flex;
     justify-content: flex-start;
 
@@ -14,7 +19,7 @@
             max-width: 265px;
         }
 
-        ul  {
+        ul {
             border: none;
             margin: 0;
             padding: 0;
@@ -139,6 +144,22 @@
         }
     }
 
+    &__menu {
+        @include max-screen(1024px) {
+            padding: 0 !important;
+        }
+
+        li {
+            a {
+                @include max-screen(1024px) {
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
     .second-level-menu {
         padding: 6px 0 6px 50px;
 
@@ -203,9 +224,16 @@
     }
 }
 
+// Подзаголовок внутренних страниц
+.secondary-inside-title {
+    padding: 25px 0;
+    margin: 0;
+    border-bottom: 1px solid $gray;
+}
+
 .one-page {
     width: calc(100% - 250px);
-    background-color: darken($white, 3%);
+    background-color: $bg_gray;
     padding: 35px 35px 0;
 
     @include max-screen(768px) {
@@ -288,7 +316,6 @@
     }
 }
 
-
 // Стили для кнопки назад
 .button-back {
     position: relative;
@@ -322,7 +349,6 @@
         -o-transition: all .5s ease;
         transition: all .5s ease;
 
-
         &::before {
             font-size: 21px;
         }
@@ -350,5 +376,13 @@
         left: 0;
 
         border-bottom: 1px solid $gray;
+    }
+}
+
+.anti-corruption-page {
+    .secondary-page__item {
+        .active + .second-level-menu {
+            display: block;
+        }
     }
 }

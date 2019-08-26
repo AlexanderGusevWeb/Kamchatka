@@ -6,7 +6,7 @@
  * Time: 14:33
  */
 $page = $variables['page'];
-$pageId = $page->id;
+$pageId = $variables['pageId'];
 $pageTitle = $page->getValue('h1');
 $pageLink = $page->link;
 $pageAlt = $page->getAltName();
@@ -14,7 +14,7 @@ $pageContent = $page->getValue('content');
 
 $pageArea_insidePages = $this->macros('content', 'menu', array(null, 1, 4))['items'];
 
-$pageArea['id'] = $this->getPageById(4)->id;
+$pageArea['id'] = 4;
 $pageArea['name'] = $this->getPageById(4)->getValue('h1');
 $pageArea['link'] = $this->getPageById(4)->link;
 
@@ -23,6 +23,14 @@ if ($pageLink == $pageArea['link']) {
 }
 
 array_unshift($pageArea_insidePages, $pageArea);
+
+foreach ($pageArea_insidePages as $key => $item) {
+    $secondaryMenu = $this->macros('content', 'menu', array(null, 1, $item['id']))['items'];
+    
+    if (count($secondaryMenu) >= 1 && $item['id'] !== 4) {
+        $pageArea_insidePages[$key]['sub-menu'] = $secondaryMenu;
+    }
+}
 
 ?>
 
@@ -40,6 +48,20 @@ array_unshift($pageArea_insidePages, $pageArea);
                     <a id="pageId-<?= $item['id'] ?>" class="<?= $item['status'] ?>" href="<?= $item['link'] ?>">
                         <?= $item['name'] ?>
                     </a>
+
+                    <? if (isset($item['sub-menu'])): ?>
+                        <ul class="second-level-menu">
+                            <? foreach ($item['sub-menu'] as $key2 => $item2): ?>
+                                <li class="second-level-menu__item">
+                                    <a id="pageId-<?= $item2['id'] ?>"
+                                       class="inside-tabs-ajax-js <?= $item2['status'] ?>"
+                                       href="<?= $item2['link'] ?>">
+                                        <?= $item2['name'] ?>
+                                    </a>
+                                </li>
+                            <? endforeach; ?>
+                        </ul>
+                    <? endif; ?>
                 </li>
             <? endforeach; ?>
         </ul>

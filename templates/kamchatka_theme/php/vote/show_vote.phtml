@@ -1,0 +1,24 @@
+<?php
+/**
+ * Выводит опрос, либо его результаты.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ */
+$vote = $variables["item"];
+$resultBoolean = $variables["resultBoolean"];
+$resultPoll = $this->macros('vote', 'results', array($variables["item"]["id"]));
+
+?>
+
+<div class="js-wrapper">
+    <? if ($resultBoolean): ?>
+        <?= $this->render(['vote' => $resultPoll, 'resultBoolean' => $resultBoolean], 'vote/results') ?>
+    <? else: ?>
+        <?php if ($this->canShowVoteForm($vote)): ?>
+            <?= $this->render(['vote' => $vote, 'pageTypeId' => $variables['pageTypeId']], 'vote/form') ?>
+        <?php elseif ($this->canShowVoteResults($vote)): ?>
+            <?= $this->render(['vote' => $vote, 'pageTypeId' => $variables['pageTypeId']], 'vote/results') ?>
+        <?php endif; ?>
+    <? endif; ?>
+</div>

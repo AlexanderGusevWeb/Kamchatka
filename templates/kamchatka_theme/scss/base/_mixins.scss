@@ -8,10 +8,6 @@
         font-size: 24px;
         text-transform: uppercase;
         padding: 15px 30px;
-        -webkit-transition: all .5s ease;
-        -moz-transition: all .5s ease;
-        -ms-transition: all .5s ease;
-        -o-transition: all .5s ease;
         transition: all .5s ease;
         cursor: pointer;
 
@@ -23,10 +19,6 @@
             bottom: 0;
             left: 0;
             background-color: $medium-blue;
-            -webkit-transition: all .3s ease;
-            -moz-transition: all .3s ease;
-            -ms-transition: all .3s ease;
-            -o-transition: all .3s ease;
             transition: all .3s ease;
             z-index: -1;
         }
@@ -103,20 +95,22 @@
         }
 
         &__time {
+            max-height: 60px;
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100px;
             padding: 10px;
-            margin: 10px;
+            margin: 0;
+            box-sizing: border-box;
 
             @include max-screen(768px) {
                 padding: 10px 10px 0 10px;
-                margin: 10px 10px 0 10px;
             }
         }
 
         &__info {
+            position: relative;
             width: calc(100% - 100px);
             display: flex;
             flex-direction: row;
@@ -133,10 +127,23 @@
                 align-items: center;
                 justify-content: center;
             }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 10px;
+                right: 0;
+                left: 0;
+                bottom: 10px;
+                border-left: 2px solid $white;
+
+                @include max-screen(768px) {
+                    display: none;
+                }
+            }
         }
 
         &__name {
-            position: relative;
             padding: 0 25px;
             margin: 10px 0;
             @include monts_500;
@@ -144,20 +151,6 @@
             @include max-screen(768px) {
                 width: 100%;
                 margin: 10px 0 20px;
-            }
-
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 0;
-                left: 0;
-                bottom: 0;
-                border-left: 2px solid $white;
-
-                @include max-screen(768px) {
-                    display: none;
-                }
             }
         }
 

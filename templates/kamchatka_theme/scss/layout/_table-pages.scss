@@ -1,8 +1,15 @@
 /**
  * Общие стили таблиц
  */
+
 .table-page {
     overflow-x: scroll;
+    margin-bottom: 20px;
+
+    img {
+        width: 100%;
+        object-fit: contain;
+    }
 
     h4 {
         @include monts_600;
@@ -11,13 +18,13 @@
     }
 
     .flaticon-arrow-left-and-right {
-        color: $dark-blue;
         display: none;
+        color: $dark-blue;
         margin-bottom: 10px;
 
         p {
             @include monts_600;
-            font-size: 17px;
+            font-size: 16px;
             padding-left: 10px;
             padding-bottom: 5px;
         }
@@ -101,7 +108,7 @@
     }
 }
 
-table {
+table:not(.ui-datepicker-calendar) {
     min-width: 765px;
     width: 100%;
     margin: 30px 0;
@@ -111,8 +118,8 @@ table {
     }
 
     th, td {
-        width: 25% !important;
-        font-size: 15px;
+        width: 25%;
+        font-size: 13px;
     }
 
     th {
@@ -144,6 +151,59 @@ table {
 
         &:first-child {
             border-left: 1px solid #000;
+        }
+    }
+}
+
+.administration-page {
+    table:not(.ui-datepicker-calendar) {
+        min-width: 765px;
+        width: 100% !important;
+        margin: 30px 0;
+
+        tr {
+            width: calc(100% - 1px) !important;
+
+            &:first-child {
+                width: calc(100%) !important;
+                border-bottom: 1px solid $white;
+            }
+        }
+    }
+}
+
+.content-pageId-483,
+.content-pageId-592 {
+    overflow-x: scroll;
+
+    table {
+        position: relative;
+        margin-top: 50px !important;
+
+        &::before {
+            position: absolute;
+            font-family: 'Flaticon';
+            content: "\f113";
+            color: $dark-blue;
+            font-size: 30px;
+            top: -50px;
+            right: 0;
+            bottom: 0;
+            left: 10px;
+        }
+
+        &::after {
+            max-width: 650px;
+            position: absolute;
+            font-family: 'Flaticon';
+            content: "Чтобы просмотреть данные таблицы зажмите shift + alt и прокрутите колёсо мышы";
+            color: $dark-blue;
+            font-size: 21px;
+            top: -44px;
+            right: 0;
+            bottom: 0;
+            left: 60px;
+            line-height: 17px;
         }
     }
 }

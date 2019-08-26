@@ -5,8 +5,51 @@
  * Date: 03.09.2018
  * Time: 11:52
  */
-$menu_items = $this->macros('menu', 'draw', array('main-menu'))['item'];
+$page = $variables['page'];
+$pageId = $variables['pageId'];
+$pageLink = $page->link;
 
+$tekZhkh_insidePages = array('83', '416', '417', '418');
+$budgetFinance_insidePages = array('84', '497', '434', '498');
+$caseManagement_insidePages = array('85', '509', '510', '511', '512');
+$depEducation_insidePages = array('86', '535', '536', '537', '538');
+$goIChs_insidePages = array('87', '574', '575');
+
+$allPageId = array_merge($tekZhkh_insidePages, $budgetFinance_insidePages, $caseManagement_insidePages, $depEducation_insidePages, $goIChs_insidePages);
+
+$menu_now = '';
+if (in_array($pageId, $tekZhkh_insidePages)) {
+    $menu_now = 'tek-zhkh-menu';
+
+} else if (in_array($pageId, $budgetFinance_insidePages)) {
+    $menu_now = 'budget-finance-menu';
+
+} else if (in_array($pageId, $caseManagement_insidePages)) {
+    $menu_now = 'case-management-menu';
+
+} else if (in_array($pageId, $depEducation_insidePages)) {
+    $menu_now = 'dep-education-menu';
+
+} else if (in_array($pageId, $goIChs_insidePages)) {
+    $menu_now = 'go-i-chs-menu';
+
+} else {
+    $menu_now = 'main-menu';
+
+}
+
+$departments_menu_items = $this->macros('menu', 'draw', array('departments_main_menu'))['item'];
+foreach ($departments_menu_items as $item) {
+    if ($variables['request-uri'] == $item['link']) {
+        $activeClass = 'active';
+        break;
+
+    } else {
+        $activeClass = '';
+    }
+}
+
+$menu_items = $this->macros('menu', 'draw', array($menu_now))['item'];
 foreach ($menu_items as $item) {
     if ($variables['request-uri'] == $item['link']) {
         $activeClass = 'active';
@@ -19,30 +62,87 @@ foreach ($menu_items as $item) {
 
 ?>
 
-<nav class="main-menu">
-    <ul>
-        <? foreach ($menu_items as $item): ?>
-            <li class="<?= $item['status'] ?>">
-                <a href="<?= $item['link'] ?>">
-                    <?= $item['name'] ?>
-                </a>
-            </li>
-        <? endforeach; ?>
-    </ul>
+<? if (in_array($pageId, $allPageId)): ?>
+<nav class="main-menu inside-menu">
 
-    <div class="buttonSearch buttonSearch__main">
-        <form method="get">
-            <input type="text" placeholder="Искать здесь...">
+    <? else: ?>
+    <nav class="main-menu">
 
-            <button type="button" class="btn btn1 btn-default">
-                <span class="flaticon-magnifying-glass"></span>
-                <span class="flaticon-close"></span>
-            </button>
+        <? endif; ?>
 
-            <button type="submit" class="btn btn2 btn-default">
-                <span class="flaticon-magnifying-glass"></span>
-            </button>
-        </form>
-    </div>
-</nav>
+        <ul>
+            <? foreach ($menu_items as $item): ?>
+                <li class="<?= $item['status'] ?> main-menu__item-menu">
+                    <a class="main-menu__item-link" href="<?= $item['link'] ?>">
+                        <?= $item['name'] ?>
+                    </a>
+
+                    <? if (isset($item["sub_menu"]) && in_array($pageId, $allPageId)): ?>
+                        <ul class="main-menu__sub-menu">
+                            <div class="sub-menu-wrapper">
+                                <? foreach ($item["sub_menu"]['item'] as $itemSub): ?>
+                                    <li class="tabs-menu-ajax-js">
+                                        <a href="<?= $itemSub['link'] ?>">
+                                            <?= $itemSub['name'] ?>
+                                        </a>
+                                    </li>
+                                <? endforeach; ?>
+                            </div>
+                        </ul>
+                    <? endif; ?>
+                </li>
+
+                <span class="main-menu__separator"></span>
+            <? endforeach; ?>
+        </ul>
+
+        <? if (!in_array($pageId, $allPageId)): ?>
+            <div class="buttonSearch buttonSearch__main">
+                <form method="get">
+                    <input type="text" placeholder="Искать здесь...">
+
+                    <button type="button" class="btn btn1 btn-default">
+                        <span class="flaticon-magnifying-glass"></span>
+                        <span class="flaticon-close"></span>
+                    </button>
+
+                    <button type="submit" class="btn btn2 btn-default">
+                        <span class="flaticon-magnifying-glass"></span>
+                    </button>
+                </form>
+            </div>
+        <? endif; ?>
+    </nav>
+
+    <? if (in_array($pageId, $allPageId)): ?>
+        <nav class="main-menu inside-menu inside-menu__departments">
+            <ul>
+                <? if (in_array($pageId, $allPageId)): ?>
+                    <? foreach ($departments_menu_items as $item): ?>
+                        <li class="<?= $item['status'] ?> main-menu__item-menu">
+                            <a class="main-menu__item-link" href="<?= $item['link'] ?>">
+                                <?= $item['name'] ?>
+                            </a>
+
+                            <? if (isset($item["sub_menu"]) && in_array($pageId, $allPageId)): ?>
+                                <ul class="main-menu__sub-menu">
+                                    <div class="sub-menu-wrapper">
+                                        <? foreach ($item["sub_menu"]['item'] as $itemSub): ?>
+                                            <li class="tabs-menu-ajax-js">
+                                                <a href="<?= $itemSub['link'] ?>">
+                                                    <?= $itemSub['name'] ?>
+                                                </a>
+                                            </li>
+                                        <? endforeach; ?>
+                                    </div>
+                                </ul>
+                            <? endif; ?>
+                        </li>
+
+                        <span class="main-menu__separator"></span>
+                    <? endforeach; ?>
+                <? endif; ?>
+            </ul>
+        </nav>
+    <? endif; ?>
 

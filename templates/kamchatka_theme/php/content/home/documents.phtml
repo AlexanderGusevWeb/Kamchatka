@@ -7,37 +7,51 @@
  */
 
 $page = $variables['page'];
+$settings = $this->getSettingsContainer('main_config');
+
+$main_image['doc'] = $settings->getValue('main_doc-img')->getFilePath(true);
+$main_image['pdf'] = $settings->getValue('main_pdf-img')->getFilePath(true);
 
 $page_documents = $this->getPageById(8);
 $documents = $page_documents->getValue('documents');
+$arr1 = [];
+$arr2 = [];
+$arr3 = [];
+$arr4 = [];
+$arr5 = [];
 
 foreach ($documents as $key => $item) {
-    $arr1[$key] = $this->getObjectById($item)->getValue('date-doc')->getFormattedDate('d.m.Y');
-    $arr2[$key] = $this->getObjectById($item)->getName();
-    $arr3[$key] = $this->getObjectById($item)->getValue('file-doc')->getFilePath(true);
-    $arr4[$key] = $this->getObjectById($item)->getValue('img-doc')->getFilePath(true);
+    $dateDoc = $this->getObjectById($item)->getValue('date-doc');
+    isset($dateDoc) ? $arr1[$key] = $dateDoc->getFormattedDate('d.m.Y') : null;
+
+    $arr2[$key] = $this->getObjectById($item)->name;
+
+    $fileDoc = $this->getObjectById($item)->getValue('file-doc');
+    isset($fileDoc) ? $arr3[$key] = $fileDoc->getFilePath(true) : null;
+
+    $docFormatId = $this->getObjectById($item)->getValue('format_doc');
+    $docFormatName = $this->getObjectById($docFormatId)->name;
+
+    if (isset($docFormatId)) {
+        $arr4[$key] = $main_image[$docFormatName];
+
+    } else {
+        $arr4[$key] = $main_image['doc'];
+    }
+
+    $arr5[$key] = $this->getObjectById($item)->getValue('type-doc');
 }
 
-array_multisort($arr1, SORT_DESC, $arr2, $arr3, $arr4);
 
-foreach ($arr1 as $key => $item) {
-    $arr[$key]['date-doc'] = $item;
-}
+array_multisort($arr1, SORT_DESC, $arr2, $arr3, $arr4, $arr5);
 
-foreach ($arr2 as $key => $item) {
-    $arr[$key]['title-doc'] = $item;
-}
-
-foreach ($arr3 as $key => $item) {
-    $arr[$key]['file-doc'] = $item;
-}
-
-foreach ($arr4 as $key => $item) {
-    $arr[$key]['img-doc'] = $item;
-}
+foreach ($arr1 as $key => $item) $arr[$key]['date-doc'] = $item;
+foreach ($arr2 as $key => $item) $arr[$key]['title-doc'] = $item;
+foreach ($arr3 as $key => $item) $arr[$key]['file-doc'] = $item;
+foreach ($arr4 as $key => $item) $arr[$key]['img-doc'] = $item;
+foreach ($arr5 as $key => $item) $arr[$key]['type-doc'] = $item;
 
 $arr = array_slice($arr,0,6);
-
 ?>
 
 <div class="home-page__container-footer">

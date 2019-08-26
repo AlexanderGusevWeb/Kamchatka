@@ -1,0 +1,39 @@
+<?php
+/**
+ * Результаты опроса.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ * @var array $voteOptions
+ */
+
+$voteOptions = $variables['vote']['items'];
+$resultBoolean = $variables['resultBoolean'];
+?>
+
+<? if ($resultBoolean): ?>
+    <div class="one-vote">
+        <div class="radio_form">
+            <div class="result_interview">
+                <p class="form_text">
+                    <?= $this->escape($variables['vote']['text']) ?>
+                </p>
+
+                <?php foreach ($voteOptions as $option): ?>
+                    <div class="result_wrapper">
+                        <div class="result clearfix">
+                            <div class="result_range"></div>
+
+                            <span class="result_num"><?= $option['score-rel'] ?>%</span>
+                        </div>
+
+                        <div class="result_text">
+                            <span class="result_name"><?= $this->escape($option['item_name']) ?></span>
+                            <span class="result_count">Голосов: <?= $option['item_result'] ?></span>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+<? endif; ?>

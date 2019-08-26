@@ -6,6 +6,7 @@
     tbody {
         tr:first-child {
             th {
+                width: calc(100% / 3) !important;
                 border-bottom: 1px solid #fff;
 
                 &:first-child {
@@ -15,32 +16,29 @@
         }
     }
 
-    th {
-        width: 100% !important;
-    }
-
     tr {
         height: auto !important;
+
+        th {
+            width: 100% !important;
+        }
 
         td {
             width: 100% !important;
             max-width: calc(100% / 3);
-        }
+            height: auto !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
 
-        td:first-child {
-            max-width: 60px;
-        }
-    }
+            &:first-child {
+                max-width: 60px;
+            }
 
-    td {
-        height: auto !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-
-        p {
-            margin: 0;
+            p {
+                margin: 0;
+            }
         }
     }
 }

@@ -52,6 +52,16 @@ $title_parentName = [];
 foreach ($sidebar_leftBlock as $key => $item) {
     $title_parentArray[$key]['id'] = $item['id'];
     $title_parentArray[$key]['name'] = $item['name'];
+
+    $not_standard_link = $this->getPageById($item['id'])->getValue('not_standard_link');
+
+    if ($not_standard_link != false) {
+        $sidebar_leftBlock[$key]['link'] = $not_standard_link;
+        $sidebar_leftBlock[$key]['link-target'] = '_blank';
+
+    } else {
+        $sidebar_leftBlock[$key]['link-target'] = '';
+    }
 };
 
 $title_parent = '';
@@ -70,16 +80,15 @@ $find_dir_patch = realpath(dirname(__FILE__));
 $find_file = $pageAlt . '.phtml';
 $find = $this->macros('content', 'parseDir_file', array($find_dir_patch, $find_file, true, true));
 
-$newspaper_image = $this->render(
-    [
-        'id' => $settings->getId(),
-        'field_name' => 'newspaper_image',
-        'src' => $settings->getValue('newspaper_image'),
-        'alt' => "doc",
-        'width' => 85,
-        'height' => 85
-    ],
-    'library/thumbnail');
+$newspaper_image = $this->render([
+    'id' => $settings->getId(),
+    'field_name' => 'newspaper_image',
+    'src' => $settings->getValue('newspaper_image'),
+    'alt' => "doc",
+    'width' => 85,
+    'height' => 85
+], 'library/thumbnail');
+
 ?>
 
 <?= $this->render($variables, 'content/header-pages') ?>
@@ -98,24 +107,26 @@ $newspaper_image = $this->render(
                 } ?>
 
                 <li class="secondary-page__item <?= $item1['status'] ?>">
-                    <a id="pageId-<?= $item1['id'] ?>" class="<?= $item1['status'] ?>" href="<?= $item1['link'] ?>">
+                    <a id="pageId-<?= $item1['id'] ?>" class="<?= $item1['status'] ?>" href="<?= $item1['link'] ?>" target="<?= $item1['link-target'] ?>">
                         <?= $item1['name'] ?>
                     </a>
 
-                    <? if ($item1['items'] == true): ?>
-                        <ul class="second-level-menu">
-
-                            <? foreach ($item1['items'] as $key2 => $item2): ?>
-                                <li class="second-level-menu__item">
-                                    <a id="pageId-<?= $item2['id'] ?>" class="<?= $item2['status'] ?>"
-                                       href="<?= $item2['link'] ?>">
-                                        <?= $item2['name'] ?>
-                                    </a>
-                                </li>
-                            <? endforeach; ?>
-
-                        </ul>
-                    <? endif; ?>
+                    <? // Выпадающий список первого уровня ?>
+                    <!--                    --><? // if ($item1['items'] == true): ?>
+                    <!--                        <ul class="second-level-menu">-->
+                    <!---->
+                    <!--                            --><? // foreach ($item1['items'] as $key2 => $item2): ?>
+                    <!--                                <li class="second-level-menu__item">-->
+                    <!--                                    <a id="pageId---><? //= $item2['id'] ?><!--" class="-->
+                    <? //= $item2['status'] ?><!--"-->
+                    <!--                                       href="--><? //= $item2['link'] ?><!--">-->
+                    <!--                                        --><? //= $item2['name'] ?>
+                    <!--                                    </a>-->
+                    <!--                                </li>-->
+                    <!--                            --><? // endforeach; ?>
+                    <!---->
+                    <!--                        </ul>-->
+                    <!--                    --><? // endif; ?>
 
                 </li>
             <? endforeach; ?>
@@ -163,6 +174,7 @@ $newspaper_image = $this->render(
 
                     <?php //Если нет шаблона, проверить на существрвания поля 'контент' или поля 'документы'?>
                     <?php if (isset($pageContent) || $pageDocList != false): ?>
+
                         <div class="page-content">
                             <?php if (isset($pageDocList)): ?>
                                 <?= $pageContent ?>
@@ -170,7 +182,7 @@ $newspaper_image = $this->render(
 
                             <?php if ($pageDocList != false): ?>
                                 <?php //Если есть хоть один файл '?>
-                                <?php if($fileWithText > 0): ?>
+                                <?php if ($fileWithText > 0): ?>
                                     <span class="tabs__button charter-page__button">
                                         <span class="button-text active-one">Открыть все вкладки</span>
                                         <span class="button-text two">Закрыть все вкладки</span>
@@ -222,7 +234,7 @@ $newspaper_image = $this->render(
                             <?php endif; ?>
                         </div>
 
-                    <?php //Если все NULL вывести вложенные страницы?>
+                        <?php //Если все NULL вывести вложенные страницы?>
                     <?php elseif (is_null($pageContent)): ?>
                         <div class="page-content__menu">
                             <? if ($insidePages_rightBlock == true): ?>

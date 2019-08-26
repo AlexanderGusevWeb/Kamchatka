@@ -11,6 +11,8 @@ $pagination = $variables;
 
 <?php if (isset($pagination['tonext_link'])): ?>
 	<li class="next">
+<?php else: ?>
+    <li class="next no_more">
+<?php endif; ?>
 		<a class="flaticon-next-1" href="<?= $this->getCurrentPath() . $pagination['tonext_link']['value'] ?>"></a>
 	</li>
-<?php endif; ?>

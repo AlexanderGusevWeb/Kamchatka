@@ -1,0 +1,69 @@
+<?php
+/**
+ * Форма опроса.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ * @var array $voteOptions
+ */
+
+$voteOptions = $variables["vote"]['items'];
+
+?>
+
+<div class="one-vote">
+        <div class="radio_form">
+            <p class="form_text">
+                <?= $this->escape($variables["vote"]['text']) ?>
+            </p>
+
+            <form class="post_vote" data-vote_id="<?= $variables["vote"]['id'] ?>" data-vote_link="<?= $variables["vote"]['link'] ?>">
+
+                <span class="incorrect-answer incorrect-answer_hide">Ответ не выбран</span>
+
+                <?php foreach ($voteOptions as $index => $option): ?>
+                    <div class="item_vote">
+                        <label for="vote_id_<?= $option["item_id"] ?>">
+                            <span class="item_button"></span>
+                            <input id="vote_id_<?= $option["item_id"] ?>" type="radio" name="answer" required
+                                   value="<?= $option['id'] ?>"/>
+
+                            <span class="item_vote_name"><?= $this->escape($option['item_name']) ?></span>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
+                <!--			<input class="vote-submit" type="submit" value="-->
+                <? //= $this->translate('reply') ?><!--"/>-->
+            </form>
+        </div>
+</div>
+
+<script class="vote_result_template" type="text/template">
+        <div class="interview complete col-md-6">
+            <h3 class="block_capt up">
+                <?= $this->translate('vote') ?>
+            </h3>
+
+            <div class="radio_form">
+                <p class="form_text">
+                    <?= $this->escape($variables["vote"]['text']) ?>
+                </p>
+
+                <div class="result_interview">
+                    <% _.each(optionList, function(option) { %>
+                    <div class="row">
+                        <div class="text">
+                            <span><%= option['item_name'] %></span>
+                        </div>
+
+                        <div class="result clearfix">
+                            <div class="result_range"></div>
+
+                            <span class="result_num"><%= option['score-rel'] %>%</span>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </script>

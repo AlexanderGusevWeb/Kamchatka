@@ -1,0 +1,231 @@
+.ui-widget {
+    padding: 0;
+    margin: 0;
+}
+
+#type-doc-button,
+#type-project-doc-button,
+#department-doc-button {
+    width: calc(100% - 20px);
+
+    @include max-screen(768px) {
+        width: 100%;
+    }
+
+    + label {
+        right: 20px;
+
+        @include max-screen(768px) {
+            right: 0;
+        }
+    }
+}
+
+#collegiate-doc-button {
+    width: 100%;
+
+    + label {
+        right: 0;
+    }
+}
+
+#type-doc-button,
+#type-project-doc-button,
+#department-doc-button,
+#collegiate-doc-button,
+#hidden-doc-button {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    height: 46px;
+    background: transparent;
+    border: 0;
+    padding-left: 20px;
+
+    &:hover,
+    &:focus,
+    &:active {
+        border: 0;
+        outline: none;
+    }
+
+    + label {
+        z-index: 1;
+        background-color: $white;
+
+        &::before {
+            position: absolute;
+            top: 50%;
+            left: calc(100% - 20px);
+            font-family: 'Flaticon';
+            content: '\f111';
+            font-size: 18px;
+            color: $black;
+            transform: translate(-100%, -50%);
+            transition: transform .5s ease;
+        }
+
+        &.active {
+            &::before {
+                transform: translate(-100%, -50%) rotate(-180deg);
+            }
+        }
+    }
+}
+
+#hidden-doc-button {
+    width: 100%;
+}
+
+.ui-selectmenu-text,
+.ui-menu-item {
+    @include monts_500;
+    font-size: 17px;
+}
+
+.ui-menu {
+    display: none;
+    max-height: 250px;
+    overflow: scroll;
+}
+
+.ui-menu-item {
+    align-items: center;
+    border-bottom: 1px solid rgba($gray, .5);
+
+    > div {
+        min-height: 62px !important;
+        height: 100% !important;
+    }
+
+    &:first-child {
+        .ui-menu-item-wrapper {
+            position: relative;
+
+            &::before {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                content: '(Не выбрано)';
+                z-index: 10;
+                @include monts_500;
+                font-size: 17px;
+            }
+        }
+    }
+
+    &:last-child {
+        border: none;
+    }
+
+    div {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0 !important;
+        padding-right: 20px !important;
+        padding-left: 20px !important;
+        height: 46px;
+    }
+}
+
+.ui-icon {
+    background-image: none !important;
+}
+
+// Ui input date
+#ui-datepicker-div {
+    width: 100%;
+    max-width: 258px;
+    z-index: 30 !important;
+}
+
+.ui-datepicker-title {
+    background-color: $dark-blue;
+    color: $white;
+}
+
+.ui-state-hover {
+    &:hover {
+        border-color: $light-blue;
+    }
+}
+
+.ui-state-highlight {
+    background-color: $gray !important;
+    border-color: $gray !important;
+}
+
+.ui-state-active {
+    background-color: $dark-blue !important;
+    border-color: $dark-blue !important;
+    color: $white !important;
+}
+
+.ui-datepicker-header {
+    position: relative;
+    padding: 0 !important;
+    background-color: $dark-blue !important;
+}
+
+.ui-datepicker-title {
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ui-corner-all {
+    position: relative;
+}
+
+.ui-datepicker-prev,
+.ui-datepicker-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50% !important;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+    span {
+        position: relative !important;
+        text-indent: initial !important;
+        width: 25px !important;
+        height: 25px !important;
+        margin: 0 !important;
+        top: 0 !important;
+        left: 0 !important;
+
+        &::before {
+            position: absolute !important;
+            font-family: 'Flaticon';
+            color: $white;
+            font-size: 25px;
+        }
+    }
+
+    &:hover {
+        background: $dark-blue !important;
+        border: none;
+    }
+}
+
+.ui-datepicker-prev {
+    span {
+        &::before {
+            content: '\f10d' !important;
+        }
+    }
+}
+
+.ui-datepicker-next {
+    span {
+        &::before {
+            content: '\f10e' !important;
+        }
+    }
+}

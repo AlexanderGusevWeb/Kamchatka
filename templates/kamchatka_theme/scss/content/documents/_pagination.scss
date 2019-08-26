@@ -1,0 +1,114 @@
+.documents-page,
+.administration-page,
+.anti-corruption-page {
+    .pagination_numbers {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 0 20px;
+        margin: 0;
+
+        li {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 60px;
+                height: 60px;
+                color: $black;
+                @include monts_600;
+                font-size: 17px;
+                transition: all .5s ease;
+            }
+
+            &:hover {
+                a {
+                    color: $light-blue;
+                }
+            }
+
+            &.active_page {
+                pointer-events: none;
+                color: $light-blue;
+            }
+
+            &.active {
+                pointer-events: none;
+
+                a {
+                    color: $light-blue;
+                }
+            }
+        }
+
+        .prev,
+        .next {
+            position: relative;
+            display: flex;
+            color: $white;
+            background-color: $dark-blue;
+            box-shadow: transparent;
+            transition: all .3s ease-in-out;
+
+            a {
+                &::before {
+                    display: none;
+                }
+            }
+
+            &::before {
+                position: absolute;
+                font-family: 'Flaticon';
+                font-weight: 600;
+            }
+
+            &:hover {
+                color: $dark-blue;
+                background-color: $white;
+                box-shadow: 0 0 10px 0 rgba($dark, .4);
+            }
+        }
+
+        .prev {
+            &::before {
+                content: '\f10d';
+            }
+        }
+
+        .next {
+            &::before {
+                content: '\f10e';
+            }
+        }
+
+        .no_more {
+            pointer-events: none;
+            color: $white;
+            background-color: $gray;
+            transition: all .3s ease-in-out;
+        }
+
+        .prev {
+            margin-right: auto;
+        }
+
+        .next {
+            position: relative;
+            margin-left: auto;
+
+            .flaticon-back {
+                position: absolute;
+                transform: rotate(-180deg);
+            }
+        }
+    }
+}

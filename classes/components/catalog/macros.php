@@ -688,6 +688,7 @@
 			}
 
 			$limit = $limit ?: $this->module->per_page;
+
 			$currentPage = $ignorePaging ? 0 : (int) getRequest('p');
 			$offset = $currentPage * $limit;
 

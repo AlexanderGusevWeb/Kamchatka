@@ -1,0 +1,147 @@
+<?php
+$page = $variables['page'];
+$pageId = $variables['pageId'];
+$pageTitle = $page->getValue('h1');
+$pageLink = $page->link;
+$pageAlt = $page->getAltName();
+$pageContent = $page->getValue('content');
+$pageTypeId = $page->getObjectTypeId();
+$settings = $this->getSettingsContainer('main_config');
+
+if ($pageTypeId == 408) {
+    $insidePageArr = $this->macros('content', 'menu', array(null, 10, $pageId))['items'];
+    header('location: ' . $insidePageArr[0]['link']);
+}
+
+$sidebar_leftBlock = $this->macros('content', 'menu', array(null, 10, $pageId))['items'];
+
+if (count($sidebar_leftBlock) > 0) {
+    foreach ($sidebar_leftBlock as $key => $item) {
+        $sidebar_leftBlock2 = $this->macros('content', 'menu', array(null, 10, $item['id']))['items'];
+
+        if (count($sidebar_leftBlock2) > 0) {
+            foreach ($sidebar_leftBlock2 as $key2 => $item2) {
+                $insidePage2 = $this->getPageById($item2['id']);
+                $sidebar_leftBlock[$key]['inside-page'][$key2]['id'] = $insidePage2->id;
+                $sidebar_leftBlock[$key]['inside-page'][$key2]['link'] = $insidePage2->link;
+                $sidebar_leftBlock[$key]['inside-page'][$key2]['name'] = $insidePage2->getValue('h1');
+                $sidebar_leftBlock[$key]['inside-page'][$key2]['hidden-field'] = $insidePage2->hidden_fields_for_filter ? $insidePage2->hidden_fields_for_filter : '';
+
+                $not_standard_link = $this->getPageById($item2['id'])->getValue('not_standard_link');
+
+                if ($not_standard_link != false) {
+                    $sidebar_leftBlock[$key]['inside-page'][$key2]['link'] = $not_standard_link;
+                    $sidebar_leftBlock[$key]['inside-page'][$key2]['link-target'] = '_blank';
+
+                } else {
+                    $sidebar_leftBlock[$key]['inside-page'][$key2]['link-target'] = '';
+                }
+            }
+        }
+    }
+}
+
+$title_parentArray = [];
+$title_parentName = [];
+foreach ($sidebar_leftBlock as $key => $item) {
+    $title_parentArray[$key]['id'] = $item['id'];
+    $title_parentArray[$key]['name'] = $item['name'];
+
+    $hidden_field = $this->getPageById($item['id'])->hidden_fields_for_filter;
+    $sidebar_leftBlock[$key]['hidden-field'] = $hidden_field ? $hidden_field : '';
+
+    $not_standard_link = $this->getPageById($item['id'])->getValue('not_standard_link');
+
+    if ($not_standard_link != false) {
+        $sidebar_leftBlock[$key]['link'] = $not_standard_link;
+        $sidebar_leftBlock[$key]['link-target'] = '_blank';
+
+    } else {
+        $sidebar_leftBlock[$key]['link-target'] = '';
+    }
+};
+
+$title_parent = '';
+$parent_active = '';
+foreach ($title_parentArray as $key => $item) {
+    if ($item['id'] == $pageId) {
+        $parent_active = 'active';
+    }
+};
+
+?>
+
+<?= $this->render($variables, 'content/header-pages') ?>
+
+<div class="secondary-page administration-page departments-page">
+    <nav>
+        <div class="secondary-page__mobile-menu">
+            <span class="flaticon-angle-arrow-down"></span>
+        </div>
+
+        <ul class="secondary-page__menu">
+            <? foreach ($sidebar_leftBlock as $key1 => $item1): ?>
+
+                <? if ($item1['status'] == 'active') {
+                    $title_parent = $item1['name'];
+                } ?>
+
+                <li class="secondary-page__item <?= $item1['status'] ?>">
+                    <? if ($item1['link-target'] != ''): ?>
+                        <a id="pageId-<?= $item1['id'] ?>"
+                           href="<?= $item1['link'] ?>"
+                           target="<?= $item1['link-target'] ?>">
+                            <?= $item1['name'] ?>
+                        </a>
+
+                    <? else: ?>
+                        <a class="tabs-ajax-js <?= $item1['status'] ?>" id="pageId-<?= $item1['id'] ?>"
+                           href="<?= $item1['link'] ?>?data-name=<?= $item1['hidden-field'] ?>">
+                            <?= $item1['name'] ?>
+                        </a>
+                    <? endif; ?>
+
+                    <? $sidebarPageType = $this->getPageById($item1['id'])->getObjectTypeId() ?>
+
+                    <? if (isset($item1['inside-page']) && $sidebarPageType == 403): ?>
+                        <ul class="second-level-menu">
+                            <? foreach ($item1['inside-page'] as $key2 => $item2): ?>
+                                <li class="second-level-menu__item">
+                                    <? if ($item2['link-target'] != ''): ?>
+                                        <a id="pageId-<?= $item2['id'] ?>"
+                                           href="<?= $item2['link'] ?>"
+                                           target="<?= $item2['link-target'] ?>">
+                                            <?= $item2['name'] ?>
+                                        </a>
+
+                                    <? else: ?>
+                                        <a class="inside-tabs-ajax-js <?= $item2['status'] ?>"
+                                           id="pageId-<?= $item2['id'] ?>"
+                                           href="<?= $item2['link'] ?>?data-name=<?= $item2['hidden-field'] ?>">
+                                            <?= $item2['name'] ?>
+                                        </a>
+                                    <? endif; ?>
+
+                                </li>
+                            <? endforeach; ?>
+                        </ul>
+                    <? endif; ?>
+                </li>
+            <? endforeach; ?>
+        </ul>
+    </nav>
+
+    <section class="one-page pageId-<?= $pageId ?> to-insert-ajax-js">
+        <div class="one-page__title">
+            <h2>
+                <?= $pageTitle ?>
+            </h2>
+        </div>
+
+        <div class="one-page__body">
+            <? if (isset($pageContent)): ?>
+                <?= $pageContent ?>
+            <? endif; ?>
+        </div>
+    </section>
+</div>

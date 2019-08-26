@@ -1,0 +1,103 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 14.08.2019
+ * Time: 10:40
+ */
+
+$page = $variables['page'];
+$pageId = $page->id;
+$pageTitle = $page->getValue('h1');
+$pageTypeId = $page->getObjectTypeId();
+
+$pageMenu = $this->macros('content', 'menu', array(null, 1, 32))['items'];
+
+$hierarchy = umiHierarchy::getInstance();
+$votingId = $hierarchy->getChildrenTree($pageId);
+
+$voting = [];
+foreach ($votingId as $key => $item) {
+    $voting[] = $this->getVote($key);
+}
+
+$parentList = $variables['parents'];
+
+$resultBoolean = isset($_GET["result"]) ? true : false;
+?>
+
+<?= $this->render($variables, 'content/header-pages') ?>
+
+<div class="voting-modal-window">
+    <div class="voting-modal-window__wrapper">
+        Спасибо что прошли опрос!
+    </div>
+</div>
+
+<div class="secondary-page anti-corruption-page">
+    <nav>
+        <div class="secondary-page__mobile-menu">
+            <span class="flaticon-angle-arrow-down"></span>
+        </div>
+
+        <ul class="secondary-page__menu">
+            <? foreach ($pageMenu as $key => $item): ?>
+                <li class="secondary-page__item">
+                    <a id="pageId-<?= $item['id'] ?>" class="<?= $item['status'] ?>" href="<?= $item['link'] ?>">
+                        <?= $item['name'] ?>
+                    </a>
+                </li>
+            <? endforeach; ?>
+        </ul>
+    </nav>
+
+    <section class="one-page pageId-<?= $pageId ?>">
+        <div class="one-page__wrapper">
+            <div class="one-page__title">
+                <h2>
+                    <?= $pageTitle ?>
+                </h2>
+
+                <a href="<?= $this->getPath($parentList[1]) ?>" class="button-back">
+                    <span class="flaticon-back arrow1"></span>
+                    <span class="flaticon-back arrow2"></span>
+                    <span class="flaticon-back arrow3"></span>
+                    <span class="button-text">Вернуться назад</span>
+                </a>
+            </div>
+
+            <div class="one-page__body">
+                <div class="vote-wrapper">
+                    <? if (count($votingId) > 0): ?>
+                        <?
+                        $votingCount = count($voting);
+                        $i = 0;
+                        foreach ($voting as $key => $item): ?>
+                            <div class="voting voting_hide">
+                                <?= $this->render(['item' => $item, 'resultBoolean' => $resultBoolean], 'vote/show_vote'); ?>
+                            </div>
+
+                            <? if (!$this->canShowVoteForm($item)) $i++; ?>
+                        <? endforeach; ?>
+
+                        <? if ($votingCount === $i): ?>
+                            <span class="voting-massage">
+                                Вы уже прошли этот опрос!
+                            </span>
+
+                        <? else: ?>
+                            <button class="voting-js-submit">Голосовать</button>
+
+                        <? endif; ?>
+
+                    <? else: ?>
+                        <div class="voting-massage">
+                            В данном раделе пока что нет ни одного вопроса.
+                        </div>
+
+                    <? endif; ?>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

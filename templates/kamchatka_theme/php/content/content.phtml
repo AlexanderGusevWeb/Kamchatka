@@ -23,8 +23,23 @@ $pageTypeId = $page->getObjectTypeId();
 
 $area_insidePages = array(132, 134, 135, 136, 137, 138, 139);
 
-$administration_insidePages = range(150, 370);
+$administration_insidePages = range(150, 170);
+$administration_insidePagesNewPage = range(176, 185);
+
+$administration_insidePages = array_merge($administration_insidePages, $administration_insidePagesNewPage);
 array_push($administration_insidePages, 386);
+array_push($administration_insidePages, 416);
+
+$departments_tabsPagesLevel1 = array(402, 408);
+
+$departments_tabsPagesLevel2 = array(403, 404);
+
+$documents_insidePages = range(391, 393);
+array_push($documents_insidePages, 129);
+
+$anti_corruption = range(418, 419);
+
+$polls = array(420, 421, 423);
 
 ?>
 
@@ -36,6 +51,24 @@ array_push($administration_insidePages, 386);
 
 <?php elseif (in_array($pageTypeId, $administration_insidePages)): ?>
     <?= $this->render($variables, 'content/administration/index') ?>
+
+<?php elseif (in_array($pageTypeId, $departments_tabsPagesLevel1)): ?>
+    <?= $this->render($variables, 'content/administration/page-departments/index') ?>
+
+<?php elseif (in_array($pageTypeId, $departments_tabsPagesLevel2)): ?>
+    <?= $this->render($variables, 'content/administration/page-departments/inside-page/index') ?>
+
+<?php elseif (in_array($pageTypeId, $documents_insidePages)): ?>
+    <?= $this->render($variables, 'content/documents/index') ?>
+
+<?php elseif (in_array($pageTypeId, $anti_corruption)): ?>
+    <?= $this->render($variables, 'content/anti-corruption/index') ?>
+
+<?php elseif (in_array($pageTypeId, $polls)): ?>
+    <?= $this->render($variables, 'content/polls/folder-polls') ?>
+
+<?php elseif (422 === $pageTypeId): ?>
+    <?= $this->render($variables, 'content/polls/one-poll') ?>
 
 <?php elseif ($this->is404Page($variables)): ?>
     <?= $this->render($variables, 'content/notfound') ?>

@@ -1,12 +1,13 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 11/01/2019 11:57
+    Creation date: 22/02/2019 06:59
     */
 
     @font-face {
   font-family: "Flaticon";
   src: url("./Flaticon.eot");
   src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff2") format("woff2"),
        url("./Flaticon.woff") format("woff"),
        url("./Flaticon.ttf") format("truetype"),
        url("./Flaticon.svg#Flaticon") format("svg");
@@ -59,6 +60,7 @@
 .flaticon-seo:before { content: "\f114"; }
 .flaticon-clip:before { content: "\f115"; }
 .flaticon-document:before { content: "\f116"; }
+.flaticon-clock:before { content: "\f117"; }
     
     $font-Flaticon-placeholder: "\f100";
     $font-Flaticon-cloudy: "\f101";
@@ -83,3 +85,4 @@
     $font-Flaticon-seo: "\f114";
     $font-Flaticon-clip: "\f115";
     $font-Flaticon-document: "\f116";
+    $font-Flaticon-clock: "\f117";

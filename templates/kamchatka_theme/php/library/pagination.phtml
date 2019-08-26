@@ -7,7 +7,7 @@
  */
 
 if (!$this->canShowPagination($variables)) {
-return;
+    return;
 }
 
 $pagination = $this->macros('system', 'numpages', [$variables['total'], $variables['per_page']]);

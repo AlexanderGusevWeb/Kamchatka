@@ -1,0 +1,362 @@
+.filter {
+    height: auto;
+    background-color: $gray;
+    padding: 25px 30px 20px;
+    margin-bottom: 25px;
+
+    &__title {
+        padding-bottom: 10px;
+        margin: 0;
+        font-weight: 600;
+        text-transform: uppercase;
+        border-bottom: 1px solid rgba($black, .1);
+    }
+
+    &-form {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 20px;
+
+        input,
+        select {
+            min-height: 46px;
+            padding: 0 20px;
+            margin: 0;
+            @include monts_500;
+            font-size: 17px;
+        }
+
+        label,
+        label span,
+        input,
+        select {
+            @include monts_500;
+            font-size: 17px;
+            border: none;
+        }
+
+        &__radio-button-doc,
+        &__number-doc,
+        &__name-doc,
+        &__type-doc,
+        &__type-project-doc,
+        &__date-doc,
+        &__department-doc,
+        &__collegiate-doc,
+        &__hidden-doc {
+            margin-bottom: 20px;
+        }
+
+        &__number-doc,
+        &__name-doc,
+        &__type-doc,
+        &__type-project-doc,
+        &__date-doc,
+        &__department-doc,
+        &__collegiate-doc,
+        &__hidden-doc {
+            position: relative;
+
+            label {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                padding: 0 20px;
+            }
+
+            input,
+            select {
+                &:focus {
+                    outline: none;
+
+                    + label {
+                        font-size: 0;
+                    }
+                }
+            }
+
+            input {
+                width: 100%;
+            }
+
+            select {
+                position: relative;
+                z-index: 10;
+                background: transparent;
+            }
+        }
+
+        &__hidden-doc {
+            width: 0 !important;
+            height: 0;
+            opacity: 0;
+            font-size: 0;
+            padding: 0;
+            margin: 0;
+            pointer-events: none;
+        }
+
+        &__radio-button-doc {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            padding-left: 40px;
+
+            &::after,
+            &::before {
+                position: absolute;
+                content: '';
+                top: 50%;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                transform: translateY(-50%);
+                border-radius: 50%;
+            }
+
+            &::after {
+                left: 5px;
+                width: 9px;
+                height: 9px;
+                background-color: $dark-blue;
+                opacity: 0;
+                transition: opacity .5s ease;
+            }
+
+            &::before {
+                width: 18px;
+                height: 18px;
+                border: 2px solid $black;
+                background-color: transparent;
+                transition: all .5s ease;
+            }
+
+            input {
+                display: none;
+
+                span {
+                    transition: all .5s ease;
+                }
+
+                &:checked {
+                    + span {
+                        color: $dark-blue;
+                    }
+                }
+            }
+
+            &.active {
+                &::after {
+                    opacity: 1;
+                }
+
+                &::before {
+                    border-color: $dark-blue;
+                }
+            }
+        }
+
+        label[for="doc"] {
+            width: calc(25% - 20px);
+
+            @include max-screen(1200px) {
+                width: 100%;
+            }
+        }
+
+        label[for="draft-doc"] {
+            width: calc(35% - 20px);
+            margin-right: 40px;
+
+            @include max-screen(1200px) {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+
+        &__number-doc {
+            width: 40%;
+
+            @include max-screen(1200px) {
+                width: 100%;
+            }
+        }
+
+        &__name-doc {
+            width: 100%;
+        }
+
+        &__type-doc,
+        &__type-project-doc {
+            width: calc(100% / 3);
+
+            @include max-screen(768px) {
+                width: 100%;
+            }
+
+            select {
+                width: calc(100% - 20px);
+
+                @include max-screen(768px) {
+                    width: 100%;
+                }
+            }
+        }
+
+        &__type-project-doc {
+            display: none;
+        }
+
+        &__date-doc {
+            position: relative !important;
+            width: calc(100% / 3 * 2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            @include max-screen(768px) {
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            .date-doc {
+                @include max-screen(576px) {
+                    margin-bottom: 20px;
+                }
+            }
+
+            .remove-text-js {
+                z-index: 5;
+            }
+
+            label {
+                justify-content: space-between;
+                position: relative;
+                width: calc(50% - 10px);
+                min-height: 46px;
+
+                @include max-screen(576px) {
+                    width: 100%;
+                }
+
+                input {
+                    min-height: initial;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+
+                span {
+                    position: relative;
+
+                    &::before {
+                        font-size: 25px;
+                    }
+                }
+            }
+        }
+
+        &__department-doc {
+            width: calc(50% + 10px);
+
+            @include max-screen(768px) {
+                width: 100%;
+            }
+
+            select {
+                width: calc(100% - 20px);
+
+                @include max-screen(768px) {
+                    width: 100%;
+                }
+            }
+        }
+
+        &__collegiate-doc {
+            width: calc(50% - 10px);
+
+            @include max-screen(768px) {
+                width: 100%;
+            }
+
+            select {
+                width: 100%;
+            }
+        }
+
+        &__hidden-doc {
+            width: 100%;
+
+            select {
+                width: 100%;
+            }
+        }
+
+        &__button {
+            margin-left: auto;
+
+            @include max-screen(768px) {
+                display: flex;
+                flex-direction: column;
+                margin: auto;
+            }
+
+            input[type="reset"],
+            input[type="submit"] {
+                font-weight: 600;
+                outline: none;
+                cursor: pointer;
+            }
+
+            input[type="reset"] {
+                margin-right: 20px;
+                background: none;
+                text-decoration: underline;
+                transition: color .5s ease;
+
+                @include max-screen(768px) {
+                    margin-right: 0;
+                }
+
+                &:hover {
+                    color: $light-blue;
+                }
+            }
+
+            input[type="submit"] {
+                min-height: 60px;
+                background-color: $dark-blue;
+                color: $white;
+                padding: 0 80px;
+            }
+        }
+    }
+
+    &_hidden {
+        display: none;
+    }
+}
+
+.button-form-js {
+    @include monts_500;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 330px;
+    min-height: 60px;
+    color: #fff;
+    background-color: #006abb;
+    margin-right: auto;
+    margin-left: 0;
+    cursor: pointer;
+    border: none;
+}

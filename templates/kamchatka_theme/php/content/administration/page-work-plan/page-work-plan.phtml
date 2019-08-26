@@ -7,10 +7,23 @@
  */
 
 $page = $variables['page'];
+$pageId = $variables['pageId'];
 $page_content = $page->getValue('content');
 $settings = $this->getSettingsContainer('main_config');
+$pageTypeId = $page->getObjectTypeId();
 
-$list_years = $this->macros('blogs20', 'getPostsList', array(361, null, INF))['items'];
+$postId = '';
+if ($pageTypeId === 155) {
+    $postId = 361;
+} else if ($pageTypeId === 416) {
+    $postId = 689;
+} else if ($pageId === '702') {
+    $postId = 706;
+} else if ($pageId === '704') {
+    $postId = 708;
+}
+
+$list_years = $this->macros('blogs20', 'getPostsList', array($postId, null, INF))['items'];
 
 foreach ($list_years as $key => $item) {
     $tmp_nav_year = date('Y', $item['publish_time']);
@@ -19,7 +32,8 @@ foreach ($list_years as $key => $item) {
     $one_year[$tmp_nav_year]['active'] = '';
 }
 
-function cmp_nav_year($a, $b) {
+function cmp_nav_year($a, $b)
+{
     return ($a['year'] > $b['year']) ? -1 : 1;
 }
 
@@ -29,7 +43,7 @@ $tmp_key = reset($one_year);
 $tmp_key = $tmp_key['year'];
 $last_year = $tmp_key;
 
-$main_newspaper = $this->macros('blogs20', 'getPostsListCustom', array(361, null, INF))['items'] ;
+$main_newspaper = $this->macros('blogs20', 'getPostsListCustom', array($postId, null, INF))['items'];
 
 $one_newspaper = [];
 foreach ($main_newspaper as $key => $item) {
@@ -52,6 +66,7 @@ if (isset ($_GET['year'])) {
     $select_year = $last_year;
 }
 
+
 $one_year[$select_year]['active'] = 'active';
 
 $one_newspaper = $one_newspaper[$select_year];
@@ -62,7 +77,6 @@ $one_newspaper = $one_newspaper[$select_year];
     <?= $page_content ?>
 
     <div class="newspaper-page__body">
-
         <div class="newspaper-page__header">
             <span class="newspaper-page__years">
                 <?= $select_year ?> год
@@ -119,9 +133,9 @@ $one_newspaper = $one_newspaper[$select_year];
                 </div>
             <? endforeach; ?>
 
-<!--            <div class="pagination">-->
-<!--                --><?//= $this->render($main_newspaper, 'library/pagination') ?>
-<!--            </div>-->
+            <!--                <div class="pagination">-->
+            <!--                    --><? //= $this->render($main_newspaper, 'library/pagination') ?>
+            <!--                </div>-->
         </div>
     </div>
 </div>

@@ -3432,6 +3432,22 @@ class DemomarketPhpExtension extends ViewPhpExtension {
 		return isset($data['action']) ? $data['action'] : '';
 	}
 
+    /**
+     * Возвращает опрос, привязанный к странице (результат работы макроса vote::poll())
+     * @param int $pageId идентификатор страницы
+     * @return array
+     * @throws Exception
+     */
+    public function getVote($pageId) {
+        if (!cmsController::getInstance()->isModule('vote')) {
+            return [];
+        }
+
+        $data = $this->macros('vote', 'poll', [$pageId]);
+        $data = is_array($data) ? $data : [];
+        return $data;
+    }
+
 	/**
 	 * Возвращает последний опрос на сайте (результат работы макроса vote::insertlast())
 	 * @return array

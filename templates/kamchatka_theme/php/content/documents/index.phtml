@@ -1,0 +1,68 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 19.02.2019
+ * Time: 11:07
+ */
+$page = $variables['page'];
+$pageId = $variables['pageId'];
+$pageLink = $variables["request-uri"];
+$pageTypeId = $page->getObjectTypeId();
+$pageTitle = $page->getValue('h1');
+$pageAlt = $page->getAltName();
+$pageContent = $page->getValue('content');
+
+$pageDocs_insidePages = $this->macros('content', 'menu', array(null, 1, 8))['items'];
+
+if ($pageLink == $this->getPageById(8)->link) header("Location: " . $pageDocs_insidePages[0]['link']);
+?>
+
+<?= $this->render($variables, 'content/header-pages') ?>
+
+<div class="secondary-page documents-page">
+    <nav>
+        <div class="secondary-page__mobile-menu">
+            <span class="flaticon-angle-arrow-down"></span>
+        </div>
+
+        <ul class="secondary-page__menu">
+            <? foreach ($pageDocs_insidePages as $key => $item): ?>
+                <li class="secondary-page__item">
+                    <a id="pageId-<?= $item['id'] ?>"
+                       class="<?= $item['status'] ?>"
+                       href="<?= $item['link'] ?>">
+                        <?= $item['name'] ?>
+                    </a>
+                </li>
+            <? endforeach; ?>
+        </ul>
+    </nav>
+
+    <section class="one-page pageId-<?= $pageId ?>">
+        <h2 umi:element-id="<?= $pageId ?>"
+            umi:field-name="h1">
+            <?= $pageTitle ?>
+        </h2>
+
+        <div class="one-page__body documents-page__body">
+            <div umi:element-id="<?= $pageId ?>"
+                 umi:field-name="content"
+                 class="page-content">
+
+                <? if ($pageTypeId == 391): ?>
+                    <?= $this->render($variables, 'content/documents/page-municipal-legal-acts') ?>
+
+                <? elseif ($pageTypeId == 392): ?>
+                    <?= $this->render($variables, 'content/documents/page-public-hearing') ?>
+
+                <? elseif ($pageTypeId == 393): ?>
+                    <?= $this->render($variables, 'content/documents/page-appeal-procedure') ?>
+
+                <? else: ?>
+                    <?= $pageContent ?>
+                <? endif; ?>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,290 @@
+<?
+$page = $variables['page'];
+$pageId = $variables['pageId'];
+$pageName = $page->getName();
+$pageTitle = $page->getValue('h1');
+$pageContent = $page->getValue('content');
+$filterChoose = $page->getValue('filter-toggle');
+
+$docList = $page->getValue('filter-doc');
+if (count($docList) > 0) {
+    foreach ($docList as $key => $item) {
+        $oneDoc[$key]['name'] = $this->getObjectById($item)->name;
+        $objDoc = $this->getObjectById($item)->getValue('file-doc');
+        if (isset($objDoc)) {
+            $oneDoc[$key]['doc'] = $objDoc->getFilePath(true);
+
+        } else {
+            $oneDoc[$key]['doc'] = 'javascript:void(0)';
+        }
+    }
+}
+
+$pageTypeId = $page->getObjectTypeId();
+
+$settings = $this->getSettingsContainer('main_config');
+
+$insidePageArr = $this->macros('content', 'menu', array(null, 10, $pageId))['items'];
+
+$insidePageArr_tabs = [];
+if (count($insidePageArr) > 0) {
+    foreach ($insidePageArr as $key => $item) {
+        $insidePage = $this->getPageById($item['id']);
+
+        $content = $insidePage->getValue('content');
+        if (isset($content)) {
+            $insidePageArr_tabs[$key]['name'] = $insidePage->getValue('h1');
+            $insidePageArr_tabs[$key]['text'] = $content;
+        }
+
+        $insideDocList = $insidePage->getValue('filter-doc');
+        if (count($insideDocList) > 0) {
+            foreach ($insideDocList as $insideKey => $insideItem) {
+                $insideOneDoc[$insideKey]['name'] = $this->getObjectById($insideItem)->name;
+                $insideObjDoc = $this->getObjectById($insideItem)->getValue('file-doc');
+
+                if (isset($insideObjDoc)) {
+                    $insideOneDoc[$insideKey]['doc'] = $insideObjDoc->getFilePath(true);
+
+                } else {
+                    $insideOneDoc[$insideKey]['doc'] = 'javascript:void(0)';
+                }
+            }
+        }
+
+        $insidePageArr2 = $this->macros('content', 'menu', array(null, 10, $item['id']))['items'];
+
+        if (count($insidePageArr2) > 0) {
+            foreach ($insidePageArr2 as $key2 => $item2) {
+                $insidePage2 = $this->getPageById($item2['id']);
+                $content2 = $insidePage2->getValue('content');
+
+                if (isset($content2)) {
+                    $insidePageArr_tabs[$key]['inside-page'][$key2]['name'] = $insidePage2->getValue('h1');
+                    $insidePageArr_tabs[$key]['inside-page'][$key2]['text'] = $content2;
+                }
+            }
+        }
+    }
+}
+
+// Формирование списка документов с фильтром только по годам
+$list_years = $this->macros('blogs20', 'getPostsList', array(650, null, INF))['items'];
+
+foreach ($list_years as $key => $item) {
+    $tmp_nav_year = date('Y', $item['publish_time']);
+
+    $one_year[$tmp_nav_year]['year'] = $tmp_nav_year;
+    $one_year[$tmp_nav_year]['active'] = '';
+}
+
+function cmp_nav_year($a, $b)
+{
+    return ($a['year'] > $b['year']) ? -1 : 1;
+}
+
+uasort($one_year, "cmp_nav_year");
+
+$tmp_key = reset($one_year);
+$tmp_key = $tmp_key['year'];
+$last_year = $tmp_key;
+
+$main_newspaper = $this->macros('blogs20', 'getPostsListCustom', array(650, null, INF))['items'];
+
+$one_newspaper = [];
+foreach ($main_newspaper as $key => $item) {
+    $doc_year = date('Y', $item['publish_time']);
+    $doc_time = date('d.m.Y', $item['publish_time']);
+    $doc_name = $item['name'];
+    $doc = $this->getPageById($item['id'])->getValue('doc-file');
+
+    $one_newspaper[$doc_year][] = array(
+        'doc-time' => $doc_time,
+        'doc-name' => $doc_name,
+        'doc' => $doc
+    );
+}
+
+if (isset ($_GET['year'])) {
+    $select_year = $_GET['year'];
+
+} else {
+    $select_year = $last_year;
+}
+
+$one_year[$select_year]['active'] = 'active';
+
+$one_newspaper = $one_newspaper[$select_year];
+?>
+
+<?= $this->render($variables, 'content/header-pages') ?>
+
+<div class="secondary-page administration-page">
+    <div class="wrapper-ajax-js">
+        <div class="one-page__title">
+            <h2>
+                <?= $pageTitle ?>
+            </h2>
+        </div>
+
+        <div class="one-page__body">
+            <? if (isset($pageContent)): ?>
+                <div class="content-pageId-<?= $pageId ?>">
+                    <?= $pageContent ?>
+                </div>
+            <? endif; ?>
+
+            <? if (count($insidePageArr_tabs) > 0 && $pageTypeId == 404): ?>
+                <div class="tabs">
+                    <span class="tabs__button charter-page__button">
+                        <span class="button-text active-one">Открыть все вкладки</span>
+                        <span class="button-text two">Закрыть все вкладки</span>
+                        <span class="flaticon-back active"></span>
+                    </span>
+
+                    <div class="charter-tabs">
+                        <?php foreach ($insidePageArr_tabs as $key => $item): ?>
+                            <div class="one-tab">
+                                <div class="one-tab__title">
+                                    <p>
+                                        <?= $item['name'] ?>
+                                    </p>
+
+                                    <span class="flaticon-minus-horizontal-straight-line"></span>
+                                </div>
+
+                                <div class="one-tab__text">
+                                    <div class="main-text">
+                                        <?= $item['text'] ?>
+                                    </div>
+
+                                    <? if (isset($insideOneDoc)): ?>
+                                        <div class="doc-list">
+                                            <h3>
+                                                Документы для скачивания
+                                            </h3>
+
+                                            <?php foreach ($insideOneDoc as $insideKey => $insideItem): ?>
+                                                <div class="one-tab">
+                                                    <div class="one-tab__title">
+                                                        <div class="left">
+                                                            <span class="flaticon-document"></span>
+
+                                                            <p>
+                                                                <?= $insideItem['name'] ?>
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="right">
+                                                            <div class="doc-load">
+                                                                <a href="<?= $insideItem['doc'] ?>" download="">
+                                                                    Скачать файл
+                                                                    <span class="flaticon-back"></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <? endif; ?>
+
+                                    <? if (isset($item['inside-page'])): ?>
+                                        <?php foreach ($item['inside-page'] as $key2 => $item2): ?>
+                                            <div class="extra-tab extra-tab-id<?= $key2 ?>">
+                                                <div class="extra-tab__title">
+                                                    <p>
+                                                        <?= $item2['name'] ?>
+                                                    </p>
+
+                                                    <span class="flaticon-back"></span>
+                                                </div>
+
+                                                <div class="extra-tab__text">
+                                                    <?= $item2['text'] ?>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <? endif; ?>
+                                </div>
+                            </div>
+
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <? endif; ?>
+
+            <? if ($filterChoose): ?>
+                <?= $this->render($variables, 'content/documents/page-municipal-legal-acts') ?>
+            <? endif; ?>
+
+            <? if ($pageId == 543): ?>
+                <div class="newspaper-page work-plan-page">
+                    <?= $pageContent ?>
+
+                    <div class="newspaper-page__body">
+
+                        <div class="newspaper-page__header">
+                            <span class="newspaper-page__years">
+                                <?= $select_year ?> год
+                            </span>
+
+                            <span class="newspaper-page__button">
+                                Выберите год
+                                <span class="flaticon-back"></span>
+                            </span>
+                        </div>
+
+                        <? foreach ($one_year as $key => $item): ?>
+                            <div class="newspaper-page__header newspaper-page__header_hide <?= $item['active'] ?>">
+                                <span class="newspaper-page__years">
+                                    <span class="js-doc-year-education">
+                                        <? if (isset($item['year'])) {
+                                            echo $item['year'];
+                                        } else {
+                                            echo $_GET['year'];
+                                        } ?>
+                                    </span>
+                                    год
+                                </span>
+                            </div>
+                        <? endforeach; ?>
+
+                        <div class="work-plan-page__docs">
+                            <? if (!$one_newspaper): ?>
+                                <div class="no-docs">
+                                    На текущий год пока что нет документов!
+                                </div>
+                            <? endif; ?>
+
+                            <? foreach ($one_newspaper as $item): ?>
+                                <div class="documents-list">
+                                    <p class="documents-list__time">
+                                        <?= $item['doc-time'] ?>
+                                    </p>
+
+                                    <div class="documents-list__info">
+                                        <p class="documents-list__name">
+                                            <?= $item['doc-name'] ?>
+                                        </p>
+
+                                        <div class="documents-list__doc">
+                                            <a href="<?= $item['doc'] ?>" download>
+                                                Скачать файл
+                                                <span class="flaticon-back"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            <? endforeach; ?>
+
+                            <!--                <div class="pagination">-->
+                            <!--                    --><? //= $this->render($main_newspaper, 'library/pagination') ?>
+                            <!--                </div>-->
+                        </div>
+                    </div>
+                </div>
+            <? endif; ?>
+        </div>
+    </div>
+</div>

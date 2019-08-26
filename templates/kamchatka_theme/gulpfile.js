@@ -66,21 +66,17 @@ gulp.task('sass', () => {
 gulp.task('es6', () => {
     return gulp.src(dirs.es6 + '/**/*.js')
         .pipe(sourcemaps.init())
-        .pipe(plumber({
-            errorHandler: notify.onError((error) => {
-                return {
-                    title: 'Error',
-                    message: error.message
-                }
-            })
-        }))
+        .pipe(plumber({errorHandler: notify.onError((error) => {
+            return {
+                title: 'Error',
+                message: error.message
+            }
+        })}))
         .pipe(babel({
             presets: ['es2015', 'babili']
         }))
-        .pipe(concat('main-script.js'))
-        .pipe(rename({
-            suffix: '.min'
-        }))
+        .pipe(concat('script.js'))
+        .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
         .pipe(sourcemaps.write('/maps'))
         .pipe(gulp.dest(dirs.js));
@@ -103,7 +99,7 @@ gulp.task('css:libs', function () {
         .pipe(gulp.dest(dirs.css));
 });
 
-gulp.task('watch', ['browser-sync', 'scripts', 'css:libs'], () => {
+gulp.task('watch', ['browser-sync', 'scripts', 'css:libs'], function() {
     gulp.watch(dirs.scss + '/**/*.+(scss|sass)', ['sass']);
     gulp.watch(dirs.es6 + '/**/*.js', ['es6']);
     gulp.watch(dirs.js + '/**/*.js', browserSync.reload);

@@ -33,6 +33,13 @@
 
             $year = getRequest('year'); // custom code
 
+            //Проверка если нет ни одного документа текущего года, взять предыдущий
+//            $i = 1;
+//            do {
+//                $year = date("Y") - $i;
+//                $i = $i + 1;
+//            } while (!isset($year));
+
             $ot = strtotime($year . '-01-01 00:00:00'); // custom code
             $do = strtotime($year . '-12-31 23:59:59'); // custom code
 

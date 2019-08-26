@@ -3,6 +3,10 @@
         &__text {
             padding-top: 25px;
             padding-bottom: 25px;
+
+            &.active {
+                display: block;
+            }
         }
     }
 
@@ -16,12 +20,8 @@
         margin-left: auto;
     }
 
-    &__button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+    &__button,
+    &__filer-button {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -32,6 +32,18 @@
         @include monts_600;
         transition: all .5s ease;
 
+        &:hover {
+            background-color: $medium-blue;
+        }
+    }
+
+    &__button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
         span {
             position: relative;
             top: -15px;
@@ -40,16 +52,18 @@
             z-index: 1;
         }
 
-        &:hover {
-            background-color: $medium-blue;
-        }
-
         &.active {
             span {
                 top: 0;
                 opacity: 1;
             }
         }
+    }
+    &__filer-button {
+        max-width: 260px;
+        padding: 20px;
+        margin-left: auto;
+        margin-right: 0;
     }
 
     @include doc-list;

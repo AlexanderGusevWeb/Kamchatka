@@ -1,0 +1,611 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: GermanWeb
+ * Date: 19.02.2019
+ * Time: 11:00
+ */
+
+// Site settings
+$settings = $this->getSettingsContainer('main_config');
+
+// Page variables
+$page = $variables['page'];
+$pageId = $variables['pageId'];
+$pageLink = $variables["request-uri"];
+$pageTypeId = $page->getObjectTypeId();
+$pageName = $page->getName();
+$pageTitle = $page->getValue('h1');
+$pageAlt = $page->getAltName();
+$pageContent = $page->getValue('content');
+
+// Variables form select
+$objCollection = umiObjectsCollection::getInstance();
+$typeObj = $objCollection->getGuidedItems(394);
+$typeProjectObj = $objCollection->getGuidedItems(407);
+$departmentObj = $objCollection->getGuidedItems(395);
+$arrHidden = $objCollection->getGuidedItems(409);
+$arrCollegiate = $objCollection->getGuidedItems(396);
+
+// Link for button result
+if (isset($filter)) {
+    $filterLink = $variables["request-uri"];
+} else {
+    $filterLink = $variables["request-uri"] . '?doc-filter%5Bnumber-doc%5D=&doc-filter%5Bname%5D=&doc-filter%5Btype-doc%5D=&doc-filter%5Bdate-doc%5D=&doc-filter%5Bdate-doc-to%5D=&doc-filter%5Bdepartment-doc%5D=&doc-filter%5Bcollegiate-doc%5D=';
+}
+
+// Time step for button result
+$filterLink_title['d'] = 'за день';
+$filterLink_title['w'] = 'за неделю';
+$filterLink_title['m'] = 'за месяц';
+$filterLink_title['Y'] = 'за год';
+$filterLink_title['all'] = 'за все время';
+
+// Pagination variables
+$limit = $settings->getValue('limit-doc');
+$currentPage  = null != (int)getRequest('p') ? (int)getRequest('p') : 0;
+$offset = $currentPage * $limit;
+
+// Hidden default
+$hiddenDefault = '';
+// Collegiate default
+$collegiateDefault = '';
+if ($pageTypeId == 403 || $pageTypeId == 404) {
+    if (isset($_GET['data-name'])) $hiddenDefault = $_GET['data-name'];
+} else {
+    if (isset($_GET['data-name'])) $collegiateDefault = $_GET['data-name'];
+}
+
+$hiddenIdNow = '';
+foreach ($arrHidden as $arrHiddenKey => $arrHiddenItem) {
+    if ($hiddenDefault == $arrHiddenItem) {
+        $hiddenIdNow = $arrHiddenKey;
+    }
+}
+
+$collegiateIdNow = '';
+foreach ($arrCollegiate as $arrCollegiateKey => $arrCollegiateItem) {
+    if ($collegiateDefault == $arrCollegiateItem) {
+        $collegiateIdNow = $arrCollegiateKey;
+    }
+}
+
+// Variable all documents
+$objDocs = new selector('objects');
+$objDocs->types('object-type')->name('content', 'documents');
+
+if (isset($_GET['data-name'])) {
+    if ($pageTypeId == 403 || $pageTypeId == 404) {
+        if ($hiddenIdNow != '') {
+            $objDocs->where('hidden-doc')->equals($hiddenIdNow);
+        }
+
+    } else {
+        $objDocs->where('collegiate-doc')->equals($collegiateIdNow);
+    }
+}
+
+$objDocs->order('date-doc')->desc();
+
+// Filter logic
+$filter = getRequest('doc-filter');
+foreach ($filter as $fileName => $valId) {
+    if ($valId != '') {
+
+        if ($fileName == 'radio-button-doc' ||
+            $fileName == 'type-doc' ||
+            $fileName == 'type-project-doc' ||
+            $fileName == 'department-doc' ||
+            $fileName == 'collegiate-doc' ||
+            $fileName == 'number-doc' ||
+            $fileName == 'date-end-doc' ||
+            $fileName == 'developer-doc' ||
+            $fileName == 'hidden-doc'
+        ) {
+
+            $objDocs->where($fileName)->equals($valId);
+        }
+
+        if ($fileName == 'name') {
+            $objDocs->where($fileName)->ilike('%' . $valId . '%');
+        }
+
+        if ($fileName == 'filter-time' && $valId != '') {
+            $startTime = '';
+            switch ($valId) {
+                case 'd':
+                    $startTime = strtotime("today");
+                    break;
+
+                case 'w':
+                    $startTime = strtotime('monday this week');
+                    break;
+
+                case 'm':
+                    $startTime = strtotime('first day of this month');
+                    break;
+
+                case 'Y':
+                    $startTime = strtotime(date("Y.01.01"));
+                    break;
+            }
+
+            $objDocs->where('date-doc')->between($startTime, time());
+        }
+
+        if ($fileName == 'date-doc' || $fileName == 'date-doc-to') {
+
+            $valId_tmp = strtotime(str_replace('.', '-', $valId));
+
+            if ($fileName == 'date-doc') {
+                $start_date = $valId_tmp;
+            } else {
+                $start_date = '';
+            }
+
+            if ($fileName == 'date-doc-to') {
+                $end_date = $valId_tmp;
+            } else {
+                $end_date = '';
+            }
+
+            if ($start_date != '' && $end_date != '') {
+                $objDocs->where($fileName)->between($start_date, $end_date);
+
+            } else if ($start_date != '') {
+                $objDocs->where($fileName)->eqmore($start_date);
+
+            } else {
+                $objDocs->where('date-doc')->eqless($end_date);
+            }
+        }
+    }
+}
+
+// Pagination
+$objDocs->limit($offset, $limit);
+$total = $objDocs->length();
+
+// Array documents
+$arrDocs = [];
+foreach ($objDocs->result() as $item) {
+    $dateDoc = $item->getValue('date-doc')->timestamp;
+    if (isset($dateDoc)) $dateDoc = date("d.m.Y", $dateDoc);
+
+    $dateEndDoc = $item->getValue('date-end-doc')->timestamp;
+    if (isset($dateEndDoc)) $dateEndDoc = date("d.m.Y", $dateEndDoc);
+
+    $departmentDoc = $item->getValue('department-doc');
+    if (isset($departmentDoc)) {
+        $departmentDoc = $this->getObjectById($departmentDoc)->name;
+    }
+
+    $collegiateDoc = $item->getValue('collegiate-doc');
+    if (isset($collegiateDoc)) {
+        $collegiateDoc = $this->getObjectById($collegiateDoc)->name;
+    }
+
+    $typeDoc = $item->getValue('type-doc');
+    if (isset($typeProjectDoc)) {
+        $typeDoc = $this->getObjectById($typeDoc)->name;
+    }
+
+    $typeProjectDoc = $item->getValue('type-project-doc');
+    if (isset($typeProjectDoc)) {
+        $typeProjectDoc = $this->getObjectById($typeProjectDoc)->name;
+    }
+
+    $radioButtonDoc = $item->getValue('radio-button-doc');
+    if (isset($radioButtonDoc)) {
+        $radioButtonDoc = $this->getObjectById($radioButtonDoc)->name;
+    }
+
+    $developerDoc = $item->getValue('developer-doc');
+    if (isset($developerDoc)) {
+        $developerDoc = $this->getObjectById($developerDoc)->name;
+    }
+
+    $hiddenDoc = $item->getValue('hidden-doc');
+    if (isset($hiddenDoc)) {
+        $hiddenDoc = $this->getObjectById($hiddenDoc)->name;
+    }
+
+    $nameDoc = $item->name;
+    $fileDoc = $item->getValue('file-doc');
+    $numberDoc = $item->getValue('number-doc');
+
+    $arrDocs[] = array(
+        'name' => isset($nameDoc) ? $nameDoc : null,
+        'file-doc' => isset($fileDoc) ? $fileDoc : null,
+        'number-doc' => isset($numberDoc) ? $numberDoc : null,
+        'date-doc' => isset($dateDoc) ? $dateDoc : null,
+        'date-end-doc' => isset($dateEndDoc) ? $dateEndDoc : 'Дата не известна',
+        'type-doc' => isset($typeDoc) ? $typeDoc : null,
+        'type-project-doc' => isset($typeProjectDoc) ? $typeProjectDoc : null,
+        'department-doc' => isset($departmentDoc) ? $departmentDoc : null,
+        'collegiate-doc' => isset($collegiateDoc) ? $collegiateDoc : null,
+        'developer-doc' => isset($developerDoc) ? $developerDoc : 'Разработчик не известен',
+        'hidden-doc' => isset($hiddenDoc) ? $hiddenDoc : null,
+    );
+}
+
+// Document logo
+$logoDocs = $this->render(
+    [
+        'id' => $settings->getId(),
+        'field_name' => 'logoDocs',
+        'src' => $settings->getValue('newspaper_image'),
+        'alt' => "doc",
+        'width' => 55,
+        'height' => 55
+    ],
+    'library/thumbnail'
+);
+
+$logoMinDocs = $this->render(
+    [
+        'id' => $settings->getId(),
+        'field_name' => 'logoDocs',
+        'src' => $settings->getValue('newspaper_image'),
+        'alt' => "doc",
+        'width' => 30,
+        'height' => 30
+    ],
+    'library/thumbnail'
+);
+?>
+
+<div class="docs-list">
+
+    <? if ($pageTypeId == 403 || $pageTypeId == 404): ?>
+
+    <div class="filter filter_hidden">
+        <? else: ?>
+
+        <div class="filter">
+            <? endif; ?>
+
+            <p class="filter__title">
+                Поиск документов
+            </p>
+
+            <form class="filter-form" action="" method="get">
+                <label class="filter-form__radio-button-doc" for="doc">
+                    <input id="doc"
+                           type="radio"
+                           name="doc-filter[radio-button-doc]"
+                           value="1542" <?= $filter['radio-button-doc'] == '1542' ? ' checked' : '' ?>/>
+
+                    <span>
+                        Документ
+                    </span>
+                </label>
+
+                <label class="filter-form__radio-button-doc" for="draft-doc">
+                    <input id="draft-doc"
+                           type="radio"
+                           name="doc-filter[radio-button-doc]"
+                           value="1543" <?= $filter['radio-button-doc'] == '1543' ? ' checked' : '' ?>/>
+                    <span>
+                        Проект документа
+                    </span>
+                </label>
+
+                <div class="filter-form__number-doc">
+                    <input type="number"
+                           name="doc-filter[number-doc]"
+                           id="number-doc"
+                           value="<?= $filter['name'] !== null ? $filter['number-doc'] : '' ?>"/>
+
+                    <label for="number-doc">
+                        Номер документа
+                    </label>
+                </div>
+
+                <div class="filter-form__name-doc">
+                    <input type="text"
+                           name="doc-filter[name]"
+                           id="name-doc"
+                           value="<?= $filter['name'] !== null ? $filter['name'] : '' ?>"/>
+
+                    <label for="name-doc">
+                        Название документа
+                    </label>
+                </div>
+
+                <div class="filter-form__type-doc">
+                    <select name="doc-filter[type-doc]"
+                            id="type-doc">
+                        <option value=""></option>
+
+                        <? foreach ($typeObj as $typeKey => $typeItem): ?>
+                            <option value="<?= $typeKey ?>" <?= $filter['type-doc'] == $typeKey ? ' selected' : '' ?>>
+                                <?= $typeItem ?>
+                            </option>
+                        <? endforeach; ?>
+                    </select>
+
+                    <label for="type-doc">
+                        Вид документа
+                    </label>
+                </div>
+
+                <div class="filter-form__type-project-doc">
+                    <select name="doc-filter[type-project-doc]"
+                            id="type-project-doc">
+                        <option value=""></option>
+
+                        <? foreach ($typeProjectObj as $typeKey => $typeItem): ?>
+                            <option value="<?= $typeKey ?>" <?= $filter['type-project-doc'] == $typeKey ? ' selected' : '' ?>>
+                                <?= $typeItem ?>
+                            </option>
+                        <? endforeach; ?>
+                    </select>
+
+                    <label for="type-project-doc">
+                        Вид документа
+                    </label>
+                </div>
+
+                <div class="filter-form__date-doc">
+                    <label class="date-doc" for="date-doc">
+                        <span class="remove-text-js">Дата от</span>
+
+                        <input type="text"
+                               name="doc-filter[date-doc]"
+                               id="date-doc"
+                               autocomplete="off"
+                               value="<?= $filter['name'] !== null ? $filter['date-doc'] : '' ?>"/>
+
+                        <span class="flaticon-clock"></span>
+                    </label>
+
+                    <label class="date-doc-to" for="date-doc-to">
+                        <span class="remove-text-js">Дата до</span>
+
+                        <input type="text"
+                               name="doc-filter[date-doc-to]"
+                               id="date-doc-to"
+                               autocomplete="off"
+                               value="<?= $filter['name'] !== null ? $filter['date-doc-to'] : '' ?>"/>
+
+                        <span class="flaticon-clock"></span>
+                    </label>
+                </div>
+
+                <div class="filter-form__department-doc">
+                    <select name="doc-filter[department-doc]"
+                            id="department-doc">
+                        <option value=""></option>
+
+                        <? foreach ($departmentObj as $departmentKey => $departmentItem): ?>
+                            <option value="<?= $departmentKey ?>" <?= $filter['department-doc'] == $departmentKey ? ' selected' : '' ?>>
+                                <?= $departmentItem ?>
+                            </option>
+                        <? endforeach; ?>
+                    </select>
+
+                    <label for="department-doc">
+                        Принявший отдел
+                    </label>
+                </div>
+
+                <div class="filter-form__collegiate-doc">
+                    <select name="doc-filter[collegiate-doc]"
+                            id="collegiate-doc">
+                        <option value=""></option>
+
+                        <? foreach ($arrCollegiate as $collegiateKey => $collegiateItem): ?>
+                            <option value="<?= $collegiateKey ?>" <?= $collegiateDefault == $collegiateItem ? ' selected' : '' ?>>
+                                <?= $collegiateItem ?>
+                            </option>
+                        <? endforeach; ?>
+                    </select>
+
+                    <label for="collegiate-doc">
+                        Коллегиальный орган
+                    </label>
+                </div>
+
+                <div class="filter-form__hidden-doc">
+                    <select name="doc-filter[hidden-doc]"
+                            id="hidden-doc">
+                        <option value=""></option>
+
+                        <? foreach ($arrHidden as $hiddenDocObjKey => $hiddenDocObjItem): ?>
+                            <option data-real-name-js="<?= $hiddenDocObjItem ?>" value="<?= $hiddenDocObjKey ?>" <?= $hiddenDefault === $hiddenDocObjItem ? ' selected="selected"' : '' ?>>
+                                <?= $hiddenDocObjItem ?>
+                            </option>
+                        <? endforeach; ?>
+                    </select>
+
+                    <label for="hidden-doc">
+                        Скрытое свойство документа
+                    </label>
+                </div>
+
+                <div class="filter-form__button">
+                    <? if ($pageTypeId == 403 || $pageTypeId == 404): ?>
+                        <input id="all-doc-js" type="reset" value="Показать все документы"/>
+
+                    <? else: ?>
+                        <input type="reset" value="Сбросить фильтр"/>
+
+                    <? endif; ?>
+
+                    <input type="submit" value="Найти"/>
+                </div>
+            </form>
+        </div>
+
+        <? if ($pageTypeId == 403 || $pageTypeId == 404): ?>
+            <button class="button-form-js">
+                Показать фильтр
+            </button>
+        <? endif; ?>
+
+        <div class="docs-list__result">
+            <p class="docs-list__result-title">
+                Результаты поиска
+            </p>
+
+            <div class="docs-list__result-filter">
+                <div class="wrapper">
+                    <p>
+                        Показать:
+                    </p>
+
+                    <span class="time-step active">
+                    <?= $filter['filter-time'] == '' ? $filterLink_title['all'] : $filterLink_title[$filter['filter-time']] ?>
+                </span>
+
+                    <span class="flaticon-angle-arrow-down"></span>
+                </div>
+
+                <div class="wrapper_hide">
+                    <a href="<?= $filterLink ?>&doc-filter%5Bfilter-time%5D=d"
+                       class="time-step
+                    <?= $filter['filter-time'] == 'd' ? ' hide' : '' ?>">
+                        <?= $filterLink_title['d'] ?>
+                    </a>
+
+                    <a href="<?= $filterLink ?>&doc-filter%5Bfilter-time%5D=w"
+                       class="time-step
+                    <?= $filter['filter-time'] == 'w' ? ' hide' : '' ?>">
+                        <?= $filterLink_title['w'] ?>
+                    </a>
+
+                    <a href="<?= $filterLink ?>&doc-filter%5Bfilter-time%5D=m"
+                       class="time-step
+                    <?= $filter['filter-time'] == 'm' ? ' hide' : '' ?>">
+                        <?= $filterLink_title['m'] ?>
+                    </a>
+
+                    <a href="<?= $filterLink ?>&doc-filter%5Bfilter-time%5D=Y"
+                       class="time-step
+                    <?= $filter['filter-time'] == 'Y' ? ' hide' : '' ?>">
+                        <?= $filterLink_title['Y'] ?>
+                    </a>
+
+                    <a href="<?= $filterLink ?>&doc-filter%5Bfilter-time%5D="
+                       class="time-step
+                    <?= $filter['filter-time'] == '' ? ' hide' : '' ?>">
+                        <?= $filterLink_title['all'] ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="simple-docs">
+            <div class="wrapper-header">
+                <div class="docs-list__header">
+                    <p>
+                        Дата
+                    </p>
+
+                    <p>
+                        Наименование
+                    </p>
+
+                    <p>
+                        Файл
+                    </p>
+                </div>
+            </div>
+
+            <div class="docs-list__body">
+                <div class="docs-list-js">
+                    <? foreach ($arrDocs as $key => $item): ?>
+                        <div class="docs-list__item">
+                            <div class="docs-list__date">
+                                <?= $item["date-doc"] ?>
+                            </div>
+
+                            <div class="docs-list__title">
+                                <?= $item["name"] ?>
+                            </div>
+
+                            <div class="docs-list__button">
+                                <?= $logoDocs ?>
+
+                                <a href="<?= $item['file-doc'] ?>" download>
+                                    Скачать файл
+                                    <span class="flaticon-back"></span>
+                                </a>
+                            </div>
+                        </div>
+                    <? endforeach; ?>
+
+                    <?= $this->render(['total' => $total, 'per_page' => $limit], 'library/pagination') ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-docs">
+            <div class="wrapper-header">
+                <div class="docs-list__header">
+                    <p>
+                        Разработчик
+                    </p>
+
+                    <p>
+                        Наименование
+                    </p>
+
+                    <p>
+                        Дата размещения
+                    </p>
+
+                    <p>
+                        Срок предоствления экспертных заключенпий
+                    </p>
+                </div>
+            </div>
+
+            <div class="docs-list__body">
+                <div class="docs-list-js">
+                    <? foreach ($arrDocs as $key => $item): ?>
+                        <div class="docs-list__item">
+                            <div class="docs-list__dev">
+                                <?= $item["developer-doc"] ?>
+                            </div>
+
+                            <div class="docs-list__title">
+                                <?= $item["name"] ?>
+                            </div>
+
+                            <div class="right-block">
+                                <div class="date-wrapper">
+                                    <div class="docs-list__date">
+                                        <?= $item["date-doc"] ?>
+                                    </div>
+
+                                    <div class="docs-list__date">
+                                        <?= $item["date-end-doc"] ?>
+                                    </div>
+                                </div>
+
+                                <div class="docs-list__button">
+                                    <?= $logoMinDocs ?>
+
+                                    <a href="<?= $item['file-doc'] ?>" download>
+                                        Скачать файл
+                                        <span class="flaticon-back"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <? endforeach; ?>
+
+                    <?= $this->render(['total' => $total, 'per_page' => $limit], 'library/pagination') ?>
+                </div>
+            </div>
+        </div>
+
+        <? if ($pageTypeId == 403 || $pageTypeId == 404): ?>
+            <div>
+                <script src="/templates/kamchatka_theme/es6/filter-form-ajax.js"></script>
+                <script src="/templates/kamchatka_theme/es6/filter-animation-form.js"></script>
+            </div>
+        <? endif; ?>
+    </div>
