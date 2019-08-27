@@ -7,6 +7,7 @@ $pageContent = $page->getValue('content');
 $filterChoose = $page->getValue('filter-toggle');
 
 $docList = $page->getValue('filter-doc');
+$oneDoc = [];
 if (count($docList) > 0) {
     foreach ($docList as $key => $item) {
         $oneDoc[$key]['name'] = $this->getObjectById($item)->name;
@@ -132,6 +133,31 @@ $one_newspaper = $one_newspaper[$select_year];
                 <div class="content-pageId-<?= $pageId ?>">
                     <?= $pageContent ?>
                 </div>
+            <? endif; ?>
+
+            <? if ($docList): ?>
+                <?php foreach ($oneDoc as $key => $item): ?>
+                    <div class="one-tab">
+                        <div class="one-tab__title">
+                            <div class="left">
+                                <span class="flaticon-document"></span>
+
+                                <p>
+                                    <?= $item['name'] ?>
+                                </p>
+                            </div>
+
+                            <div class="right">
+                                <div class="doc-load">
+                                    <a href="<?= $item['doc'] ?>" download="">
+                                        Скачать файл
+                                        <span class="flaticon-back"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             <? endif; ?>
 
             <? if (count($insidePageArr_tabs) > 0 && $pageTypeId == 404): ?>

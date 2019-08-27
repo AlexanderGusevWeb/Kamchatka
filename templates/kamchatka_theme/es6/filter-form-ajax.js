@@ -33,9 +33,12 @@
         let $url = '';
         if (typeof activePageHref !== 'undefined') {
             $url = activePageHref + '?doc-filter[filter-time]=all';
+            $url = activePageHref + '';
         } else {
             $url = window.location.href.split('?')[0];
         }
+        
+        console.log($url);
 
         $.ajax({
             type: "GET",

@@ -88,15 +88,15 @@
                     padding-right: 50px;
                 }
 
-                    &::before {
-                        border-top: none;
-                    }
+                &::before {
+                    border-top: none;
+                }
             }
 
             &.hide {
                 display: none;
             }
-            
+
             &:hover {
                 background: $light-blue;
             }
@@ -147,15 +147,16 @@
         p {
             width: calc(100% - 300px);
             font-weight: 600;
-        }
 
-        p:last-child,
-        p:first-child {
-            padding: 0 25px;
-            width: 100%;
-            max-width: 150px;
-            text-align: center;
-            box-sizing: border-box;
+            &:last-child,
+            &:nth-of-type(2),
+            &:first-child {
+                padding: 0 15px;
+                width: 100%;
+                max-width: 150px;
+                text-align: center;
+                box-sizing: border-box;
+            }
         }
     }
 
@@ -187,7 +188,8 @@
         box-sizing: border-box;
     }
 
-    &__date {
+    &__date,
+    &__number {
         width: 100%;
         max-width: 150px;
         padding: 0 25px;
@@ -211,7 +213,7 @@
         font-size: 17px;
 
         @include max-screen(768px) {
-            width:  100%;
+            width: 100%;
             padding: 0 20px 10px;
         }
     }

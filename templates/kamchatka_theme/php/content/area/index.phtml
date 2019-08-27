@@ -7,11 +7,13 @@
  */
 $page = $variables['page'];
 $pageId = $variables['pageId'];
+$pageTypeId = $page->getObjectTypeId();
 $pageTitle = $page->getValue('h1');
 $pageLink = $page->link;
 $pageAlt = $page->getAltName();
 $pageContent = $page->getValue('content');
 
+$insidePages_rightBlock = $this->macros('content', 'menu', array(null, 10, $pageId))['items'];
 $pageArea_insidePages = $this->macros('content', 'menu', array(null, 1, 4))['items'];
 
 $pageArea['id'] = 4;
@@ -26,24 +28,54 @@ array_unshift($pageArea_insidePages, $pageArea);
 
 foreach ($pageArea_insidePages as $key => $item) {
     $secondaryMenu = $this->macros('content', 'menu', array(null, 1, $item['id']))['items'];
-    
+
     if (count($secondaryMenu) >= 1 && $item['id'] !== 4) {
         $pageArea_insidePages[$key]['sub-menu'] = $secondaryMenu;
     }
 }
 
+$parentList = $variables['parents'];
+
+$parent = '';
+foreach ($parentList as $item) {
+    $parent = $this->getPath($item);
+}
+
+$parent_active = '';
+foreach ($pageArea_insidePages as $key => $item) {
+    if ($item['id'] == $pageId) {
+        $parent_active = 'active';
+    }
+};
+
+$pageTabs = $page->getValue('articles_list');
+
+$pageOneTab = [];
+foreach ($pageTabs as $key1 => $item1) {
+    $pageOneTab[$key1]['title'] = $this->getObjectById($item1)->name;
+    $pageOneTab[$key1]['text'] = $this->getObjectById($item1)->getValue('text');
+    $extraTabs = $this->getObjectById($item1)->getValue('nested_tabs');
+
+    foreach ($extraTabs as $key2 => $item2) {
+        $pageOneTab[$key1]['extra-tab'][$key2]['extra-title'] = $this->getObjectById($item2)->name;
+        $pageOneTab[$key1]['extra-tab'][$key2]['extra-text'] = $this->getObjectById($item2)->getValue('additional_text');
+    }
+}
+
+$downloadDoc = $page->getValue('download_doc');
+$downloadDoc ? $downloadDocName = $downloadDoc->getFileName() : $downloadDocName = '';
 ?>
 
 <?= $this->render($variables, 'content/header-pages') ?>
 
-<div class="secondary-page area-page">
+<div class="secondary-page area-page settlements-area">
     <nav>
         <div class="secondary-page__mobile-menu">
             <span class="flaticon-angle-arrow-down"></span>
         </div>
 
         <ul class="secondary-page__menu">
-            <? foreach($pageArea_insidePages as $key => $item): ?>
+            <? foreach ($pageArea_insidePages as $key => $item): ?>
                 <li class="secondary-page__item">
                     <a id="pageId-<?= $item['id'] ?>" class="<?= $item['status'] ?>" href="<?= $item['link'] ?>">
                         <?= $item['name'] ?>
@@ -54,7 +86,7 @@ foreach ($pageArea_insidePages as $key => $item) {
                             <? foreach ($item['sub-menu'] as $key2 => $item2): ?>
                                 <li class="second-level-menu__item">
                                     <a id="pageId-<?= $item2['id'] ?>"
-                                       class="inside-tabs-ajax-js <?= $item2['status'] ?>"
+                                       class=" <?= $item2['status'] ?>"
                                        href="<?= $item2['link'] ?>">
                                         <?= $item2['name'] ?>
                                     </a>
@@ -68,36 +100,141 @@ foreach ($pageArea_insidePages as $key => $item) {
     </nav>
 
     <section class="one-page pageId-<?= $pageId ?>">
-        <h2 umi:element-id="<?= $page->getId() ?>"
-            umi:field-name="h1">
-            <?= $pageTitle ?>
-        </h2>
+        <div class="button-back__wrapper">
+            <a href="<?= $pageLink ?>" class="button-back">
+                <span class="flaticon-back arrow1"></span>
+                <span class="flaticon-back arrow2"></span>
+                <span class="flaticon-back arrow3"></span>
+                <span class="button-text">Вернуться назад</span>
+            </a>
 
-        <div class="one-page__body">
+            <span class="button-back__separate"></span>
+        </div>
 
-            <?php if ($pageLink == $pageArea['link']): ?>
+        <div class="to-insert-ajax-js">
+            <div class="one-page__title">
+                <h2 umi:element-id="<?= $page->getId() ?>"
+                    umi:field-name="h1">
+                    <?= $pageTitle ?>
+                </h2>
 
-                <div umi:element-id="<?= $page->getId() ?>"
-                     umi:field-name="content"
-                     class="about-area">
-                    <?= $pageContent ?>
-                </div>
+                <? if ($pageTypeId == 428 && $parent_active != 'active'): ?>
+                    <a href="<?= $parent ?>" class="button-back">
+                        <span class="flaticon-back arrow1"></span>
+                        <span class="flaticon-back arrow2"></span>
+                        <span class="flaticon-back arrow3"></span>
+                        <span class="button-text">Вернуться назад</span>
+                    </a>
 
-            <?php else: ?>
+                    <span class="button-back__separate"></span>
+                <? endif; ?>
+            </div>
 
-                <?php if(file_exists(realpath(dirname(__FILE__)).'/'.$pageAlt.'.phtml')): ?>
-                    <?= $this->render($variables, 'content/area/'.$pageAlt) ?>
+            <div class="one-page__body">
+                <? if ($pageTypeId != 427): ?>
+                    <? if ($pageLink == $pageArea['link']): ?>
+                        <div umi:element-id="<?= $page->getId() ?>"
+                             umi:field-name="content"
+                             class="about-area">
 
-                <?php else: ?>
-                    <div umi:element-id="<?= $page->getId() ?>"
-                         umi:field-name="content"
-                         class="page-content">
-                        <?= $pageContent ?>
+                            <?= $pageContent ?>
+                        </div>
+
+                    <? elseif ($pageTabs): ?>
+                        <div umi:element-id="<?= $page->getId() ?>"
+                             umi:field-name="content"
+                             class="about-area">
+
+                            <?= $pageContent ?>
+                        </div>
+
+                        <div class="charter-page__header-tabs">
+                            <div class="documents-list__doc">
+                                <a href="<?= $downloadDoc ?>" download>
+                                    Скачать "<?= $downloadDocName ?>"
+                                    <span class="flaticon-back"></span>
+                                </a>
+                            </div>
+
+                            <span class="tabs__button charter-page__button">
+                            <span class="button-text active-one">Открыть все вкладки</span>
+                            <span class="button-text two">Закрыть все вкладки</span>
+                            <span class="flaticon-back active"></span>
+                        </span>
+                        </div>
+
+                        <div class="charter-tabs">
+                            <?php foreach ($pageOneTab as $key1 => $item1): ?>
+                                <div class="one-tab">
+                                    <div class="one-tab__title">
+                                        <p>
+                                            <?= $item1['title'] ?>
+                                        </p>
+
+                                        <span class="flaticon-minus-horizontal-straight-line"></span>
+                                    </div>
+
+                                    <div class="one-tab__text">
+                                        <div class="main-text">
+                                            <?= $item1['text'] ?>
+                                        </div>
+
+                                        <?php foreach ($pageOneTab[$key1]['extra-tab'] as $key2 => $item2): ?>
+                                            <div class="extra-tab extra-tab-id<?= $key2 ?>">
+                                                <div class="extra-tab__title">
+                                                    <p>
+                                                        <?= $item2['extra-title'] ?>
+                                                    </p>
+
+                                                    <span class="flaticon-back"></span>
+                                                </div>
+
+                                                <div class="extra-tab__text">
+                                                    <?= $item2['extra-text'] ?>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+
+                            <?php endforeach; ?>
+                        </div>
+
+                    <? else: ?>
+                        <? if (file_exists(realpath(dirname(__FILE__)) . '/' . $pageAlt . '.phtml')): ?>
+                            <?= $this->render($variables, 'content/area/' . $pageAlt) ?>
+
+                        <? else: ?>
+                            <div umi:element-id="<?= $page->getId() ?>"
+                                 umi:field-name="content"
+                                 class="page-content">
+                                <?= $pageContent ?>
+                            </div>
+                        <? endif; ?>
+                    <? endif; ?>
+
+                <? else: ?>
+                    <div class="page-content__menu">
+                        <? if ($insidePages_rightBlock == true): ?>
+                            <ul>
+                                <? foreach ($insidePages_rightBlock as $key => $item):
+                                    $pageNow = $this->getPageById($item['id']);
+                                    $hiddenFields = $pageNow->getValue('hidden_fields_for_filter');
+                                    ?>
+                                    <li>
+                                        <a class="<?= $hiddenFields ? 'inside-tabs-ajax-js' : '' ?>"
+                                           id="page-content-Id-<?= $item['id'] ?>"
+                                           href="<?= $item['link'] ?><?= $hiddenFields ? '?data-name=' . $hiddenFields : '' ?>">
+                                            <?= $item['name'] ?>
+                                        </a>
+                                    </li>
+                                <? endforeach; ?>
+
+                            </ul>
+                        <? endif; ?>
                     </div>
-                <?php endif; ?>
-
-            <?php endif; ?>
-
+                <? endif; ?>
+            </div>
         </div>
     </section>
 </div>

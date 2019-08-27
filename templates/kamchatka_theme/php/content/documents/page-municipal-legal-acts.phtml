@@ -217,7 +217,7 @@ foreach ($objDocs->result() as $item) {
     $arrDocs[] = array(
         'name' => isset($nameDoc) ? $nameDoc : null,
         'file-doc' => isset($fileDoc) ? $fileDoc : null,
-        'number-doc' => isset($numberDoc) ? $numberDoc : null,
+        'number-doc' => isset($numberDoc) ? $numberDoc : '—',
         'date-doc' => isset($dateDoc) ? $dateDoc : null,
         'date-end-doc' => isset($dateEndDoc) ? $dateEndDoc : 'Дата не известна',
         'type-doc' => isset($typeDoc) ? $typeDoc : null,
@@ -274,8 +274,8 @@ $logoMinDocs = $this->render(
                     <input id="doc"
                            type="radio"
                            name="doc-filter[radio-button-doc]"
-                           value="1542" <?= $filter['radio-button-doc'] == '1542' ? ' checked' : '' ?>/>
-
+                           value="1542" checked/>
+<!--                           value="1542" --><?//= $filter['radio-button-doc'] == '1542' ? ' checked' : '' ?><!--/>-->
                     <span>
                         Документ
                     </span>
@@ -504,6 +504,10 @@ $logoMinDocs = $this->render(
                     </p>
 
                     <p>
+                        № документа
+                    </p>
+
+                    <p>
                         Наименование
                     </p>
 
@@ -519,6 +523,10 @@ $logoMinDocs = $this->render(
                         <div class="docs-list__item">
                             <div class="docs-list__date">
                                 <?= $item["date-doc"] ?>
+                            </div>
+
+                            <div class="docs-list__number">
+                                <?= $item["number-doc"] ?>
                             </div>
 
                             <div class="docs-list__title">
