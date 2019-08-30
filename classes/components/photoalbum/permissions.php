@@ -5,7 +5,8 @@
 		'albums' => [
 			'album',
 			'albums',
-			'photo'
+			'photo',
+            'customAlbum'
 		],
 		/** Права на администрирование модуля */
 		'albums_list' => [
