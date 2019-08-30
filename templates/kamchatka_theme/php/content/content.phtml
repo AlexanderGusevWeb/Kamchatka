@@ -21,7 +21,7 @@ $settings = $this->getSettingsContainer('main_config');
 
 $pageTypeId = $page->getObjectTypeId();
 
-$area_insidePages = array(132, 134, 135, 136, 137, 138, 139);
+$area_insidePages = array(132, 134, 135, 136, 137, 138, 139, 427, 428);
 
 $administration_insidePages = range(150, 170);
 $administration_insidePagesNewPage = range(176, 185);
@@ -40,6 +40,8 @@ array_push($documents_insidePages, 129);
 $anti_corruption = range(418, 419);
 
 $polls = array(420, 421, 423);
+
+$gallery = array(432, 433, 434);
 
 ?>
 
@@ -69,6 +71,9 @@ $polls = array(420, 421, 423);
 
 <?php elseif (422 === $pageTypeId): ?>
     <?= $this->render($variables, 'content/polls/one-poll') ?>
+
+<?php elseif (in_array($pageTypeId, $gallery)): ?>
+    <?= $this->render($variables, 'content/gallery/page-photo-video') ?>
 
 <?php elseif ($this->is404Page($variables)): ?>
     <?= $this->render($variables, 'content/notfound') ?>

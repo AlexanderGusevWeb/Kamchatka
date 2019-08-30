@@ -1,0 +1,62 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Alex
+ * Date: 27.08.2019
+ * Time: 17:22
+ */
+$page = $variables['page'];
+$pageId = $variables['pageId'];
+$pageTypeId = $page->getObjectTypeId();
+$pageTitle = $page->getValue('h1');
+$pageLink = $page->link;
+$pageAlt = $page->getAltName();
+$pageContent = $page->getValue('content');
+$pageMenu = $this->macros('content', 'menu', array(null, 1, 33))['items'];
+if ($pageLink === '/page-photo-video/') {
+    header('location: /page-photo-video/page-photo/');
+}
+?>
+
+<?= $this->render($variables, 'content/header-pages') ?>
+
+<div class="secondary-page photo-video-page">
+    <nav>
+        <div class="secondary-page__mobile-menu">
+            <span class="flaticon-angle-arrow-down"></span>
+        </div>
+
+        <ul class="secondary-page__menu">
+            <? foreach ($pageMenu as $key => $item): ?>
+
+                <li class="secondary-page__item">
+                    <a id="pageId-<?= $item['id'] ?>" class="<?= $item['status'] ?>" href="<?= $item['link'] ?>">
+                        <?= $item['name'] ?>
+                    </a>
+
+                    <? if (isset($item['sub-menu'])): ?>
+                        <ul class="second-level-menu">
+                            <? foreach ($item['sub-menu'] as $key2 => $item2): ?>
+                                <li class="second-level-menu__item">
+                                    <a id="pageId-<?= $item2['id'] ?>"
+                                       class="<?= $item2['status'] ?>"
+                                       href="<?= $item2['link'] ?>">
+                                        <?= $item2['name'] ?>
+                                    </a>
+                                </li>
+                            <? endforeach; ?>
+                        </ul>
+                    <? endif; ?>
+                </li>
+            <? endforeach; ?>
+        </ul>
+    </nav>
+
+    <section class="one-page pageId-<?= $pageId ?>">
+        <? if($pageTypeId === 433): ?>
+            <?= $this->render($variables, 'content/gallery/page-photo') ?>
+        <? elseif($pageTypeId === 434): ?>
+            <?= $this->render($variables, 'content/gallery/page-video') ?>
+        <? endif; ?>
+    </section>
+</div>

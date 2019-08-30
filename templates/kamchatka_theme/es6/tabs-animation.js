@@ -220,7 +220,9 @@
             //// Выбор года (Администрация/План работы)
             if ($('.js-doc-year').length > 1) {
                 let year = $(this).find('.js-doc-year').text().trim();
-                window.location.href = "/page-administration/page-work-plan/?year=" + year;
+                let urlNow = location.href;
+                urlNow = urlNow.replace(/\?.*$/g, '');
+                window.location.href = urlNow + "?year=" + year;
             }
 
             //// Выбор года (Администрация/Упр. образования, соц. и мол. политики / Отчеты и планы работы)

@@ -1,0 +1,125 @@
+.photo-video-page {
+    .one-page {
+        &__title {
+            margin-bottom: 36px;
+            border-bottom: 1px solid rgba($black, .1);
+        }
+    }
+}
+
+.gallery {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    min-height: 800px;
+    margin-bottom: 30px;
+
+    &__item {
+        width: calc(100% / 3 - 24px);
+        height: 210px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-right: 36px;
+        margin-bottom: 36px;
+        box-sizing: border-box;
+
+        &:nth-of-type(3n) {
+            margin-right: 0;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            max-height: 210px;
+            object-fit: cover;
+        }
+
+        &:hover {
+            .gallery__text {
+                color: $dark-blue;
+            }
+        }
+    }
+
+    &__text {
+        display: inline-block;
+        @include monts_700;
+        font-size: 17px;
+        color: $black;
+        transition: color .5s ease;
+        margin: 0;
+    }
+
+    &__no-item {
+        @include monts_700;
+        text-align: center;
+        width: 100%;
+        font-size: 30px;
+        color: $dark-blue;
+        margin: 60px auto 120px;
+    }
+
+    &__auto-play {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 999;
+        background: rgba($extra-dark-blue, .95);
+        opacity: 0;
+        transition: opacity 1s ease;
+
+        &.active {
+            opacity: 1;
+        }
+
+        img {
+            margin: 0 auto !important;
+        }
+    }
+
+    &__slider-wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        top: 45%;
+        transform: translateY(-50%);
+    }
+
+    &__slider-item {
+        width: 100%;
+        position: relative;
+
+        img {
+            object-fit: contain;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__slider-close {
+        position: relative;
+        top: 25px;
+        left: 97%;
+        cursor: pointer;
+        z-index: 999;
+
+        &::before {
+            font-size: 30px;
+            color: $white;
+            transition: color .5s ease;
+        }
+
+        &:hover {
+            &::before {
+                color: $light-blue;
+            }
+        }
+    }
+}

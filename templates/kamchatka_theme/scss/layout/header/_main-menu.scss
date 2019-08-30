@@ -205,14 +205,16 @@
 
         > ul {
             padding-right: 250px;
+            padding-left: 0;
         }
 
         ul {
-            min-width: 252px;
+            min-width: 202px;
             width: 100%;
 
             > li {
-                min-width: 250px;
+                min-width: 200px;
+
                 &::before,
                 &::after {
                     display: none;
@@ -232,6 +234,7 @@
                 }
 
                 &:last-of-type {
+                    min-width: 250px;
                     position: absolute;
                     left: 100%;
                     transform: translateX(-100%);
@@ -282,6 +285,8 @@
                 }
 
                 &:last-of-type {
+                    min-width: 250px;
+
                     .main-menu__item-link {
                         &::after {
                             left: 20px;

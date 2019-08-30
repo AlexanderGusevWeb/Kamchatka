@@ -1,0 +1,150 @@
+<?php
+/**
+ * Альбом с фотографиями.
+ *
+ * @var umiTemplaterPHP|ViewPhpExtension|DemomarketPhpExtension $this
+ * @var array $variables
+ */
+
+$albumData = $this->macros('photoalbum', 'album', [$variables['pageId']]);
+$photoList = $this->getPhotoalbumPhotos($albumData);
+
+$albumDataAll = $this->macros('photoalbum', 'customAlbum', [$variables['pageId']]);
+$photoListAll = $this->getPhotoalbumPhotos($albumDataAll);
+
+$page = $variables['page'];
+$pageId = $variables['pageId'];
+$pageTitle = $page->getValue('h1');
+$pageLink = $page->link;
+$no_image = '/templates/kamchatka_theme/images/noimage.jpeg';
+$pageMenu = $this->macros('content', 'menu', array(null, 1, 33))['items'];
+
+$parentList = $variables['parents'];
+$parentPage = 'javascript:void(0)';
+if (count($parentList) > 0) $parentPage = $this->getPath($parentList[0]);
+
+$one_photo = [];
+foreach ($photoList as $key => $item) {
+    $one_photo[$key]["name"] = $item->getName();
+
+    $image = $item->getValue('photo');
+
+    if (isset($image)) {
+        $one_photo[$key]["image"] = $this->getPhotoPath($item);
+    } else {
+        $one_photo[$key]["image"] = $no_image;
+    }
+
+    $date = $item->getValue('create_time');
+
+    if (isset($date)) {
+        $one_photo[$key]["timestamp"] = $date;
+    } else {
+        $one_photo[$key]["timestamp"] = date('U');
+    }
+}
+
+$all_photo = [];
+foreach ($photoListAll as $key2 => $item2) {
+    $all_photo[$key2]["name"] = $item2->getName();
+
+    $image2 = $item2->getValue('photo');
+
+    if (isset($image2)) {
+        $all_photo[$key2]["image"] = $this->getPhotoPath($item2);
+    } else {
+        $all_photo[$key2]["image"] = $no_image;
+    }
+}
+
+if ($pageLink === '/page-gallery/') {
+    header('location: /page-photo-video/page-photo/');
+}
+?>
+
+<?= $this->render($variables, 'content/header-pages') ?>
+
+<div class="secondary-page photo-video-page">
+    <nav>
+        <div class="secondary-page__mobile-menu">
+            <span class="flaticon-angle-arrow-down"></span>
+        </div>
+
+        <ul class="secondary-page__menu">
+            <? foreach ($pageMenu as $key => $item): ?>
+
+                <li class="secondary-page__item">
+                    <a id="pageId-<?= $item['id'] ?>" class="<?= $item['status'] ?>" href="<?= $item['link'] ?>">
+                        <?= $item['name'] ?>
+                    </a>
+
+                    <? if (isset($item['sub-menu'])): ?>
+                        <ul class="second-level-menu">
+                            <? foreach ($item['sub-menu'] as $key2 => $item2): ?>
+                                <li class="second-level-menu__item">
+                                    <a id="pageId-<?= $item2['id'] ?>"
+                                       class="<?= $item2['status'] ?>"
+                                       href="<?= $item2['link'] ?>">
+                                        <?= $item2['name'] ?>
+                                    </a>
+                                </li>
+                            <? endforeach; ?>
+                        </ul>
+                    <? endif; ?>
+                </li>
+            <? endforeach; ?>
+        </ul>
+    </nav>
+
+    <section class="one-page pageId-<?= $pageId ?>">
+        <div class="one-page__title">
+            <h2>
+                <?= $pageTitle ?>
+            </h2>
+
+            <? if(count($parentList) > 0): ?>
+                <a href="<?= $parentPage ?>" class="button-back">
+                    <span class="flaticon-back arrow1"></span>
+                    <span class="flaticon-back arrow2"></span>
+                    <span class="flaticon-back arrow3"></span>
+                    <span class="button-text">Вернуться назад</span>
+                </a>
+            <? endif; ?>
+        </div>
+
+        <div class="one-page__body">
+            <div class="gallery">
+                <? if(count($one_photo) > 0): ?>
+                    <?php foreach ($one_photo as $key => $item): ?>
+                        <a class="gallery__item" href="<?= $item['image'] ?>" data-lightbox="allery-image">
+                            <img src="<?= $item['image'] ?>" alt="<?= $item["name"] ?>" data-id="<?= $key + 1 ?>">
+                        </a>
+                    <?php endforeach; ?>
+
+                <? else: ?>
+                    <div class="gallery__no-item">
+                        Еще нет ни одной фотографии!
+                    </div>
+                <? endif; ?>
+
+                <?= $this->render($albumData, 'library/pagination') ?>
+            </div>
+        </div>
+    </section>
+
+    <? if(count($one_photo) > 0): ?>
+        <div class="gallery__auto-play">
+            <span class="flaticon-close gallery__slider-close"></span>
+
+            <div class="gallery__slider-wrapper">
+                <div class="gallery__slider">
+                    <?php foreach ($all_photo as $item): ?>
+                        <div class="gallery__slider-item">
+                            <img src="<?= $item['image'] ?>" alt="<?= $item["name"] ?>">
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    <? endif; ?>
+</div>

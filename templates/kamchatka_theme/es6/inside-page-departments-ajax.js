@@ -113,6 +113,9 @@
         $(document).on('click', '.inside-tabs-ajax-js', function (event) {
             event.preventDefault();
 
+            const $button = $('.settlements-area .button-back__wrapper');
+            if ($button.length > 0) $button.show('ease');
+
             let activeStatus = $(this).parent().hasClass("active");
 
             if (!activeStatus) {
@@ -131,9 +134,9 @@
                     let content = $(data).find('.wrapper-ajax-js');
                     $('.to-insert-ajax-js').html(content);
 
-                    let selectNow = $('#hidden-doc').val();
-                    let selectName = $('#hidden-doc').find('option[value="' + selectNow + '"]').attr('data-real-name-js');
-                    console.log(selectName);
+                    // let selectNow = $('#hidden-doc').val();
+                    // let selectName = $('#hidden-doc').find('option[value="' + selectNow + '"]').attr('data-real-name-js');
+                    // console.log(selectName);
                 }
             });
         });

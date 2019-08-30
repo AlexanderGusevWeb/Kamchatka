@@ -379,10 +379,18 @@
     }
 }
 
-.anti-corruption-page {
+.anti-corruption-page,
+.area-page {
     .secondary-page__item {
         .active + .second-level-menu {
             display: block;
+        }
+    }
+}
+.area-page {
+    .secondary-page__item {
+        .active {
+            pointer-events: inherit;
         }
     }
 }

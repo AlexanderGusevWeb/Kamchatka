@@ -49,6 +49,7 @@
             $('.flag__' + selectVal).removeClass('d_none');
 
             selectList.slideUp(0);
+
             selectGap.on('click', function () {
                 if (!$(this).hasClass('on')) {
                     $(this).addClass('on');

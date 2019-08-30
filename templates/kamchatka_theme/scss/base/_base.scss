@@ -15,6 +15,10 @@ body {
     &.no-scroll {
         position: fixed;
     }
+
+    &.no-overflow-y {
+        overflow-y: hidden;
+    }
 }
 
 main {

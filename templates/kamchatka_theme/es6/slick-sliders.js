@@ -125,6 +125,18 @@
         });
     });
 
+    // Slick for gallery
+    $('.gallery__slider').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: false,
+        arrows: false,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        fade:  true
+    });
+
     // Fix для Slick слайдера при resize главная страница новости/события
     // $(window).on('resize', function () {
         // if ($(window).width() >= '1025') {
